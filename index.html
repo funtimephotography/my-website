@@ -138,14 +138,14 @@
   </div>
 
   <script>
-    // Gallery population & lightbox for images in main repo root
+    // Gallery population & lightbox for photo1.jpg → photo50.jpg in repo root
     (function(){
       const gallery = document.getElementById('gallery');
-      const total = 50; // 50 images
+      const total = 50;
       const thumbs = [];
 
       for(let i=1; i<=total; i++){
-        const filename = `image${i}.jpg`;
+        const filename = `photo${i}.jpg`; // correct filenames
 
         const div = document.createElement('div');
         div.className = 'thumb';
