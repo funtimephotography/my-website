@@ -1,117 +1,112 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Funtime Photography — Every Night Has a Story</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-dark:#0b001f;
+      --bg-a:#0a1a73;
+      --bg-b:#3b007a;
+      --bg-c:#0b001f;
       --accent:#00e0ff;
       --text:#fff;
-      --muted:rgba(255,255,255,0.85);
+      --muted:rgba(255,255,255,0.7);
       --max-width:1100px;
     }
 
     * { box-sizing:border-box; margin:0; padding:0; }
     body {
-      font-family:'Inter', sans-serif;
-      background-color:var(--bg-dark);
+      font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
+      background:radial-gradient(circle at 20% 20%, var(--bg-a) 0%, var(--bg-b) 60%, var(--bg-c) 100%);
       color:var(--text);
       overflow-x:hidden;
-      scroll-behavior:smooth;
     }
 
-    /* Topbar */
+    /* Floating navigation header */
     .topbar {
       position:fixed;
       top:0; left:0; right:0;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:12px 30px;
-      background:rgba(0,0,0,0.6);
+      padding:14px 30px;
+      background:rgba(0,0,0,0.35);
       backdrop-filter:blur(8px);
       z-index:1000;
     }
-    .topbar img { width:50px; height:50px; border-radius:50%; object-fit:cover; }
+    .topbar img {
+      width:60px; height:60px; border-radius:50%;
+    }
     .topbar nav a {
-      color:var(--text);
+      color:white;
       text-decoration:none;
       font-weight:500;
       margin:0 12px;
-      transition:color 0.3s;
+      transition:color 0.3s ease;
     }
     .topbar nav a:hover { color:var(--accent); }
 
-    /* Hero */
+    /* HERO */
     .hero {
       min-height:80vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      text-align:center;
       position:relative;
-      padding:100px 20px 60px;
-      overflow:hidden;
+      color:white;
+      padding:80px 20px 40px;
+      margin-top:80px;
     }
     .hero-bg {
       position:absolute;
       inset:0;
-      background-image:url('ftp-hero.jpg');
+      background-position:center;
       background-size:cover;
-      background-position:center center;
-      filter:brightness(0.7);
-      z-index:0;
+      filter:brightness(0.75);
     }
     .hero-inner {
       position:relative;
       z-index:2;
       max-width:var(--max-width);
       display:flex;
-      flex-direction:column;
       align-items:center;
-      gap:20px;
+      gap:40px;
+      width:100%;
     }
     .slogan {
-      font-family:'Montserrat', sans-serif;
       font-weight:800;
-      font-size:clamp(36px,6vw,72px);
-      line-height:1.1;
-      color:#fff;
+      letter-spacing:1px;
+      font-size:clamp(32px,8vw,88px);
+      line-height:0.9;
       text-transform:uppercase;
-      text-shadow:0 0 12px rgba(0,0,0,0.4);
-      opacity:0;
-      transform: translateY(20px);
-      animation: fadeIn 1.2s forwards;
-      animation-delay: 0.15s;
+      color:white;
+      text-align:center;
     }
-    @keyframes fadeIn {
-      to { opacity:1; transform: translateY(0); }
+    .logo-wrap {
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:160px; height:160px;
+      flex:0 0 160px;
     }
-    .hero-logo {
-      width:140px;
-      height:140px;
-      border-radius:50%;
-      padding:6px;
-      background:white;
-      box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    .logo {
+      width:100%; height:100%;
       object-fit:contain;
-      opacity:0;
-      transform: translateY(20px);
-      animation: fadeIn 1.2s forwards;
-      animation-delay: 0.45s;
+      border-radius:50%;
+      background:white;
+      padding:8px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
     }
 
-    /* Content container */
     .container { max-width:var(--max-width); margin:40px auto; padding:0 20px; }
     .blurb {
       background:rgba(255,255,255,0.1);
-      backdrop-filter:blur(6px);
       padding:40px;
       border-radius:16px;
       color:var(--muted);
@@ -120,86 +115,97 @@
       margin-bottom:30px;
     }
 
-    /* Gallery – random heights */
+    /* Masonry-style gallery */
     .gallery {
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-      grid-auto-flow:dense;
-      gap:12px;
+      column-count: 4;
+      column-gap:12px;
     }
     .thumb {
-      position:relative;
-      overflow:hidden;
-      border-radius:12px;
+      break-inside: avoid;
+      margin-bottom:12px;
       cursor:pointer;
-      background:#111;
-      transition:transform 0.3s ease, box-shadow 0.3s ease;
+      overflow:hidden;
+      border-radius:10px;
+      opacity:0;
+      transform:translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .thumb.visible {
+      opacity:1;
+      transform:translateY(0);
     }
     .thumb img {
       width:100%;
-      height:100%;
-      object-fit:cover;
       display:block;
-      transition:transform 0.4s ease, filter 0.4s ease;
+      object-fit:cover;
+      transition: transform 0.4s ease, filter 0.4s ease;
     }
     .thumb:hover img {
-      transform:scale(1.06) rotate(-0.5deg);
-      filter:brightness(1.12) saturate(1.05);
+      transform:scale(1.06);
+      filter:brightness(1.1);
     }
-    .thumb:hover { box-shadow:0 8px 20px rgba(0,0,0,0.45); }
 
-    .outro { margin:50px 0; font-weight:400; color:var(--muted); text-align:center; font-size:1.1rem; }
+    .outro {
+      margin:50px 0;
+      font-weight:400;
+      color:var(--text);
+      text-align:center;
+      font-size:1.1rem;
+    }
 
     footer {
-      background:rgba(0,0,0,0.7);
-      color:var(--text);
+      background:rgba(0,0,0,0.5);
+      color:white;
       padding:40px 20px;
       display:flex;
       flex-wrap:wrap;
       justify-content:space-between;
       align-items:center;
-      font-size:0.95rem;
+      gap:10px;
     }
-    .contact { display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
-    .contact a { color:var(--text); text-decoration:none; font-weight:500; display:flex; align-items:center; gap:6px; transition:color 0.3s; }
+    .contact {
+      display:flex;
+      gap:20px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .contact a {
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      transition:color 0.3s ease;
+    }
     .contact a:hover { color:var(--accent); }
+
+    .book-btn {
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      padding:12px 20px;
+      background:var(--accent);
+      color:#000;
+      font-weight:600;
+      border-radius:8px;
+      text-decoration:none;
+      z-index:1000;
+    }
 
     /* Lightbox */
     .lightbox {position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999;}
-    .lightbox.visible {display:flex;}
-    .lightbox .backdrop {position:absolute; inset:0; background:rgba(0,0,0,0.92);}
-    .lightbox .frame {position:relative; max-width:95%; max-height:95%; z-index:2; display:flex; align-items:center; justify-content:center;}
-    .lightbox img {display:block; max-width:100%; max-height:100%; border-radius:6px; box-shadow:0 12px 40px rgba(0,0,0,0.6);}
-    .close-btn {position:absolute; right:-12px; top:-12px; background:white; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.45);}
-    .lb-nav {position:absolute; left:12px; right:12px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
-    .lb-nav button {pointer-events:auto; background:rgba(255,255,255,0.06); border:0; color:white; padding:10px 14px; border-radius:8px; cursor:pointer;}
+    .lightbox.visible{display:flex;}
+    .lightbox .backdrop{position:absolute; inset:0; background:rgba(0,0,0,0.85);}
+    .lightbox .frame{position:relative; max-width:90%; max-height:90%; z-index:2;}
+    .lightbox img{display:block; max-width:100%; max-height:100%; border-radius:6px;}
+    .close-btn{position:absolute; right:-10px; top:-10px; background:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.45);}
+    .lb-nav{position:absolute; left:20px; right:20px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
+    .lb-nav button{pointer-events:auto; background:rgba(255,255,255,0.08); border:0; color:white; padding:12px 16px; border-radius:6px; cursor:pointer;}
 
-    /* Floating Book Now button */
-    .book-btn {
-      position:fixed;
-      bottom:30px;
-      right:30px;
-      background:var(--accent);
-      color:var(--bg-dark);
-      font-weight:700;
-      font-size:1rem;
-      padding:14px 22px;
-      border-radius:30px;
-      text-decoration:none;
-      box-shadow:0 6px 18px rgba(0,0,0,0.4);
-      transition:transform 0.3s, box-shadow 0.3s;
-      z-index:1001;
-    }
-    .book-btn:hover {
-      transform:translateY(-3px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.5);
-    }
-
-    @media (max-width:700px){
-      .hero-inner {flex-direction:column;}
-      .topbar {flex-direction:column; gap:10px;}
-      .hero-logo { width:110px; height:110px; }
-    }
+    @media (max-width:1200px){ .gallery { column-count:3; } }
+    @media (max-width:900px){ .gallery { column-count:2; } }
+    @media (max-width:600px){ .gallery { column-count:1; } .hero-inner{flex-direction:column; text-align:center;} .logo-wrap{margin-left:0;} .topbar{flex-direction:column;} }
   </style>
 </head>
 <body>
@@ -213,49 +219,42 @@
 </header>
 
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" style="background-image:url('ftp-hero.jpg');"></div>
   <div class="hero-inner">
-    <div class="slogan">EVERY NIGHT HAS A STORY</div>
-    <img class="hero-logo" src="logo.png" alt="FTP logo">
+    <div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
+    <div class="logo-wrap"><img class="logo" src="logo.png" alt="FTP logo"></div>
   </div>
 </section>
 
-<main class="container">
-  <section class="intro blurb">
-    <p>At Funtime Photography, we believe every event has its own heartbeat - the rhythm of lights, laughter, and unforgettable moments. From open-air festivals and beach parties to late-night celebrations under the stars, we capture the stories that unfold when people come together.</p>
-  
-    <p>We don’t just show up with cameras; we become part of the crowd. Our team connects with the people, the music, and the atmosphere to capture every genuine smile, every spark of energy, and every moment that makes your night special.</p>
-  </section>
+ <main class="container">
+    <section class="intro blurb">
+      <p>At Funtime Photography, we believe every event has its own heartbeat - the rhythm of lights, laughter, and unforgettable moments. From open-air festivals and beach parties to late-night celebrations under the stars, we capture the stories that unfold when people come together.</p>
 
-  <section>
-    <div class="gallery" id="gallery" aria-live="polite"></div>
-  </section>
+      <p>Based in East Sussex, we love capturing the energy across the South East - from cosy local parties to sprawling festival weekends. Our photographers don’t just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere, capturing every genuine smile, every spark of energy, and every moment that makes your night special.
+
+Whether it’s a close-knit celebration or a festival that stretches into the early hours, our approach is all about keeping things chilled, fun, and full of life.</p>
+    </section>
+
+
+  <section class="gallery" id="gallery"></section>
 
   <section class="outro">
-    <p>Whether it’s a wild festival weekend or an intimate outdoor gathering, Funtime Photography brings creativity, warmth, and a personal touch to every shoot, so your story shines long after the lights fade.</p>
+    <p>From intimate gatherings to large-scale festival weekends, Funtime Photography delivers creativity and personal connection in every shoot — ensuring your story endures long after the lights fade.</p>
   </section>
 </main>
 
 <footer id="contact">
   <div class="contact">
     <a href="mailto:events@funtimephotography.co.uk">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
-        <path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 5.333-8-5.333V6h16zm-16 12V9.489l7.684 5.121c.188.125.412.125.6 0L20 9.489V18H4z"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 5.333-8-5.333V6h16zm-16 12V9.489l7.684 5.121c.188.125.412.125.6 0L20 9.489V18H4z"/></svg>
       events@funtimephotography.co.uk
     </a>
     <a href="tel:+447834350911">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
-        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.05-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C9.16 21.91 2.09 14.84 2 5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.05l-2.2 2.2z"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.05-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C9.16 21.91 2.09 14.84 2 5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.05l-2.2 2.2z"/></svg>
       07834 350911
     </a>
     <a href="https://instagram.com/funtimephotography.co.uk" target="_blank" rel="noopener noreferrer">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.35 3.608 1.325.975.975 1.264 2.242 1.325 3.608.058 1.266.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.35 2.633-1.325 3.608-.975.975-2.242 1.264-3.608 1.325-1.266.058-1.645.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.264-2.242-1.325-3.608-.058-1.266-.07-1.645-.07-4.85s.012-3.584.07-4.85c.062-1.366.35-2.633 1.325-3.608.975-.975 2.242-1.264 3.608-1.325C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.012 7.053.071 5.468.143 4.05.41 2.934 1.525c-1.116 1.116-1.384 2.533-1.455 4.118C1.012 6.333 1 6.741 1 10s.012 3.667.071 4.947c.072 1.585.34 3.002 1.455 4.118 1.116 1.116 2.533 1.384 4.118 1.455C8.333 20.988 8.741 21 12 21s3.667-.012 4.947-.071c1.585-.072 3.002-.34 4.118-1.455 1.116-1.116 1.384-2.533 1.455-4.118.059-1.28.071-1.688.071-4.947s-.012-3.667-.071-4.947c-.072-1.585-.34-3.002-1.455-4.118-1.116-1.116-2.533-1.384-4.118-1.455C15.667.012 15.259 0 12 0z"/>
-        <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998z"/>
-        <circle cx="18.406" cy="5.594" r="1.44"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.35 3.608 1.325.975.975 1.264 2.242 1.325 3.608.058 1.266.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.35 2.633-1.325 3.608-.975.975-2.242 1.264-3.608 1.325-1.266.058-1.645.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.264-2.242-1.325-3.608-.058-1.266-.07-1.645-.07-4.85s.012-3.584.07-4.85c.062-1.366.35-2.633 1.325-3.608.975-.975 2.242-1.264 3.608-1.325C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.012 7.053.071 5.468.143 4.05.41 2.934 1.525c-1.116 1.116-1.384 2.533-1.455 4.118C1.012 6.333 1 6.741 1 10s.012 3.667.071 4.947c.072 1.585.34 3.002 1.455 4.118 1.116 1.116 2.533 1.384 4.118 1.455C8.333 20.988 8.741 21 12 21s3.667-.012 4.947-.071c1.585-.072 3.002-.34 4.118-1.455 1.116-1.116 1.384-2.533 1.455-4.118.059-1.28.071-1.688.071-4.947s-.012-3.667-.071-4.947c-.072-1.585-.34-3.002-1.455-4.118-1.116-1.116-2.533-1.384-4.118-1.455C15.667.012 15.259 0 12 0z"/><path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998z"/><circle cx="18.406" cy="5.594" r="1.44"/></svg>
       @funtimephotography.co.uk
     </a>
   </div>
@@ -287,11 +286,6 @@
     const filename = `photo${i}.jpg`;
     const div = document.createElement('div');
     div.className='thumb';
-    div.setAttribute('data-index',i-1);
-
-    // Random height factor for festival collage effect
-    const height = 180 + Math.floor(Math.random()*120);
-    div.style.gridRowEnd = `span ${Math.ceil(height/10)}`;
 
     const img = document.createElement('img');
     img.src=filename;
@@ -303,6 +297,18 @@
     thumbs.push({full:filename, alt:img.alt});
   }
 
+  // Scroll-triggered fade-in for gallery
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('.thumb').forEach(t => observer.observe(t));
+
+  // Lightbox
   const lb=document.getElementById('lightbox');
   const lbImg=document.getElementById('lb-img');
   const lbClose=document.getElementById('lb-close');
@@ -312,7 +318,7 @@
   let current=0;
 
   function openAt(idx){
-    current = (idx+thumbs.length)%thumbs.length; // loop around
+    current = (idx+thumbs.length)%thumbs.length;
     lbImg.src = thumbs[current].full;
     lbImg.alt = thumbs[current].alt;
     lb.classList.add('visible');
@@ -324,7 +330,7 @@
   gallery.addEventListener('click', e=>{
     const t = e.target.closest('.thumb');
     if(!t) return;
-    const idx = parseInt(t.getAttribute('data-index'),10);
+    const idx = Array.from(gallery.children).indexOf(t);
     openAt(idx);
   });
 
@@ -345,5 +351,3 @@
 
 </body>
 </html>
-
-
