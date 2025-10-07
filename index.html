@@ -38,7 +38,7 @@
       backdrop-filter:blur(8px);
       z-index:1000;
     }
-    .topbar img { width:50px; height:50px; border-radius:50%; }
+    .topbar img { width:50px; height:50px; border-radius:50%; object-fit:cover; }
     .topbar nav a {
       color:var(--text);
       text-decoration:none;
@@ -78,7 +78,6 @@
       gap:20px;
     }
 
-    /* Slogan - plain white, all caps */
     .slogan {
       font-family:'Montserrat', sans-serif;
       font-weight:800;
@@ -90,14 +89,12 @@
       opacity:0;
       transform: translateY(20px);
       animation: fadeIn 1.2s forwards;
-      animation-delay: 0.3s;
+      animation-delay: 0.15s;
     }
-
     @keyframes fadeIn {
       to { opacity:1; transform: translateY(0); }
     }
 
-    /* Logo in Hero */
     .hero-logo {
       width:140px;
       height:140px;
@@ -109,15 +106,11 @@
       opacity:0;
       transform: translateY(20px);
       animation: fadeIn 1.2s forwards;
-      animation-delay: 0.6s;
+      animation-delay: 0.45s;
     }
 
     /* Content container */
-    .container {
-      max-width:var(--max-width);
-      margin:40px auto;
-      padding:0 20px;
-    }
+    .container { max-width:var(--max-width); margin:40px auto; padding:0 20px; }
     .blurb {
       background:rgba(255,255,255,0.1);
       backdrop-filter:blur(6px);
@@ -142,6 +135,7 @@
       cursor:pointer;
       background:#111;
       transition:transform 0.3s ease, box-shadow 0.3s ease;
+      min-height:140px;
     }
     .thumb img {
       width:100%;
@@ -152,19 +146,25 @@
     }
     .thumb:hover img {
       transform:scale(1.06) rotate(-0.5deg);
-      filter:brightness(1.15) saturate(1.1);
+      filter:brightness(1.12) saturate(1.05);
     }
-    .thumb:hover { box-shadow:0 8px 20px rgba(0,0,0,0.5); }
+    .thumb:hover { box-shadow:0 8px 20px rgba(0,0,0,0.45); }
 
-    .outro {
-      margin:50px 0;
-      font-weight:400;
-      color:var(--muted);
-      text-align:center;
-      font-size:1.1rem;
+    .thumb .caption {
+      position:absolute;
+      left:0; right:0; bottom:0;
+      padding:8px 10px;
+      font-size:0.9rem;
+      color:#fff;
+      background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+      opacity:0;
+      transform:translateY(6px);
+      transition:opacity .25s, transform .25s;
     }
+    .thumb:hover .caption { opacity:1; transform:translateY(0); }
 
-    /* Footer */
+    .outro { margin:50px 0; font-weight:400; color:var(--muted); text-align:center; font-size:1.1rem; }
+
     footer {
       background:rgba(0,0,0,0.7);
       color:var(--text);
@@ -175,23 +175,19 @@
       align-items:center;
       font-size:0.95rem;
     }
-    .contact {
-      display:flex;
-      gap:20px;
-      flex-wrap:wrap;
-    }
+    .contact { display:flex; gap:20px; flex-wrap:wrap; }
     .contact a { color:var(--text); text-decoration:none; font-weight:500; transition:color 0.3s; }
     .contact a:hover { color:var(--accent); }
 
     /* Lightbox */
     .lightbox {position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999;}
     .lightbox.visible {display:flex;}
-    .lightbox .backdrop {position:absolute; inset:0; background:rgba(0,0,0,0.85);}
-    .lightbox .frame {position:relative; max-width:90%; max-height:90%; z-index:2;}
-    .lightbox img {display:block; max-width:100%; max-height:100%; border-radius:6px;}
-    .close-btn {position:absolute; right:-10px; top:-10px; background:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.45);}
-    .lb-nav {position:absolute; left:20px; right:20px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
-    .lb-nav button {pointer-events:auto; background:rgba(255,255,255,0.08); border:0; color:white; padding:12px 16px; border-radius:6px; cursor:pointer;}
+    .lightbox .backdrop {position:absolute; inset:0; background:rgba(0,0,0,0.92);}
+    .lightbox .frame {position:relative; max-width:95%; max-height:95%; z-index:2; display:flex; align-items:center; justify-content:center;}
+    .lightbox img {display:block; max-width:100%; max-height:100%; border-radius:6px; box-shadow:0 12px 40px rgba(0,0,0,0.6);}
+    .close-btn {position:absolute; right:-12px; top:-12px; background:white; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.45);}
+    .lb-nav {position:absolute; left:12px; right:12px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
+    .lb-nav button {pointer-events:auto; background:rgba(255,255,255,0.06); border:0; color:white; padding:10px 14px; border-radius:8px; cursor:pointer;}
 
     /* Floating Book Now button */
     .book-btn {
@@ -217,59 +213,173 @@
     @media (max-width:700px){
       .hero-inner {flex-direction:column;}
       .topbar {flex-direction:column; gap:10px;}
+      .hero-logo { width:110px; height:110px; }
     }
   </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <img src="logo.png" alt="FTP logo">
-    <nav>
-      <a href="#gallery">Gallery</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<header class="topbar">
+  <img src="logo.png" alt="FTP logo">
+  <nav>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-inner">
-      <div class="slogan">EVERY NIGHT HAS A STORY</div>
-      <img class="hero-logo" src="logo.png" alt="FTP logo">
-    </div>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="slogan">EVERY NIGHT HAS A STORY</div>
+    <img class="hero-logo" src="logo.png" alt="FTP logo">
+  </div>
+</section>
+
+<main class="container">
+  <section class="intro blurb">
+    <p>At Funtime Photography, every event carries its own rhythm — the pulse of light, laughter, and atmosphere. From beachside festivals to late-night gatherings, we translate those fleeting, electric moments into vivid visual stories.</p>
+    <p>Our photographers immerse themselves in each experience, capturing authentic emotion and spontaneous energy, so that every frame becomes part of the event’s collective memory.</p>
   </section>
 
-  <main class="container">
-    <section class="intro blurb">
-      <p>At Funtime Photography, every event carries its own rhythm — the pulse of light, laughter, and atmosphere. From beachside festivals to late-night gatherings, we translate those fleeting, electric moments into vivid visual stories.</p>
-      <p>Our photographers immerse themselves in each experience, capturing authentic emotion and spontaneous energy, so that every frame becomes part of the event’s collective memory.</p>
-    </section>
+  <section>
+    <div class="gallery" id="gallery" aria-live="polite"></div>
+  </section>
 
-    <section>
-      <div class="gallery" id="gallery"></div>
-    </section>
+  <section class="outro">
+    <p>From intimate gatherings to large-scale festival weekends, Funtime Photography delivers creativity and personal connection in every shoot — ensuring your story endures long after the lights fade.</p>
+  </section>
+</main>
 
-    <section class="outro">
-      <p>From intimate gatherings to large-scale festival weekends, Funtime Photography delivers creativity and personal connection in every shoot — ensuring your story endures long after the lights fade.</p>
-    </section>
-  </main>
+<footer id="contact">
+  <div class="contact">
+    <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a>
+    <a href="tel:+447834350911">07834 350911</a>
+    <a href="https://instagram.com/funtimephotography.co.uk" target="_blank" rel="noopener noreferrer">@funtimephotography.co.uk</a>
+  </div>
+  <div>&copy; 2025 Funtime Photography. All rights reserved.</div>
+</footer>
 
-  <footer id="contact">
-    <div class="contact">
-      <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a>
-      <a href="tel:+447834350911">07834 350911</a>
-      <a href="https://instagram.com/funtimephotography.co.uk" target="_blank">@funtimephotography.co.uk</a>
+<a href="mailto:events@funtimephotography.co.uk?subject=Booking%20Enquiry" class="book-btn" aria-label="Book Now via email">Book Now</a>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" aria-label="Image viewer">
+  <div class="backdrop" id="lb-backdrop"></div>
+  <div class="frame" id="lb-frame">
+    <div style="position:relative; display:inline-block;">
+      <img id="lb-img" src="" alt="">
+      <button class="close-btn" id="lb-close" aria-label="Close">✕</button>
     </div>
-    <div>&copy; 2025 Funtime Photography. All rights reserved.</div>
-  </footer>
+    <div class="lb-nav">
+      <button id="lb-prev" aria-label="Previous image">‹ Prev</button>
+      <button id="lb-next" aria-label="Next image">Next ›</button>
+    </div>
+  </div>
+</div>
 
-  <!-- Floating Book Now button -->
-  <a href="mailto:events@funtimephotography.co.uk" class="book-btn">Book Now</a>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const gallery = document.getElementById('gallery');
+  const total = 50;
+  const thumbs = [];
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
-    <div class="backdrop" id="lb-backdrop"></div>
-    <div class="frame" id="lb-frame">
-      <div style="position:relative; display:inline-block;">
-        <img id="lb-img" src="" alt="">
-        <button class="close-btn" id="lb-close" aria-label="Close">✕</button>
-     
+  // Gallery population with lazy progressive loading
+  for (let i = 1; i <= total; i++) {
+    const filename = `photo${i}.jpg`;
+    const lowres = `thumbs/photo${i}.jpg`;
+    const div = document.createElement('div');
+    div.className = 'thumb';
+    div.setAttribute('data-index', i-1);
+
+    const img = document.createElement('img');
+    img.src = lowres || filename;
+    img.setAttribute('data-full', filename);
+    img.loading = 'lazy';
+    img.alt = `Funtime photo ${i}`;
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          img.src = filename;
+          observer.unobserve(img);
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(img);
+
+    const caption = document.createElement('div');
+    caption.className = 'caption';
+    caption.textContent = `Photo ${i}`;
+    div.appendChild(img);
+    div.appendChild(caption);
+    gallery.appendChild(div);
+
+    thumbs.push({ full: filename, alt: img.alt });
+  }
+
+  // Lightbox with looping and preloading
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbClose = document.getElementById('lb-close');
+  const lbBackdrop = document.getElementById('lb-backdrop');
+  const lbPrev = document.getElementById('lb-prev');
+  const lbNext = document.getElementById('lb-next');
+  let current = 0;
+
+  function preload(idx){
+    const i = (idx + thumbs.length) % thumbs.length;
+    const img = new Image();
+    img.src = thumbs[i].full;
+  }
+
+  function openAt(idx){
+    current = (idx + thumbs.length) % thumbs.length;
+    lbImg.src = thumbs[current].full;
+    lbImg.alt = thumbs[current].alt || `Photo ${current+1}`;
+    lb.classList.add('visible');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    preload(current+1);
+    preload(current-1);
+  }
+
+  function close(){
+    lb.classList.remove('visible');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function prev(){ openAt(current-1); }
+  function next(){ openAt(current+1); }
+
+  gallery.addEventListener('click', function(e){
+    const t = e.target.closest('.thumb');
+    if(!t) return;
+    const idx = parseInt(t.getAttribute('data-index'),10);
+    openAt(idx);
+  });
+
+  lbClose.addEventListener('click', close);
+  lbBackdrop.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('visible')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='ArrowLeft') prev();
+    if(e.key==='ArrowRight') next();
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click', function(e){
+      if(this.getAttribute('href').startsWith('mailto:')) return;
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth'});
+    });
+  });
+});
+</script>
+</body>
+</html>
