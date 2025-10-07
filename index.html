@@ -75,8 +75,10 @@
       max-width:var(--max-width);
       display:flex;
       align-items:center;
+      justify-content:center; /* center slogan + logo */
       gap:40px;
       width:100%;
+      flex-wrap:wrap;
     }
     .slogan {
       font-weight:800;
@@ -140,9 +142,10 @@
       object-fit:cover;
       transition: transform 0.4s ease, filter 0.4s ease;
     }
+    /* Twisting effect on hover restored */
     .thumb:hover img {
-      transform:scale(1.06);
-      filter:brightness(1.1);
+      transform: scale(1.06) rotate(-2deg);
+      filter: brightness(1.1);
     }
 
     .outro {
@@ -226,17 +229,14 @@
   </div>
 </section>
 
- <main class="container">
-    <section class="intro blurb">
-      <p>At Funtime Photography, we believe every event has its own heartbeat - the rhythm of lights, laughter, and unforgettable moments. From open-air festivals and beach parties to late-night celebrations under the stars, we capture the stories that unfold when people come together.</p>
+<main class="container">
+  <section class="intro blurb">
+    <p>At Funtime Photography, we believe every event has its own heartbeat - the rhythm of lights, laughter, and unforgettable moments. From open-air festivals and beach parties to late-night celebrations under the stars, we capture the stories that unfold when people come together.</p>
 
-      
-      <p>Based in East Sussex, we love capturing the energy across the South East - from cosy local parties to sprawling festival weekends. Our photographers don’t just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere, capturing every genuine smile, every spark of energy, and every moment that makes your night special.
+    <p>Based in East Sussex, we love capturing the energy across the South East - from cosy local parties to sprawling festival weekends. Our photographers don’t just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere, capturing every genuine smile, every spark of energy, and every moment that makes your night special.
 
-        
-Whether it’s a close-knit celebration or a festival that stretches into the early hours, our approach is all about keeping things chilled, fun, and full of life.</p>
-    </section>
-
+    Whether it’s a close-knit celebration or a festival that stretches into the early hours, our approach is all about keeping things chilled, fun, and full of life.</p>
+  </section>
 
   <section class="gallery" id="gallery"></section>
 
@@ -353,4 +353,3 @@ Whether it’s a close-knit celebration or a festival that stretches into the ea
 
 </body>
 </html>
-
