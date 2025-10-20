@@ -1,360 +1,354 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Funtime Photography — Every Night Has a Story</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Funtime Photography — Every Night Has a Story</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --bg-a: #d6e0ff;
-  --bg-b: #e0d6ff;
-  --bg-c: #f5f5fa;
-  --accent: #00e0ff;
-  --secondary: #3b007a;
-  --tertiary: #0a1a73;
-  --text: #111;
-  --muted: rgba(17,17,17,0.6);
-  --max-width: 1100px;
-}
+  <style>
+    :root {
+      --bg-a: #d6e0ff;
+      --bg-b: #e0d6ff;
+      --bg-c: #f5f5fa;
+      --accent: #00e0ff;
+      --text: #222;
+      --muted: rgba(34,34,34,0.6);
+      --footer-text: #555;
+      --max-width: 1100px;
+    }
 
-/* Global reset */
-* { box-sizing:border-box; margin:0; padding:0; }
-body {
-  font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
-  background: radial-gradient(circle at 20% 20%, 
-      var(--bg-a) 0%, 
-      var(--bg-b) 30%, 
-      var(--secondary) 60%, 
-      var(--tertiary) 85%, 
-      var(--bg-c) 100%);
-  color: var(--text);
-  overflow-x:hidden;
-}
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
+      background: radial-gradient(circle at 20% 20%, var(--bg-a) 0%, var(--bg-b) 60%, var(--bg-c) 100%);
+      color: var(--text);
+      overflow-x:hidden;
+    }
 
-/* Floating navigation header */
-.topbar {
-  position:fixed;
-  top:0; left:0; right:0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 30px;
-  background: rgba(59,0,122,0.15);
-  backdrop-filter: blur(8px);
-  z-index:1000;
-}
-.topbar img {
-  width:60px; height:60px; border-radius:50%;
-}
-.topbar nav a {
-  color: var(--text);
-  text-decoration:none;
-  font-weight:500;
-  margin:0 12px;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-  padding-bottom:2px;
-}
-.topbar nav a:hover {
-  color: var(--accent);
-  border-bottom:2px solid var(--accent);
-}
+    /* Floating navigation header */
+    .topbar {
+      position:fixed;
+      top:0; left:0; right:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 30px;
+      background:rgba(255,255,255,0.6);
+      backdrop-filter:blur(8px);
+      z-index:1000;
+    }
+    .topbar img {
+      width:60px; height:60px; border-radius:50%;
+    }
+    .topbar nav a {
+      color: var(--text);
+      text-decoration:none;
+      font-weight:500;
+      margin:0 12px;
+      transition:color 0.3s ease;
+    }
+    .topbar nav a:hover { color:var(--accent); }
 
-/* HERO */
-.hero {
-  min-height:55vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  color:var(--text);
-  padding:60px 20px 30px;
-  margin-top:80px;
-}
-.hero-bg {
-  position:absolute;
-  inset:0;
-  background-position:center;
-  background-size:cover;
-  filter: brightness(0.85);
-}
-.hero-inner {
-  position:relative;
-  z-index:2;
-  max-width:var(--max-width);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:40px;
-  width:100%;
-  flex-wrap:wrap;
-}
-.slogan {
-  font-weight:800;
-  letter-spacing:1px;
-  font-size:clamp(32px,8vw,88px);
-  line-height:0.9;
-  text-transform:uppercase;
-  color:var(--text);
-  text-align:center;
-}
-.logo-wrap {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:140px; height:140px;
-  flex:0 0 140px;
-}
-.logo {
-  width:100%; height:100%;
-  object-fit:contain;
-  border-radius:50%;
-  background:white;
-  padding:8px;
-  box-shadow:0 6px 18px rgba(59,0,122,0.35);
-}
+    /* HERO */
+    .hero {
+      min-height:60vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      color:var(--text);
+      padding:60px 20px 30px;
+      margin-top:80px;
+    }
+    .hero-bg {
+      position:absolute;
+      inset:0;
+      background-position:center;
+      background-size:cover;
+      filter:brightness(0.85);
+    }
+    .hero-inner {
+      position:relative;
+      z-index:2;
+      max-width:var(--max-width);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:40px;
+      width:100%;
+      flex-wrap:wrap;
+    }
+    .slogan {
+      font-weight:800;
+      letter-spacing:1px;
+      font-size:clamp(32px,8vw,88px);
+      line-height:0.9;
+      text-transform:uppercase;
+      color:var(--text);
+      text-align:center;
+    }
+    .logo-wrap {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:140px; height:140px;
+      flex:0 0 140px;
+    }
+    .logo {
+      width:100%; height:100%;
+      object-fit:contain;
+      border-radius:50%;
+      background:white;
+      padding:8px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.15);
+    }
 
-/* Container & blurb */
-.container { max-width:var(--max-width); margin:40px auto; padding:0 20px; }
-.blurb {
-  background: linear-gradient(135deg, rgba(59,0,122,0.05), rgba(0,224,255,0.05));
-  padding:40px;
-  border-radius:16px;
-  color:var(--muted);
-  font-weight:300;
-  line-height:1.8;
-  margin-bottom:30px;
-}
+    .container { max-width:var(--max-width); margin:40px auto; padding:0 20px; }
+    .blurb {
+      background:rgba(255,255,255,0.25);
+      padding:40px;
+      border-radius:16px;
+      color:var(--muted);
+      font-weight:300;
+      line-height:1.8;
+      margin-bottom:30px;
+    }
 
-/* Gallery */
-.gallery {
-  column-count: 4;
-  column-gap:12px;
-}
-.thumb {
-  break-inside: avoid;
-  margin-bottom:12px;
-  cursor:pointer;
-  overflow:hidden;
-  border-radius:10px;
-  opacity:0;
-  transform:translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
-}
-.thumb.visible {
-  opacity:1;
-  transform:translateY(0);
-}
-.thumb img {
-  width:100%;
-  display:block;
-  object-fit:cover;
-  transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease, border 0.3s ease;
-}
-.thumb:hover img {
-  transform: scale(1.06) rotate(-2deg);
-  filter: brightness(1.1);
-  box-shadow:0 8px 20px rgba(59,0,122,0.25);
-  border:2px solid var(--secondary);
-}
+    /* Masonry-style gallery */
+    .gallery {
+      column-count: 4;
+      column-gap:12px;
+    }
+    .thumb {
+      break-inside: avoid;
+      margin-bottom:12px;
+      cursor:pointer;
+      overflow:hidden;
+      border-radius:10px;
+      opacity:0;
+      transform:translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .thumb.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
+    .thumb img {
+      width:100%;
+      display:block;
+      object-fit:cover;
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+    .thumb:hover img {
+      transform: scale(1.06) rotate(-2deg);
+      filter: brightness(1.1);
+    }
 
-/* Outro & footer */
-.outro {
-  margin:50px 0;
-  font-weight:400;
-  color:var(--text);
-  text-align:center;
-  font-size:1.1rem;
-}
-footer {
-  background: linear-gradient(135deg, rgba(0,224,255,0.05), rgba(59,0,122,0.05));
-  color:var(--text);
-  padding:40px 20px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-.contact {
-  display:flex;
-  gap:20px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-.contact a {
-  color:var(--text);
-  text-decoration:none;
-  font-weight:600;
-  display:flex;
-  align-items:center;
-  gap:6px;
-  transition: color 0.3s ease;
-}
-.contact a:hover { color: var(--secondary); }
+    .outro {
+      margin:50px 0;
+      font-weight:400;
+      color: var(--footer-text);
+      text-align:center;
+      font-size:1.1rem;
+    }
 
-/* Book button */
-.book-btn {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  padding:12px 20px;
-  background: linear-gradient(135deg, var(--accent), var(--secondary), var(--tertiary));
-  color:#fff;
-  font-weight:600;
-  border-radius:8px;
-  text-decoration:none;
-  box-shadow:0 4px 12px rgba(59,0,122,0.3);
-  z-index:1000;
-}
+    footer {
+      background:rgba(255,255,255,0.6);
+      color: var(--footer-text);
+      padding:40px 20px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+    .contact {
+      display:flex;
+      gap:20px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .contact a {
+      color: var(--footer-text);
+      text-decoration:none;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      transition:color 0.3s ease;
+    }
+    .contact a:hover { color:var(--accent); }
 
-/* Lightbox */
-.lightbox {position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999;}
-.lightbox.visible{display:flex;}
-.lightbox .backdrop{position:absolute; inset:0; background:rgba(0,0,0,0.85);}
-.lightbox .frame{position:relative; max-width:90%; max-height:90%; z-index:2;}
-.lightbox img{display:block; max-width:100%; max-height:100%; border-radius:6px;}
-.close-btn{position:absolute; right:-10px; top:-10px; background:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.25);}
-.lb-nav{position:absolute; left:20px; right:20px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
-.lb-nav button{pointer-events:auto; background:rgba(255,255,255,0.08); border:0; color:var(--text); padding:12px 16px; border-radius:6px; cursor:pointer;}
+    .book-btn {
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      padding:12px 20px;
+      background:var(--accent);
+      color:#000;
+      font-weight:600;
+      border-radius:8px;
+      text-decoration:none;
+      z-index:1000;
+    }
 
-@media (max-width:1200px){ .gallery { column-count:3; } }
-@media (max-width:900px){ .gallery { column-count:2; } }
-@media (max-width:600px){ .gallery { column-count:1; } .hero-inner{flex-direction:column; text-align:center;} .logo-wrap{margin-left:0;} .topbar{flex-direction:column;} }
-</style>
+    /* Lightbox */
+    .lightbox {position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999;}
+    .lightbox.visible{display:flex;}
+    .lightbox .backdrop{position:absolute; inset:0; background:rgba(0,0,0,0.85);}
+    .lightbox .frame{position:relative; max-width:90%; max-height:90%; z-index:2;}
+    .lightbox img{display:block; max-width:100%; max-height:100%; border-radius:6px;}
+    .close-btn{position:absolute; right:-10px; top:-10px; background:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.25);}
+    .lb-nav{position:absolute; left:20px; right:20px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
+    .lb-nav button{pointer-events:auto; background:rgba(255,255,255,0.08); border:0; color:var(--footer-text); padding:12px 16px; border-radius:6px; cursor:pointer;}
+
+    @media (max-width:1200px){ .gallery { column-count:3; } }
+    @media (max-width:900px){ .gallery { column-count:2; } }
+    @media (max-width:600px){ .gallery { column-count:1; } .hero-inner{flex-direction:column; text-align:center;} .logo-wrap{margin-left:0;} .topbar{flex-direction:column;} }
+  </style>
 </head>
 <body>
 
 <header class="topbar">
-<img src="logo.png" alt="FTP logo">
-<nav>
-<a href="#gallery">Gallery</a>
-<a href="#contact">Contact</a>
-</nav>
+  <img src="logo.png" alt="FTP logo">
+  <nav>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <section class="hero">
-<div class="hero-bg" style="background-image:url('ftp-hero.jpg');"></div>
-<div class="hero-inner">
-<div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
-<div class="logo-wrap"><img class="logo" src="logo.png" alt="FTP logo"></div>
-</div>
+  <div class="hero-bg" style="background-image:url('ftp-hero.jpg');"></div>
+  <div class="hero-inner">
+    <div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
+    <div class="logo-wrap"><img class="logo" src="logo.png" alt="FTP logo"></div>
+  </div>
 </section>
 
 <main class="container">
-<section class="intro blurb">
-<p>At Funtime Photography, we believe every event has its own heartbeat - the rhythm of lights, laughter, and unforgettable moments. From open-air festivals and beach parties to late-night celebrations under the stars, we capture the stories that unfold when people come together.</p>
+  <section class="intro blurb">
+    <p>At Funtime Photography, we believe every event has its own heartbeat - the rhythm of lights, laughter, and unforgettable moments. From open-air festivals and beach parties to late-night celebrations under the stars, we capture the stories that unfold when people come together.</p>
 
-<p>Based in East Sussex, we love capturing the energy across the South East - from cosy local parties to sprawling festival weekends. Our photographers don’t just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere, capturing every genuine smile, every spark of energy, and every moment that makes your night special.
+    <p>Based in East Sussex, we love capturing the energy across the South East - from cosy local parties to sprawling festival weekends. Our photographers don’t just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere, capturing every genuine smile, every spark of energy, and every moment that makes your night special.
 
-Whether it’s a close-knit celebration or a festival that stretches into the early hours, our approach is all about keeping things chilled, fun, and full of life.</p>
-</section>
+    Whether it’s a close-knit celebration or a festival that stretches into the early hours, our approach is all about keeping things chilled, fun, and full of life.</p>
+  </section>
 
-<section class="gallery" id="gallery"></section>
+  <section class="gallery" id="gallery"></section>
 
-<section class="outro">
-<p>From intimate gatherings to large-scale festival weekends, Funtime Photography delivers creativity and personal connection in every shoot — ensuring your story endures long after the lights fade.</p>
-</section>
+  <section class="outro">
+    <p>From intimate gatherings to large-scale festival weekends, Funtime Photography delivers creativity and personal connection in every shoot — ensuring your story endures long after the lights fade.</p>
+  </section>
 </main>
 
 <footer id="contact">
-<div class="contact">
-<a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a>
-<a href="tel:+447834350911">07834 350911</a>
-<a href="https://instagram.com/funtimephotography.co.uk" target="_blank">@funtimephotography.co.uk</a>
-</div>
-<div>&copy; 2025 Funtime Photography. All rights reserved.</div>
+  <div class="contact">
+    <a href="mailto:events@funtimephotography.co.uk">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#555"><path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 5.333-8-5.333V6h16zm-16 12V9.489l7.684 5.121c.188.125.412.125.6 0L20 9.489V18H4z"/></svg>
+      events@funtimephotography.co.uk
+    </a>
+    <a href="tel:+447834350911">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#555"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.05-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C9.16 21.91 2.09 14.84 2 5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.05l-2.2 2.2z"/></svg>
+      07834 350911
+    </a>
+    <a href="https://instagram.com/funtimephotography.co.uk" target="_blank" rel="noopener noreferrer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#555"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.35 3.608 1.325.975.975 1.264 2.242 1.325 3.608.058 1.266.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.35 2.633-1.325 3.608-.975.975-2.242 1.264-3.608 1.325-1.266.058-1.645.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.264-2.242-1.325-3.608-.058-1.266-.07-1.645-.07-4.85s.012-3.584.07-4.85c.062-1.366.35-2.633 1.325-3.608.975-.975 2.242-1.264 3.608-1.325C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.012 7.053.071 5.468.143 4.05.41 2.934 1.525c-1.116 1.116-1.384 2.533-1.455 4.118C1.012 6.333 1 6.741 1 10s.012 3.667.071 4.947c.072 1.585.34 3.002 1.455 4.118 1.116 1.116 2.533 1.384 4.118 1.455C8.333 20.988 8.741 21 12 21s3.667-.012 4.947-.071c1.585-.072 3.002-.34 4.118-1.455 1.116-1.116 1.384-2.533 1.455-4.118.059-1.28.071-1.688.071-4.947s-.012-3.667-.071-4.947c-.072-1.585-.34-3.002-1.455-4.118-1.116-1.116-2.533-1.384-4.118-1.455C15.667.012 15.259 0 12 0z"/><path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998z"/><circle cx="18.406" cy="5.594" r="1.44"/></svg>
+      @funtimephotography.co.uk
+    </a>
+  </div>
+  <div>&copy; 2025 Funtime Photography. All rights reserved.</div>
 </footer>
 
 <a class="book-btn" href="mailto:events@funtimephotography.co.uk?subject=Booking%20Request">Book Now</a>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
-<div class="backdrop" id="lb-backdrop"></div>
-<div class="frame">
-<img id="lb-img" src="" alt="">
-<button class="close-btn" id="lb-close">✕</button>
-<div class="lb-nav">
-<button id="lb-prev">‹ Prev</button>
-<button id="lb-next">Next ›</button>
-</div>
-</div>
+  <div class="backdrop" id="lb-backdrop"></div>
+  <div class="frame">
+    <img id="lb-img" src="" alt="">
+    <button class="close-btn" id="lb-close">✕</button>
+    <div class="lb-nav">
+      <button id="lb-prev">‹ Prev</button>
+      <button id="lb-next">Next ›</button>
+    </div>
+  </div>
 </div>
 
 <script>
 (function(){
-const gallery=document.getElementById('gallery');
-const thumbs=[];
+  const gallery = document.getElementById('gallery');
+  const thumbs = [];
 
-const imageFiles=[];
-for(let i=1;i<=50;i++){ imageFiles.push(`photo${i}.jpg`); }
+  // List your images here (in the same folder as HTML)
+  const imageFiles = [];
+  for(let i=1;i<=50;i++){ imageFiles.push(`photo${i}.jpg`); }
 
-imageFiles.forEach(filename=>{
-const div=document.createElement('div');
-div.className='thumb';
-const img=document.createElement('img');
-img.src=filename;
-img.loading='lazy';
-img.alt='Funtime photo';
-div.appendChild(img);
-gallery.appendChild(div);
-thumbs.push({full:filename,alt:img.alt});
-});
+  imageFiles.forEach(filename => {
+    const div = document.createElement('div');
+    div.className='thumb';
+    const img = document.createElement('img');
+    img.src = filename;
+    img.loading='lazy';
+    img.alt = `Funtime photo`;
+    div.appendChild(img);
+    gallery.appendChild(div);
+    thumbs.push({full: filename, alt: img.alt});
+  });
 
-// Fade-in
-const observer=new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add('visible');
-observer.unobserve(entry.target);
-}
-});
-},{threshold:0.1});
-document.querySelectorAll('.thumb').forEach(t=>observer.observe(t));
+  // Scroll-triggered fade-in for gallery
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('.thumb').forEach(t => observer.observe(t));
 
-// Lightbox
-const lb=document.getElementById('lightbox');
-const lbImg=document.getElementById('lb-img');
-const lbClose=document.getElementById('lb-close');
-const lbBackdrop=document.getElementById('lb-backdrop');
-const lbPrev=document.getElementById('lb-prev');
-const lbNext=document.getElementById('lb-next');
-let current=0;
+  // Lightbox
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lb-img');
+  const lbClose=document.getElementById('lb-close');
+  const lbBackdrop=document.getElementById('lb-backdrop');
+  const lbPrev=document.getElementById('lb-prev');
+  const lbNext=document.getElementById('lb-next');
+  let current=0;
 
-function openAt(idx){
-current=(idx+thumbs.length)%thumbs.length;
-lbImg.src=thumbs[current].full;
-lbImg.alt=thumbs[current].alt;
-lb.classList.add('visible');
-}
-function close(){ lb.classList.remove('visible'); }
-function prev(){ openAt(current-1); }
-function next(){ openAt(current+1); }
+  function openAt(idx){
+    current = (idx+thumbs.length)%thumbs.length;
+    lbImg.src = thumbs[current].full;
+    lbImg.alt = thumbs[current].alt;
+    lb.classList.add('visible');
+  }
+  function close(){ lb.classList.remove('visible'); }
+  function prev(){ openAt(current-1); }
+  function next(){ openAt(current+1); }
 
-gallery.addEventListener('click',e=>{
-const t=e.target.closest('.thumb');
-if(!t) return;
-const idx=Array.from(gallery.children).indexOf(t);
-openAt(idx);
-});
+  gallery.addEventListener('click', e=>{
+    const t = e.target.closest('.thumb');
+    if(!t) return;
+    const idx = Array.from(gallery.children).indexOf(t);
+    openAt(idx);
+  });
 
-lbClose.addEventListener('click',close);
-lbBackdrop.addEventListener('click',close);
-lbPrev.addEventListener('click',prev);
-lbNext.addEventListener('click',next);
+  lbClose.addEventListener('click',close);
+  lbBackdrop.addEventListener('click',close);
+  lbPrev.addEventListener('click',prev);
+  lbNext.addEventListener('click',next);
 
-document.addEventListener('keydown',e=>{
-if(lb.classList.contains('visible')){
-if(e.key==='Escape') close();
-if(e.key==='ArrowLeft') prev();
-if(e.key==='ArrowRight') next();
-}
-});
+  document.addEventListener('keydown',e=>{
+    if(lb.classList.contains('visible')){
+      if(e.key==='Escape') close();
+      if(e.key==='ArrowLeft') prev();
+      if(e.key==='ArrowRight') next();
+    }
+  });
 })();
 </script>
 
 </body>
 </html>
-
