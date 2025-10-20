@@ -11,8 +11,8 @@
   <style>
     :root {
       --bg-a: #d6e0ff;
-      --bg-b: #e0d6ff;
-      --bg-c: #1a0833; /* darker at bottom */
+      --bg-b: #e0b6ff; /* updated pinkish middle */
+      --bg-c: #5a0f7a; /* richer pink-purple bottom */
       --accent: #00e0ff;
       --secondary: #3b007a;
       --tertiary: #0a1a73;
@@ -68,7 +68,6 @@
       color:var(--text);
       padding:60px 20px 30px;
       margin-top:80px;
-      flex-direction:column;
     }
     .hero-bg {
       position:absolute;
@@ -87,8 +86,6 @@
       gap:40px;
       width:100%;
       flex-wrap:wrap;
-      flex-direction:column;
-      text-align:center;
     }
     .slogan {
       font-weight:800;
@@ -98,14 +95,6 @@
       text-transform:uppercase;
       color:var(--text);
       text-align:center;
-    }
-    .sub-slogan {
-      font-weight:400;
-      font-size:clamp(16px,2vw,22px);
-      color: rgba(255,255,255,0.85);
-      margin-top:12px;
-      text-align:center;
-      line-height:1.2;
     }
     .logo-wrap {
       display:flex;
@@ -254,8 +243,7 @@
 <section class="hero">
   <div class="hero-bg" style="background-image:url('ftp-hero.jpg');"></div>
   <div class="hero-inner">
-    <div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
-    <p class="sub-slogan">— all at prices designed to let you enjoy the experience without compromise.</p>
+    <div class="slogan">EVERY NIGHT<br>HAS A STORY — all at prices designed to let you enjoy the experience without compromise.</div>
     <div class="logo-wrap"><img class="logo" src="logo.png" alt="FTP logo"></div>
   </div>
 </section>
