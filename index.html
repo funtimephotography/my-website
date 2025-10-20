@@ -10,11 +10,11 @@
 
   <style>
     :root {
-      --bg-a: #d6e0ff; /* soft pastel blue */
-      --bg-b: #e0d6ff; /* muted purple */
-      --bg-c: #f5f5fa; /* very light lavender/gray */
-      --accent: #00e0ff; /* bright accent stays */
-      --text: #111; /* darker text on light background */
+      --bg-a: #d6e0ff;
+      --bg-b: #e0d6ff;
+      --bg-c: #f5f5fa;
+      --accent: #00e0ff;
+      --text: #111;
       --muted: rgba(17,17,17,0.6);
       --max-width: 1100px;
     }
@@ -53,7 +53,7 @@
 
     /* HERO */
     .hero {
-      min-height:60vh; /* smaller hero */
+      min-height:60vh;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -246,104 +246,4 @@
 <footer id="contact">
   <div class="contact">
     <a href="mailto:events@funtimephotography.co.uk">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#111"><path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 5.333-8-5.333V6h16zm-16 12V9.489l7.684 5.121c.188.125.412.125.6 0L20 9.489V18H4z"/></svg>
-      events@funtimephotography.co.uk
-    </a>
-    <a href="tel:+447834350911">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#111"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.05-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1v3.5a1 1 0 01-1 1C9.16 21.91 2.09 14.84 2 5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.05l-2.2 2.2z"/></svg>
-      07834 350911
-    </a>
-    <a href="https://instagram.com/funtimephotography.co.uk" target="_blank" rel="noopener noreferrer">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#111"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.35 3.608 1.325.975.975 1.264 2.242 1.325 3.608.058 1.266.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.35 2.633-1.325 3.608-.975.975-2.242 1.264-3.608 1.325-1.266.058-1.645.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.264-2.242-1.325-3.608-.058-1.266-.07-1.645-.07-4.85s.012-3.584.07-4.85c.062-1.366.35-2.633 1.325-3.608.975-.975 2.242-1.264 3.608-1.325C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.012 7.053.071 5.468.143 4.05.41 2.934 1.525c-1.116 1.116-1.384 2.533-1.455 4.118C1.012 6.333 1 6.741 1 10s.012 3.667.071 4.947c.072 1.585.34 3.002 1.455 4.118 1.116 1.116 2.533 1.384 4.118 1.455C8.333 20.988 8.741 21 12 21s3.667-.012 4.947-.071c1.585-.072 3.002-.34 4.118-1.455 1.116-1.116 1.384-2.533 1.455-4.118.059-1.28.071-1.688.071-4.947s-.012-3.667-.071-4.947c-.072-1.585-.34-3.002-1.455-4.118-1.116-1.116-2.533-1.384-4.118-1.455C15.667.012 15.259 0 12 0z"/><path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998z"/><circle cx="18.406" cy="5.594" r="1.44"/></svg>
-      @funtimephotography.co.uk
-    </a>
-  </div>
-  <div>&copy; 2025 Funtime Photography. All rights reserved.</div>
-</footer>
-
-<a class="book-btn" href="mailto:events@funtimephotography.co.uk?subject=Booking%20Request">Book Now</a>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <div class="backdrop" id="lb-backdrop"></div>
-  <div class="frame">
-    <img id="lb-img" src="" alt="">
-    <button class="close-btn" id="lb-close">✕</button>
-    <div class="lb-nav">
-      <button id="lb-prev">‹ Prev</button>
-      <button id="lb-next">Next ›</button>
-    </div>
-  </div>
-</div>
-
-<script>
-(function(){
-  const gallery = document.getElementById('gallery');
-  const total = 50;
-  const thumbs = [];
-
-  for(let i=1;i<=total;i++){
-    const filename = `photo${i}.jpg`;
-    const div = document.createElement('div');
-    div.className='thumb';
-
-    const img = document.createElement('img');
-    img.src=filename;
-    img.loading='lazy';
-    img.alt=`Funtime photo ${i}`;
-    div.appendChild(img);
-
-    gallery.appendChild(div);
-    thumbs.push({full:filename, alt:img.alt});
-  }
-
-  // Scroll-triggered fade-in for gallery
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.1});
-  document.querySelectorAll('.thumb').forEach(t => observer.observe(t));
-
-  // Lightbox
-  const lb=document.getElementById('lightbox');
-  const lbImg=document.getElementById('lb-img');
-  const lbClose=document.getElementById('lb-close');
-  const lbBackdrop=document.getElementById('lb-backdrop');
-  const lbPrev=document.getElementById('lb-prev');
-  const lbNext=document.getElementById('lb-next');
-  let current=0;
-
-  function openAt(idx){
-    current = (idx+thumbs.length)%thumbs.length;
-    lbImg.src = thumbs[current].full;
-    lbImg.alt = thumbs[current].alt;
-    lb.classList.add('visible');
-  }
-  function close(){ lb.classList.remove('visible'); }
-  function prev(){ openAt(current-1); }
-  function next(){ openAt(current+1); }
-
-  gallery.addEventListener('click', e=>{
-    const t = e.target.closest('.thumb');
-    if(!t) return;
-    const idx = Array.from(gallery.children).indexOf(t);
-    openAt(idx);
-  });
-
-  lbClose.addEventListener('click',close);
-  lbBackdrop.addEventListener('click',close);
-  lbPrev.addEventListener('click',prev);
-  lbNext.addEventListener('click',next);
-
-  document.addEventListener('keydown',e=>{
-    if(lb.classList.contains('visible')){
-      if(e.key==='Escape') close();
-      if(e.key==='ArrowLeft') prev();
-      if(e.key==='ArrowRight') next();
-    }
-  });
-})();
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#111"><path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2
