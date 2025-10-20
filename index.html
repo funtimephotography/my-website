@@ -24,7 +24,7 @@
     * { box-sizing:border-box; margin:0; padding:0; }
     body {
       font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
-      background: radial-gradient(circle at 20% 20%, var(--bg-a) 0%, var(--bg-b) 60%, var(--bg-c) 100%);
+      background: radial-gradient(circle at 20% 20%, var(--bg-a) 0%, var(--bg-b) 40%, var(--bg-c) 100%);
       color: var(--text);
       overflow-x:hidden;
     }
@@ -67,6 +67,7 @@
       color:var(--text);
       padding:60px 20px 30px;
       margin-top:80px;
+      flex-direction:column;
     }
     .hero-bg {
       position:absolute;
@@ -95,6 +96,7 @@
       line-height:0.9;
       text-transform:uppercase;
       color:var(--text);
+      text-align:center;
     }
     .sub-slogan {
       font-weight:400;
@@ -108,6 +110,7 @@
       justify-content:center;
       width:140px; height:140px;
       flex:0 0 140px;
+      margin-top:20px;
     }
     .logo {
       width:100%; height:100%;
@@ -164,14 +167,14 @@
     .outro {
       margin:50px 0;
       font-weight:400;
-      color:#f0f0f0; /* lighter color for contrast on gradient */
+      color:#eee;
       text-align:center;
       font-size:1.1rem;
     }
 
     footer {
       background:rgba(59,0,122,0.12);
-      color:#f0f0f0; /* lighter color at bottom */
+      color:#eee;
       padding:40px 20px;
       display:flex;
       flex-wrap:wrap;
@@ -186,7 +189,7 @@
       flex-wrap:wrap;
     }
     .contact a {
-      color:#f0f0f0;
+      color:#eee;
       text-decoration:none;
       font-weight:600;
       display:flex;
@@ -198,7 +201,7 @@
 
     .book-btn {
       position:fixed;
-      bottom:60px; /* raised to avoid covering footer */
+      bottom:60px;
       right:20px;
       padding:12px 20px;
       background: linear-gradient(135deg, var(--accent), var(--secondary));
