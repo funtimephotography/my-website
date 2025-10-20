@@ -12,13 +12,12 @@
     :root {
       --bg-a: #d6e0ff;
       --bg-b: #e0d6ff;
-      --bg-c: #1a0833; /* darker at bottom */
+      --bg-c: #f5f5fa;
       --accent: #00e0ff;
       --secondary: #3b007a;
       --tertiary: #0a1a73;
       --text: #111;
       --muted: rgba(17,17,17,0.6);
-      --text-footer: #f5f5fa;
       --max-width: 1100px;
     }
 
@@ -60,7 +59,7 @@
 
     /* HERO */
     .hero {
-      min-height:55vh;
+      min-height:60vh;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -86,6 +85,8 @@
       gap:40px;
       width:100%;
       flex-wrap:wrap;
+      flex-direction:column;
+      text-align:center;
     }
     .slogan {
       font-weight:800;
@@ -94,7 +95,12 @@
       line-height:0.9;
       text-transform:uppercase;
       color:var(--text);
-      text-align:center;
+    }
+    .sub-slogan {
+      font-weight:400;
+      font-size:clamp(16px,2vw,22px);
+      color: rgba(255,255,255,0.85);
+      margin-top:12px;
     }
     .logo-wrap {
       display:flex;
@@ -137,7 +143,6 @@
       opacity:0;
       transform:translateY(20px);
       transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
-      position:relative;
     }
     .thumb.visible {
       opacity:1;
@@ -152,31 +157,21 @@
     .thumb:hover img {
       transform: scale(1.06) rotate(-2deg);
       filter: brightness(1.1);
-      box-shadow: 0 8px 20px rgba(59,0,122,0.25), 0 0 12px rgba(0,224,255,0.3);
-      border: 2px solid var(--secondary);
+      box-shadow:0 8px 20px rgba(59,0,122,0.25);
+      border:2px solid var(--secondary);
     }
-    .thumb::after {
-      content:'';
-      position:absolute;
-      inset:0;
-      border-radius:10px;
-      background: linear-gradient(135deg, rgba(0,224,255,0.08), rgba(59,0,122,0.08));
-      opacity:0;
-      transition: opacity 0.3s ease;
-    }
-    .thumb:hover::after { opacity:1; }
 
     .outro {
       margin:50px 0;
       font-weight:400;
-      color: var(--text-footer);
+      color:#f0f0f0; /* lighter color for contrast on gradient */
       text-align:center;
       font-size:1.1rem;
     }
 
     footer {
       background:rgba(59,0,122,0.12);
-      color: var(--text-footer);
+      color:#f0f0f0; /* lighter color at bottom */
       padding:40px 20px;
       display:flex;
       flex-wrap:wrap;
@@ -191,7 +186,7 @@
       flex-wrap:wrap;
     }
     .contact a {
-      color: var(--text-footer);
+      color:#f0f0f0;
       text-decoration:none;
       font-weight:600;
       display:flex;
@@ -199,11 +194,11 @@
       gap:6px;
       transition:color 0.3s ease;
     }
-    .contact a:hover { color:var(--accent); }
+    .contact a:hover { color:var(--secondary); }
 
     .book-btn {
       position:fixed;
-      bottom:70px; /* moved up */
+      bottom:60px; /* raised to avoid covering footer */
       right:20px;
       padding:12px 20px;
       background: linear-gradient(135deg, var(--accent), var(--secondary));
@@ -244,6 +239,7 @@
   <div class="hero-bg" style="background-image:url('ftp-hero.jpg');"></div>
   <div class="hero-inner">
     <div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
+    <p class="sub-slogan">— all at prices designed to let you enjoy the experience without compromise.</p>
     <div class="logo-wrap"><img class="logo" src="logo.png" alt="FTP logo"></div>
   </div>
 </section>
