@@ -294,7 +294,7 @@
 </div>
 
 <script>
-(function(){
+ (function(){
   const strip = document.getElementById('scrolling-strip');
   const thumbs = [];
 
@@ -307,8 +307,19 @@
     thumbs.push(`photo${i}.jpg`);
   }
 
+  // --- SHUFFLE FUNCTION ---
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const shuffledThumbs = shuffle([...thumbs]); // copy and shuffle
+
   // Duplicate for seamless loop
-  const allImages = thumbs.concat(thumbs);
+  const allImages = shuffledThumbs.concat(shuffledThumbs);
 
   allImages.forEach(src=>{
     const img = document.createElement('img');
@@ -320,6 +331,18 @@
     });
     strip.appendChild(img);
   });
+
+  // --- RANDOM START OFFSET ---
+  const wrapper = strip;
+  const totalWidth = wrapper.scrollWidth / 2; // only original set
+  const randomStart = Math.floor(Math.random() * totalWidth);
+  wrapper.style.transform = `translateX(-${randomStart}px)`;
+
+  // Apply animation AFTER offset
+  wrapper.style.animation = `scroll-left 20s linear infinite`;
+
+})();
+
 
   // Lightbox functions
   const lb=document.getElementById('lightbox');
@@ -357,4 +380,5 @@
 
 </body>
 </html>
+
 
