@@ -236,9 +236,9 @@
 <header class="topbar">
   <img src="logo.png" alt="FTP logo">
   <nav>
-  <a href="gallery.html">Gallery</a>
-  <a href="#contact">Contact</a>
-</nav>
+    <a href="gallery.html">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <section class="hero">
@@ -294,18 +294,13 @@
 </div>
 
 <script>
- (function(){
-  const strip = document.getElementById('scrolling-strip');
+(function(){
   const thumbs = [];
 
   // RAWfest 1–50
-  for(let i=1; i<=50; i++){
-    thumbs.push(`photo${i}.jpg`);
-  }
+  for(let i=1; i<=50; i++){ thumbs.push(`photo${i}.jpg`); }
   // Bonfire 51–73
-  for(let i=51; i<=73; i++){
-    thumbs.push(`photo${i}.jpg`);
-  }
+  for(let i=51; i<=73; i++){ thumbs.push(`photo${i}.jpg`); }
 
   // --- SHUFFLE FUNCTION ---
   function shuffle(array) {
@@ -316,35 +311,28 @@
     return array;
   }
 
-  const shuffledThumbs = shuffle([...thumbs]); // copy and shuffle
+  const shuffledThumbs = shuffle([...thumbs]);
+  const allImages = shuffledThumbs.concat(shuffledThumbs); // duplicate for seamless scroll
 
-  // Duplicate for seamless loop
-  const allImages = shuffledThumbs.concat(shuffledThumbs);
-
+  const strip = document.getElementById('scrolling-strip');
   allImages.forEach(src=>{
     const img = document.createElement('img');
     img.src = src;
     img.alt = "Funtime photo";
     img.addEventListener('click', ()=>{
       const idx = thumbs.indexOf(src);
-      openAt(idx);
+      openAt(idx); // lightbox function
     });
     strip.appendChild(img);
   });
 
-  // --- RANDOM START OFFSET ---
+  // Random start offset
   const wrapper = strip;
-  const totalWidth = wrapper.scrollWidth / 2; // only original set
+  const totalWidth = wrapper.scrollWidth / 2;
   const randomStart = Math.floor(Math.random() * totalWidth);
   wrapper.style.transform = `translateX(-${randomStart}px)`;
 
-  // Apply animation AFTER offset
-  wrapper.style.animation = `scroll-left 20s linear infinite`;
-
-})();
-
-
-  // Lightbox functions
+  // Lightbox setup
   const lb=document.getElementById('lightbox');
   const lbImg=document.getElementById('lb-img');
   const lbClose=document.getElementById('lb-close');
@@ -375,10 +363,9 @@
       if(e.key==='ArrowRight') next();
     }
   });
+
 })();
 </script>
 
 </body>
 </html>
-
-
