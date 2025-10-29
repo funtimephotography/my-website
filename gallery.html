@@ -1,1 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Funtime Photography - Gallery</title>
+
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-a: #d6e0ff;
+      --bg-b: #e0b6ff;
+      --bg-c: #5a0f7a;
+      --accent: #00e0ff;
+      --secondary: #3b007a;
+      --text: #111;
+      --muted: rgba(17,17,17,0.6);
+      --text-footer: #f5f5fa;
+      --max-width: 1200px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:radial-gradient(circle at 20% 20%,var(--bg-a) 0%,var(--bg-b) 60%,var(--bg-c) 100%);color:var(--text);-webkit-font-smoothing:antialiased}
+
+    .topbar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 30px;background:rgba(59,0,122,0.15);backdrop-filter:blur(8px);z-index:1000}
+    .topbar img{width:60px;height:60px;border-radius:50%}
+    .topbar nav a{color:var(--text);text-decoration:none;font-weight:500;margin:0 12px;transition:color .3s}
+    .topbar nav a:hover{color:var(--accent)}
+
+    .container{max-width:var(--max-width);margin:96px auto 40px;padding:0 20px}
+
+    .controls{display:flex;gap:12px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+    .filter-btn{background:rgba(255,255,255,0.08);border:0;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+    .filter-btn.active{background:linear-gradient(90deg,var(--accent),var(--secondary));color:#fff}
+
+    .section { margin-bottom:28px; background:rgba(59,0,122,0.06); padding:12px; border-radius:12px; }
+    .section-header { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:6px 10px; }
+    .section-title { font-weight:700; font-size:1.05rem; }
+    .toggle-btn { background:transparent; border:0; cursor:pointer; font-weight:700; color:var(--secondary); }
+
+    /* Masonry gallery inside each event */
+    .gallery { column-count:4; column-gap:12px; }
+    .thumb { break-inside:avoid; margin-bottom:12px; overflow:hidden; border-radius:10px; position:relative; cursor:pointer; }
+    .thumb img{width:100%; display:block; object-fit:cover; transition: transform .4s ease, filter .4s ease, box-shadow .4s ease}
+    .thumb:hover img{transform:scale(1.04); filter:brightness(1.05); box-shadow:0 8px 20px rgba(59,0,122,0.18)}
+    .event-meta { font-size:0.85rem; color:var(--muted); padding:8px 12px }
+
+    @media (max-width:1200px){ .gallery{column-count:3} }
+    @media (max-width:900px){ .gallery{column-count:2} }
+    @media (max-width:600px){ .gallery{column-count:1} .topbar{flex-direction:column} }
+
+    /* Lightbox */
+    .lightbox {position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999;}
+    .lightbox.visible{display:flex;}
+    .lightbox .backdrop{position:absolute; inset:0; background:rgba(0,0,0,0.9);}
+    .lightbox .frame{position:relative; max-width:95%; max-height:95%; z-index:2;}
+    .lightbox img{display:block; max-width:100%; max-height:100%; border-radius:8px;}
+    .close-btn{position:absolute; right:-10px; top:-10px; background:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.25);}
+    .lb-nav{position:absolute; left:20px; right:20px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
+    .lb-nav button{pointer-events:auto; background:rgba(255,255,255,0.08); border:0; color:var(--text); padding:12px 16px; border-radius:6px; cursor:pointer;}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <img src="logo.png" alt="FTP logo">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="container" id="main">
+  <div class="controls" role="toolbar" aria-label="Gallery controls">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="rawfest">RAWfest</button>
+    <button class="filter-btn" data-filter="bonfire">High Hurstwood Bonfire</button>
+  </div>
+
+  <!-- Sections will be injected here -->
+  <div id="eventsContainer"></div>
+
+  <div class="event-meta" style="margin-top:18px">Tip: Click a photo to open the lightbox. Use the filter buttons to show only one event.</div>
+</main>
+
+<footer id="contact" style="margin-top:24px;background:rgba(59,0,122,0.12);padding:20px;">
+  <div style="max-width:var(--max-width);margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+    <div class="contact" style="display:flex;gap:20px;align-items:center;">
+      <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a>
+      <a href="tel:+447834350911">07834 350911</a>
+      <a href="https://instagram.com/funtimephotography.co.uk" target="_blank" rel="noopener">@funtimephotography.co.uk</a>
+    </div>
+    <div>&copy; 2025 Funtime Photography. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="backdrop" id="lb-backdrop"></div>
+  <div class="frame">
+    <img id="lb-img" src="" alt="">
+    <button class="close-btn" id="lb-close" aria-label="Close">✕</button>
+    <div class="lb-nav">
+      <button id="lb-prev" aria-label="Previous">‹ Prev</button>
+      <button id="lb-next" aria-label="Next">Next ›</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Event registry — adjust ranges once and JS handles the rest
+  const events = [
+    { id: 'rawfest', name: 'RAWfest', from: 1, to: 50 },
+    { id: 'bonfire', name: 'High Hurstwood Bonfire', from: 51, to: 73 }
+  ];
+
+  // Build image items
+  const items = [];
+  events.forEach(ev => {
+    for(let i=ev.from;i<=ev.to;i++){
+      items.push({file:`photo${i}.jpg`, event:ev.id, eventName:ev.name, index:i});
+    }
+  });
+
+  // Container references
+  const eventsContainer = document.getElementById('eventsContainer');
+  const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+
+  // Create per-event sections (collapsible)
+  const sections = {};
+  events.forEach(ev => {
+    const section = document.createElement('section');
+    section.className = 'section';
+    section.dataset.event = ev.id;
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = `<div>
+                          <div class="section-title">${ev.name}</div>
+                          <div style="font-size:0.85rem;color:var(--muted)">${ev.from} — ${ev.to}</div>
+                        </div>
+                        <div>
+                          <button class="toggle-btn" aria-expanded="true">Collapse ▲</button>
+                        </div>`;
+
+    const gallery = document.createElement('div');
+    gallery.className = 'gallery';
+    gallery.dataset.event = ev.id;
+
+    section.appendChild(header);
+    section.appendChild(gallery);
+    eventsContainer.appendChild(section);
+
+    // Attach collapse functionality
+    const toggleBtn = header.querySelector('.toggle-btn');
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
+      if(isOpen){
+        gallery.style.display = 'none';
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.textContent = 'Expand ▼';
+      } else {
+        gallery.style.display = '';
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        toggleBtn.textContent = 'Collapse ▲';
+      }
+    });
+
+    sections[ev.id] = { section, gallery };
+  });
+
+  // Populate thumbnails
+  const thumbs = []; // for lightbox across the currently visible set(s)
+  items.forEach((it, idx) => {
+    const container = sections[it.event].gallery;
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb';
+    thumb.dataset.index = idx;
+    const img = document.createElement('img');
+    img.src = it.file;
+    img.loading = 'lazy';
+    img.alt = `${it.eventName} photo ${it.index}`;
+    thumb.appendChild(img);
+    container.appendChild(thumb);
+    thumbs.push({file: it.file, alt: img.alt, event: it.event});
+  });
+
+  // Filtering controls
+  function setFilter(filter){
+    filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    if(filter === 'all'){
+      // show all sections
+      Object.values(sections).forEach(s => { s.section.style.display = ''; s.gallery.style.display = ''; s.section.querySelector('.toggle-btn').setAttribute('aria-expanded','true'); s.section.querySelector('.toggle-btn').textContent='Collapse ▲'; });
+      document.querySelectorAll('.thumb').forEach(t => t.style.display = '');
+    } else {
+      Object.keys(sections).forEach(key => {
+        if(key === filter) {
+          sections[key].section.style.display = '';
+          sections[key].gallery.style.display = '';
+          sections[key].section.querySelector('.toggle-btn').setAttribute('aria-expanded','true');
+          sections[key].section.querySelector('.toggle-btn').textContent='Collapse ▲';
+        } else {
+          sections[key].section.style.display = 'none';
+        }
+      });
+      // hide thumbs that are not in the active filter (thumbs remain in DOM inside hidden galleries)
+    }
+    rebuildVisibleIndex();
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+  });
+
+  // Lightbox logic — will use current visible thumbs
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lb-img');
+  const lbClose=document.getElementById('lb-close');
+  const lbBackdrop=document.getElementById('lb-backdrop');
+  const lbPrev=document.getElementById('lb-prev');
+  const lbNext=document.getElementById('lb-next');
+
+  let visibleThumbs = []; // list of {file, alt, domIndex}
+  let currentVisibleIndex = 0;
+
+  function rebuildVisibleIndex(){
+    visibleThumbs = [];
+    // If "all" active, include all visible .thumb elements
+    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+    const thumbNodes = Array.from(document.querySelectorAll('.thumb'));
+    thumbNodes.forEach((tn, idx) => {
+      // skip those inside display:none sections
+      let el = tn;
+      let parentGallery = el.closest('.gallery');
+      if(!parentGallery) return;
+      // check if the gallery is visible (walk up to section)
+      const section = parentGallery.closest('.section');
+      if(section && section.style.display === 'none') return;
+      // if there is a filter and it matches event or all
+      const ev = tn.closest('.gallery').dataset.event;
+      if(activeFilter === 'all' || activeFilter === ev){
+        visibleThumbs.push({ file: tn.querySelector('img').src, alt: tn.querySelector('img').alt, dom: tn });
+      }
+    });
+  }
+  rebuildVisibleIndex();
+
+  // Open at a visible position
+  function openAtVisible(idx){
+    if(visibleThumbs.length === 0) return;
+    currentVisibleIndex = (idx + visibleThumbs.length) % visibleThumbs.length;
+    lbImg.src = visibleThumbs[currentVisibleIndex].file;
+    lbImg.alt = visibleThumbs[currentVisibleIndex].alt;
+    lb.classList.add('visible');
+  }
+  function close(){ lb.classList.remove('visible'); }
+  function prev(){ openAtVisible(currentVisibleIndex - 1); }
+  function next(){ openAtVisible(currentVisibleIndex + 1); }
+
+  // Click handling: a click on any .thumb should open lightbox at the right visible index
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('.thumb');
+    if(!t) return;
+    rebuildVisibleIndex();
+    // find position of this clicked thumbnail in visibleThumbs
+    const src = t.querySelector('img').src;
+    const pos = visibleThumbs.findIndex(v => v.file === src);
+    if(pos >= 0) openAtVisible(pos);
+  });
+
+  lbClose.addEventListener('click', close);
+  lbBackdrop.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+
+  document.addEventListener('keydown', e=>{
+    if(lb.classList.contains('visible')){
+      if(e.key === 'Escape') close();
+      if(e.key === 'ArrowLeft') prev();
+      if(e.key === 'ArrowRight') next();
+    }
+  });
+
+  // Intersection observer for nicer load-in animation
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible-thumb');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.06});
+  document.querySelectorAll('.thumb img').forEach(img => io.observe(img));
+
+  // Expose setFilter on load (default is all)
+  setFilter('all');
+
+})();
+</script>
+
+</body>
+</html>
 
