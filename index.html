@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Funtime Photography - Event Photography </title>
+  <title>Funtime Photography - Event Photography</title>
 
   <!-- Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -11,8 +11,8 @@
   <style>
     :root {
       --bg-a: #d6e0ff;
-      --bg-b: #e0b6ff; /* updated pinkish middle */
-      --bg-c: #5a0f7a; /* richer pink-purple bottom */
+      --bg-b: #e0b6ff;
+      --bg-c: #5a0f7a;
       --accent: #00e0ff;
       --secondary: #3b007a;
       --tertiary: #0a1a73;
@@ -28,6 +28,8 @@
       background: radial-gradient(circle at 20% 20%, var(--bg-a) 0%, var(--bg-b) 60%, var(--bg-c) 100%);
       color: var(--text);
       overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
     /* Floating navigation header */
@@ -42,9 +44,7 @@
       backdrop-filter:blur(8px);
       z-index:1000;
     }
-    .topbar img {
-      width:60px; height:60px; border-radius:50%;
-    }
+    .topbar img { width:60px; height:60px; border-radius:50%; }
     .topbar nav a {
       color: var(--text);
       text-decoration:none;
@@ -60,7 +60,7 @@
 
     /* HERO */
     .hero {
-      min-height:55vh;
+      min-height:46vh;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -75,6 +75,7 @@
       background-position:center;
       background-size:cover;
       filter:brightness(0.85);
+      opacity:0.8;
     }
     .hero-inner {
       position:relative;
@@ -90,115 +91,75 @@
     .slogan {
       font-weight:800;
       letter-spacing:1px;
-      font-size:clamp(32px,8vw,88px);
-      line-height:0.9;
+      font-size:clamp(32px,7vw,72px);
+      line-height:0.95;
       text-transform:uppercase;
       color:var(--text);
       text-align:center;
     }
-.sub-slogan {
-  color: #fff; /* white */
-  font-weight: 600; /* optional: make it a bit lighter than main slogan */
-  display: block; /* ensures it goes to next line nicely */
-  margin-top: 8px; /* optional spacing */
-  font-size: clamp(16px, 3vw, 24px); /* smaller than main slogan */
-}
-
-    
-    .logo-wrap {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:140px; height:140px;
-      flex:0 0 140px;
-    }
-    .logo {
-      width:100%; height:100%;
-      object-fit:contain;
-      border-radius:50%;
-      background:white;
-      padding:8px;
-      box-shadow:0 6px 18px rgba(59,0,122,0.3);
+    .sub-slogan {
+      color: #fff;
+      font-weight:600;
+      display:block;
+      margin-top:8px;
+      font-size: clamp(16px, 3vw, 22px);
     }
 
-    .container { max-width:var(--max-width); margin:40px auto; padding:0 20px; }
+    .logo-wrap { display:flex; align-items:center; justify-content:center; width:120px; height:120px; flex:0 0 120px; }
+    .logo { width:100%; height:100%; object-fit:contain; border-radius:50%; background:white; padding:8px; box-shadow:0 6px 18px rgba(59,0,122,0.3); }
+
+    .container { max-width:var(--max-width); margin:34px auto; padding:0 20px; }
+
     .blurb {
-  background:rgba(59,0,122,0.08);
-  padding:40px;
-  border-radius:16px;
-  color:var(--muted);
-  font-weight:500;
-  line-height:1.8;
-  margin-bottom:30px;
+      background:rgba(59,0,122,0.08);
+      padding:28px;
+      border-radius:12px;
+      color:var(--muted);
+      font-weight:500;
+      line-height:1.7;
+      margin-bottom:18px;
     }
 
-    /* Masonry-style gallery */
-    .gallery {
-      column-count: 4;
-      column-gap:12px;
+    /* Highlight reel (homepage) */
+    .highlight-reel {
+      display:flex;
+      flex-direction:column;
+      gap:22px;
     }
-    .thumb {
-      break-inside: avoid;
-      margin-bottom:12px;
-      cursor:pointer;
-      overflow:hidden;
-      border-radius:10px;
-      opacity:0;
-      transform:translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
-      position:relative;
-    }
-    .thumb.visible {
-      opacity:1;
-      transform:translateY(0);
-    }
-    .thumb img {
+    .reel-thumb {
       width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      position:relative;
+      cursor:pointer;
+      opacity:0;
+      transform:translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reel-thumb.visible { opacity:1; transform:none; }
+    .reel-thumb img {
+      width:100%;
+      height:auto;
       display:block;
       object-fit:cover;
-      transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease, border 0.3s ease;
+      max-height:80vh;
+      transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
     }
-    .thumb:hover img {
-      transform: scale(1.06) rotate(-2deg);
-      filter: brightness(1.1);
-      box-shadow: 0 8px 20px rgba(59,0,122,0.25), 0 0 12px rgba(0,224,255,0.3);
-      border: 2px solid var(--secondary);
-    }
-    .thumb::after {
-      content:'';
-      position:absolute;
-      inset:0;
-      border-radius:10px;
-      background: linear-gradient(135deg, rgba(0,224,255,0.08), rgba(59,0,122,0.08));
-      opacity:0;
-      transition: opacity 0.3s ease;
-    }
-    .thumb:hover::after { opacity:1; }
+    .reel-thumb:hover img { transform: scale(1.02); filter:brightness(1.03); }
 
-    .outro {
-      margin:50px 0;
-      font-weight:400;
-      color: var(--text-footer);
-      text-align:center;
-      font-size:1.1rem;
-    }
+    .outro { margin:34px 0; font-weight:400; color: var(--text-footer); text-align:center; font-size:1.05rem; }
 
     footer {
       background:rgba(59,0,122,0.12);
       color: var(--text-footer);
-      padding:40px 20px;
+      padding:28px 20px;
       display:flex;
       flex-wrap:wrap;
       justify-content:space-between;
       align-items:center;
       gap:10px;
     }
-    .contact {
-      display:flex;
-      gap:20px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
+    .contact { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
     .contact a {
       color: var(--text-footer);
       text-decoration:none;
@@ -212,7 +173,7 @@
 
     .book-btn {
       position:fixed;
-      bottom:70px; /* moved up */
+      bottom:70px;
       right:20px;
       padding:12px 20px;
       background: linear-gradient(135deg, var(--accent), var(--secondary));
@@ -224,19 +185,19 @@
       z-index:1000;
     }
 
-    /* Lightbox */
+    /* Lightbox shared styles (kept simple) */
     .lightbox {position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999;}
     .lightbox.visible{display:flex;}
     .lightbox .backdrop{position:absolute; inset:0; background:rgba(0,0,0,0.85);}
-    .lightbox .frame{position:relative; max-width:90%; max-height:90%; z-index:2;}
-    .lightbox img{display:block; max-width:100%; max-height:100%; border-radius:6px;}
+    .lightbox .frame{position:relative; max-width:95%; max-height:95%; z-index:2;}
+    .lightbox img{display:block; max-width:100%; max-height:100%; border-radius:8px;}
     .close-btn{position:absolute; right:-10px; top:-10px; background:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.25);}
     .lb-nav{position:absolute; left:20px; right:20px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
     .lb-nav button{pointer-events:auto; background:rgba(255,255,255,0.08); border:0; color:var(--text); padding:12px 16px; border-radius:6px; cursor:pointer;}
 
-    @media (max-width:1200px){ .gallery { column-count:3; } }
-    @media (max-width:900px){ .gallery { column-count:2; } }
-    @media (max-width:600px){ .gallery { column-count:1; } .hero-inner{flex-direction:column; text-align:center;} .logo-wrap{margin-left:0;} .topbar{flex-direction:column;} }
+    @media (max-width:1200px){ .container{margin:24px auto} }
+    @media (max-width:900px){ .hero-inner{flex-direction:column; text-align:center;} .logo-wrap{margin-left:0;} .topbar{flex-direction:column;} .reel-thumb img{max-height:60vh;} }
+    @media (max-width:600px){ .reel-thumb img{max-height:50vh;} }
   </style>
 </head>
 <body>
@@ -244,7 +205,7 @@
 <header class="topbar">
   <img src="logo.png" alt="FTP logo">
   <nav>
-    <a href="#gallery">Gallery</a>
+    <a href="gallery.html">Gallery</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
@@ -252,23 +213,21 @@
 <section class="hero">
   <div class="hero-bg" style="background-image:url('ftp-hero.jpg');"></div>
   <div class="hero-inner">
-    <div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
-    <p class="sub-slogan"> Affordable Event Photography - Your Nights, Your Story.</p>
+    <div>
+      <div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
+      <p class="sub-slogan">Affordable Event Photography - Your Nights, Your Story.</p>
+    </div>
     <div class="logo-wrap"><img class="logo" src="logo.png" alt="FTP logo"></div>
   </div>
 </section>
 
-
 <main class="container">
   <section class="intro blurb">
-   <p>At Funtime Photography, every event has its own energy, from local parties to large festival weekends. Based in Uckfield, we cover events across Sussex, capturing the moments that matter most.</p>
-
-    <p>Our photographers don’t just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere to capture genuine smiles, energy, and the highlights of your event.</p>
-
-    <p>Whether it’s a small celebration or a festival that goes late into the night, our approach is relaxed, fun, and focused on making every moment count.</p>
+    <p>At Funtime Photography, every event has its own energy, from local parties to large festival weekends. Based in Uckfield, we cover events across Sussex, capturing the moments that matter most.</p>
   </section>
 
-  <section class="gallery" id="gallery"></section>
+  <!-- Highlight reel: larger vertical stacked images, randomized -->
+  <section class="highlight-reel" id="highlightReel" aria-label="Highlight reel of photos"></section>
 
   <section class="outro">
     <p>From intimate gatherings to large-scale festival weekends, Funtime Photography delivers creativity and personal connection in every shoot. Reach out to discuss your event - we offer fair pricing so you can get amazing photography that fits your plans.</p>
@@ -279,7 +238,7 @@
   <div class="contact">
     <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a>
     <a href="tel:+447834350911">07834 350911</a>
-    <a href="https://instagram.com/funtimephotography.co.uk" target="_blank">@funtimephotography.co.uk</a>
+    <a href="https://instagram.com/funtimephotography.co.uk" target="_blank" rel="noopener">@funtimephotography.co.uk</a>
   </div>
   <div>&copy; 2025 Funtime Photography. All rights reserved.</div>
 </footer>
@@ -291,36 +250,58 @@
   <div class="backdrop" id="lb-backdrop"></div>
   <div class="frame">
     <img id="lb-img" src="" alt="">
-    <button class="close-btn" id="lb-close">✕</button>
+    <button class="close-btn" id="lb-close" aria-label="Close">✕</button>
     <div class="lb-nav">
-      <button id="lb-prev">‹ Prev</button>
-      <button id="lb-next">Next ›</button>
+      <button id="lb-prev" aria-label="Previous">‹ Prev</button>
+      <button id="lb-next" aria-label="Next">Next ›</button>
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  const gallery = document.getElementById('gallery');
-  const thumbs = [];
+  // Event registry: keeps things tidy and future-proof
+  const events = [
+    { id: 'rawfest', name: 'RAWfest', from: 1, to: 50 },
+    { id: 'bonfire', name: 'High Hurstwood Bonfire', from: 51, to: 73 }
+  ];
 
-  // Images 1–50
-  const imageFiles = [];
-  for(let i=1;i<=50;i++){ imageFiles.push(`photo${i}.jpg`); }
-
-  imageFiles.forEach(filename => {
-    const div = document.createElement('div');
-    div.className='thumb';
-    const img = document.createElement('img');
-    img.src = filename;
-    img.loading='lazy';
-    img.alt = `Funtime photo`;
-    div.appendChild(img);
-    gallery.appendChild(div);
-    thumbs.push({full: filename, alt: img.alt});
+  // Build an array of all image filenames (photo1.jpg ... photo73.jpg)
+  const allImages = [];
+  events.forEach(ev => {
+    for(let i = ev.from; i <= ev.to; i++){
+      allImages.push({ file:`photo${i}.jpg`, event:ev.id, alt: `${ev.name} photo ${i}` });
+    }
   });
 
-  // Scroll-triggered fade-in
+  // Homepage: pick N random images for highlight reel
+  const HIGHLIGHT_COUNT = 20;
+  function shuffle(array){
+    for(let i = array.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+  const shuffled = allImages.slice();
+  shuffle(shuffled);
+  const highlights = shuffled.slice(0, Math.min(HIGHLIGHT_COUNT, shuffled.length));
+
+  const gallery = document.getElementById('highlightReel');
+  const thumbs = [];
+
+  highlights.forEach((imgObj, idx) => {
+    const div = document.createElement('div');
+    div.className = 'reel-thumb';
+    const img = document.createElement('img');
+    img.src = imgObj.file;
+    img.loading = 'lazy';
+    img.alt = imgObj.alt;
+    div.appendChild(img);
+    gallery.appendChild(div);
+    thumbs.push({full: imgObj.file, alt: imgObj.alt});
+  });
+
+  // Simple intersection observer for fade-in
   const observer = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
@@ -328,56 +309,49 @@
         observer.unobserve(entry.target);
       }
     });
-  }, {threshold:0.1});
-  document.querySelectorAll('.thumb').forEach(t => observer.observe(t));
+  }, {threshold:0.08});
+  document.querySelectorAll('.reel-thumb').forEach(t => observer.observe(t));
 
-  // Lightbox
+  // Lightbox (shares logic with gallery page; small lightweight impl)
   const lb=document.getElementById('lightbox');
   const lbImg=document.getElementById('lb-img');
   const lbClose=document.getElementById('lb-close');
   const lbBackdrop=document.getElementById('lb-backdrop');
   const lbPrev=document.getElementById('lb-prev');
   const lbNext=document.getElementById('lb-next');
-  let current=0;
-
+  let current = 0;
   function openAt(idx){
-    current = (idx+thumbs.length)%thumbs.length;
+    current = (idx + thumbs.length) % thumbs.length;
     lbImg.src = thumbs[current].full;
     lbImg.alt = thumbs[current].alt;
     lb.classList.add('visible');
   }
   function close(){ lb.classList.remove('visible'); }
-  function prev(){ openAt(current-1); }
-  function next(){ openAt(current+1); }
+  function prev(){ openAt(current - 1); }
+  function next(){ openAt(current + 1); }
 
   gallery.addEventListener('click', e=>{
-    const t = e.target.closest('.thumb');
+    const t = e.target.closest('.reel-thumb');
     if(!t) return;
     const idx = Array.from(gallery.children).indexOf(t);
     openAt(idx);
   });
 
-  lbClose.addEventListener('click',close);
-  lbBackdrop.addEventListener('click',close);
-  lbPrev.addEventListener('click',prev);
-  lbNext.addEventListener('click',next);
+  lbClose.addEventListener('click', close);
+  lbBackdrop.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
 
-  document.addEventListener('keydown',e=>{
+  document.addEventListener('keydown', e=>{
     if(lb.classList.contains('visible')){
-      if(e.key==='Escape') close();
-      if(e.key==='ArrowLeft') prev();
-      if(e.key==='ArrowRight') next();
+      if(e.key === 'Escape') close();
+      if(e.key === 'ArrowLeft') prev();
+      if(e.key === 'ArrowRight') next();
     }
   });
+
 })();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
