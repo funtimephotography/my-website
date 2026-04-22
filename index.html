@@ -4,8 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Funtime Photography - Event Photography</title>
+
   <!-- Typography -->
-  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap)" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg-a: #d6e0ff;
@@ -13,316 +15,206 @@
       --bg-c: #5a0f7a;
       --accent: #00e0ff;
       --secondary: #3b007a;
-      --tertiary: #0a1a73;
       --text: #111;
       --muted: rgba(17,17,17,0.6);
       --text-footer: #f5f5fa;
       --max-width: 1100px;
     }
-    * { box-sizing:border-box; margin:0; padding:0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
-      background: radial-gradient(circle at 20% 20%, var(--bg-a) 0%, var(--bg-b) 60%, var(--bg-c) 100%);
+      font-family: Montserrat, system-ui, sans-serif;
+      background: radial-gradient(circle at 20% 20%, var(--bg-a), var(--bg-b) 60%, var(--bg-c));
       color: var(--text);
-      overflow-x:hidden;
+      overflow-x: hidden;
     }
-    /* Floating navigation header */
+
+    /* Topbar */
     .topbar {
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 30px;
-      background:rgba(59,0,122,0.15);
-      backdrop-filter:blur(8px);
-      z-index:1000;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 30px;
+      background: rgba(59,0,122,0.15);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
     }
-    .topbar img { width:60px; height:60px; border-radius:50%; }
+    .topbar img { width: 60px; height: 60px; border-radius: 50%; }
     .topbar nav a {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0 14px;
+      text-decoration: none;
       color: var(--text);
-      text-decoration:none;
-      font-weight:500;
-      margin:0 12px;
-      transition: color 0.3s ease, border-bottom 0.3s ease;
-      padding-bottom:2px;
+      font-size: 18px;
     }
-    .topbar nav a:hover { color: var(--accent); border-bottom:2px solid var(--accent); }
+    .topbar nav a:hover { color: var(--accent); }
+
     /* HERO */
     .hero {
-      min-height:55vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      color:var(--text);
-      padding:60px 20px 30px;
-      margin-top:80px;
+      margin-top: 90px;
+      padding: 60px 20px 50px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      text-align: center;
     }
+
     .hero-bg {
-      position:absolute;
-      inset:0;
-      background-position:center;
-      background-size:cover;
-      filter:brightness(0.85);
+      position: absolute;
+      inset: 0;
+      background: url('ftp-hero.jpg') center / cover no-repeat;
+      filter: brightness(0.85);
+      z-index: 0;
     }
+
     .hero-inner {
-      position:relative;
-      z-index:2;
-      max-width:var(--max-width);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:40px;
-      width:100%;
-      flex-wrap:wrap;
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-width);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 36px;
+      align-items: center;
     }
-    .slogan {
-      font-weight:800;
-      letter-spacing:1px;
-      font-size:clamp(32px,8vw,88px);
-      line-height:0.9;
-      text-transform:uppercase;
-      color:var(--text);
-      text-align:center;
-    }
-    .sub-slogan {
-      color: #fff;
-      font-weight: 600;
-      display: block;
-      margin-top: 8px;
-      font-size: clamp(16px, 3vw, 24px);
-    }
+
+    /* Logo Larger */
     .logo-wrap {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:140px;
-      height:140px;
-      flex:0 0 140px;
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
     }
     .logo {
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      border-radius:50%;
-      background:white;
-      padding:8px;
-      box-shadow:0 6px 18px rgba(59,0,122,0.3);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: white;
+      border-radius: 50%;
+      padding: 10px;
+      box-shadow: 0 8px 24px rgba(59,0,122,0.35);
     }
-    .container { max-width:var(--max-width); margin:40px auto; padding:0 20px; }
-    .blurb {
-      background:rgba(59,0,122,0.08);
-      padding:40px;
-      border-radius:16px;
-      color:var(--muted);
-      font-weight:500;
-      line-height:1.8;
-      margin-bottom:30px;
-    }
-    /* Scrolling Highlights Strip */
-    .highlight-strip { margin:40px 0; overflow: hidden; position: relative; }
-    .scrolling-wrapper {
+
+    /* Slogan Lockup */
+    .headline {
       display: flex;
-      gap: 12px;
-      animation: scroll-left 20s linear infinite;
+      flex-direction: column;
+      align-items: flex-start;
     }
-    .scrolling-wrapper:hover { animation-play-state: paused; }
-    .scrolling-wrapper img {
-      height: 150px;
-      border-radius: 10px;
-      cursor: pointer;
-      flex-shrink: 0;
-      object-fit: cover;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    .slogan {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(44px, 9vw, 96px);
+      letter-spacing: 4px;
+      line-height: 0.95;
+      text-transform: uppercase;
     }
-    .scrolling-wrapper img:hover {
-      transform: scale(1.1) rotate(-1deg);
-      box-shadow: 0 6px 14px rgba(59,0,122,0.25);
+
+    /* Nikon-style underline bar */
+    .slogan-bar {
+      width: 90px;
+      height: 6px;
+      background: var(--accent);
+      margin: 14px 0 18px;
     }
-    @keyframes scroll-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+
+    .sub-slogan {
+      font-weight: 600;
+      color: white;
+      font-size: clamp(16px, 3vw, 24px);
     }
-    .outro {
-      margin:50px 0;
-      font-weight:400;
-      color: var(--text-footer);
-      text-align:center;
-      font-size:1.1rem;
+
+    /* Content */
+    .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
+
+    .blurb {
+      background: rgba(59,0,122,0.08);
+      padding: 40px;
+      border-radius: 16px;
+      color: var(--muted);
+      line-height: 1.8;
     }
+
     footer {
-      background:rgba(59,0,122,0.12);
+      margin-top: 60px;
+      background: rgba(59,0,122,0.12);
       color: var(--text-footer);
-      padding:40px 20px;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
     }
-    .contact { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
-    .contact a {
-      color: var(--text-footer);
-      text-decoration:none;
-      font-weight:600;
-      display:flex;
-      align-items:center;
-      gap:6px;
-      transition:color 0.3s ease;
-    }
-    .contact a:hover { color:var(--accent); }
+
     .book-btn {
-      position:fixed;
-      bottom:70px;
-      right:20px;
-      padding:12px 20px;
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
       background: linear-gradient(135deg, var(--accent), var(--secondary));
-      color:#fff;
-      font-weight:600;
-      border-radius:8px;
-      text-decoration:none;
-      box-shadow:0 4px 12px rgba(59,0,122,0.3);
-      z-index:1000;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
     }
-    /* Lightbox */
-    .lightbox {position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999;}
-    .lightbox.visible{display:flex;}
-    .lightbox .backdrop{position:absolute; inset:0; background:rgba(0,0,0,0.85);}
-    .lightbox .frame{position:relative; max-width:90%; max-height:90%; z-index:2;}
-    .lightbox img{display:block; max-width:100%; max-height:100%; border-radius:6px;}
-    .close-btn{position:absolute; right:-10px; top:-10px; background:white; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.25);}
-    .lb-nav{position:absolute; left:20px; right:20px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none;}
-    .lb-nav button{pointer-events:auto; background:rgba(255,255,255,0.08); border:0; color:var(--text); padding:12px 16px; border-radius:6px; cursor:pointer;}
-    @media (max-width:1200px){ .scrolling-wrapper img{height:120px;} }
-    @media (max-width:900px){ .scrolling-wrapper img{height:100px;} }
-    @media (max-width:600px){
-      .scrolling-wrapper img{height:80px;}
-      .hero-inner{flex-direction:column; text-align:center;}
-      .logo-wrap{margin-left:0;}
-      .topbar{flex-direction:column;}
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .headline { align-items: center; }
     }
   </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <img src="logo.png" alt="FTP logo">
-    <nav>
-      <a href="gallery.html">Gallery</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-  <section class="hero">
-    <div class="hero-bg" style="background-image:url('ftp-hero.jpg');"></div>
-    <div class="hero-inner">
-      <div class="slogan">EVERY NIGHT<br>HAS A STORY</div>
-      <p class="sub-slogan">Affordable Event Photography - Your Nights, Your Story.</p>
-      <div class="logo-wrap"><img class="logo" src="logo.png" alt="FTP logo"></div>
+
+<header class="topbar">
+  <img src="logo.png" alt="FTP logo">
+  <nav>
+    <a href="gallery.html">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <div class="logo-wrap">
+      <img src="logo.png" class="logo" alt="FTP logo">
     </div>
-  </section>
-  <main class="container">
-    <section class="intro blurb">
-      <p>At Funtime Photography, every event has its own energy, from local parties to large festival weekends. Based in Uckfield, we cover events across Sussex, capturing the moments that matter most.</p>
-      <p>Our photographers don't just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere to capture genuine smiles, energy, and the highlights of your event.</p>
-      <p>Whether it's a small celebration or a festival that goes late into the night, our approach is relaxed, fun, and focused on making every moment count.</p>
-    </section>
-    <!-- Scrolling highlight strip -->
-    <section class="highlight-strip" id="highlight-strip">
-      <div class="scrolling-wrapper" id="scrolling-strip"></div>
-    </section>
-    <section class="outro">
-      <p>From intimate gatherings to large-scale festival weekends, Funtime Photography delivers creativity and personal connection in every shoot. Reach out to discuss your event - we offer fair pricing so you can get amazing photography that fits your plans.</p>
-    </section>
-  </main>
-  <footer id="contact">
-    <div class="contact">
-      <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a>
-      <a href="tel:+447834350911">07834 350911</a>
-      <a href="[instagram.com](https://instagram.com/funtimephotography.co.uk)" target="_blank">@funtimephotography.co.uk</a>
+
+    <div class="headline">
+      <div class="slogan">Every Night<br>Has a Story</div>
+      <div class="slogan-bar"></div>
+      <div class="sub-slogan">Affordable Event Photography – Your Nights, Your Story.</div>
     </div>
-    <div>&copy; 2025 Funtime Photography. All rights reserved.</div>
-  </footer>
-  <a class="book-btn" href="mailto:events@funtimephotography.co.uk?subject=Booking%20Request">Enquire Now</a>
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <div class="backdrop" id="lb-backdrop"></div>
-    <div class="frame">
-      <img id="lb-img" src="" alt="">
-      <button class="close-btn" id="lb-close">✕</button>
-      <div class="lb-nav">
-        <button id="lb-prev">‹ Prev</button>
-        <button id="lb-next">Next ›</button>
-      </div>
-    </div>
+
   </div>
-  <script>
-    (function(){
-      const thumbs = [];
-      // RAWfest 1–50
-      for(let i=1; i<=50; i++){ thumbs.push(`photo${i}.jpg`); }
-      // Bonfire 51–73
-      for(let i=51; i<=73; i++){ thumbs.push(`photo${i}.jpg`); }
-      // Dedbest / Elsewhere 74–134
-      for(let i=74; i<=134; i++){ thumbs.push(`photo${i}.jpg`); }
-      // The Hurstwood Taco Night 135–243
-      for(let i=135; i<=243; i++){ thumbs.push(`photo${i}.jpg`); }
-      // Shuffle function
-      function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-      }
-      const shuffledThumbs = shuffle([...thumbs]);
-      const allImages = shuffledThumbs.concat(shuffledThumbs); // duplicate for seamless scroll
-      const strip = document.getElementById('scrolling-strip');
-      allImages.forEach(src => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = "Funtime photo";
-        img.addEventListener('click', () => {
-          const idx = thumbs.indexOf(src);
-          openAt(idx);
-        });
-        strip.appendChild(img);
-      });
-      // Random start offset
-      const wrapper = strip;
-      const totalWidth = wrapper.scrollWidth / 2;
-      const randomStart = Math.floor(Math.random() * totalWidth);
-      wrapper.style.transform = `translateX(-${randomStart}px)`;
-      // Lightbox setup
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lb-img');
-      const lbClose = document.getElementById('lb-close');
-      const lbBackdrop = document.getElementById('lb-backdrop');
-      const lbPrev = document.getElementById('lb-prev');
-      const lbNext = document.getElementById('lb-next');
-      let current = 0;
-      function openAt(idx){
-        current = (idx + thumbs.length) % thumbs.length;
-        lbImg.src = thumbs[current];
-        lbImg.alt = "Funtime photo";
-        lb.classList.add('visible');
-      }
-      function close(){ lb.classList.remove('visible'); }
-      function prev(){ openAt(current - 1); }
-      function next(){ openAt(current + 1); }
-      lbClose.addEventListener('click', close);
-      lbBackdrop.addEventListener('click', close);
-      lbPrev.addEventListener('click', prev);
-      lbNext.addEventListener('click', next);
-      document.addEventListener('keydown', e => {
-        if(lb.classList.contains('visible')){
-          if(e.key === 'Escape') close();
-          if(e.key === 'ArrowLeft') prev();
-          if(e.key === 'ArrowRight') next();
-        }
-      });
-    })();
-  </script>
+</section>
+
+<main class="container">
+  <section class="blurb">
+    <p>At Funtime Photography, every event has its own energy, from local parties to large festival weekends. Based in Uckfield, we cover events across Sussex, capturing the moments that matter most.</p>
+  </section>
+</main>
+
+<footer id="contact">
+  <div>
+    <p>events@funtimephotography.co.uk</p>
+    <p>07834 350911</p>
+    <p>@funtimephotography.co.uk</p>
+  </div>
+  <div>© 2025 Funtime Photography</div>
+</footer>
+
+<a class="book-btn" href="mailto:events@funtimephotography.co.uk?subject=Booking%20Request">Enquire Now</a>
+
 </body>
 </html>
+``
