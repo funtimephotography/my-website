@@ -40,8 +40,7 @@
       justify-content:space-between;
       padding:14px 30px;
       background:rgba(59,0,122,0.15);
-      backdrop-filter:blur(8px);
-      z-index:1000;
+      
     }
     .topbar img {
       width:60px; height:60px; border-radius:50%;
@@ -54,12 +53,8 @@
       transition: color 0.3s ease, border-bottom 0.3s ease;
       padding-bottom:2px;
     }
-    .topbar nav a:hover {
-      color: var(--accent);
-      border-bottom:2px solid var(--accent);
-    }
-    .topbar {
-    border-bottom:1px solid rgba(255,255,255,0.1);
+    
+   
     }
 
     /* HERO */
@@ -83,13 +78,10 @@
       background-size:cover;
       filter:brightness(0.85);
     }
-    .hero-inner {
-  animation: fadeUp 0.8s ease;
+    
   }
 
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(20px); }
-      to { opacity:1; transform:translateY(0); }
+    
     }
       position:relative;
       z-index:2;
