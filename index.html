@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Funtime Photography – Event Photography in Sussex</title>
 
   <!-- SEO -->
@@ -17,9 +17,11 @@
       --bg-b:#1b0f2e;
       --bg-c:#0d0617;
       --accent:#00e0ff;
+
       --text-main:#f5f5fa;
       --text-muted:rgba(245,245,250,0.65);
       --text-strong:#ffffff;
+
       --max-width:1100px;
     }
 
@@ -32,13 +34,13 @@
       overflow-x:hidden;
     }
 
-    /* Top Bar */
+    /* Topbar */
     .topbar {
       position:fixed;
       top:0; left:0; right:0;
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
       padding:14px 30px;
       background:rgba(10,6,23,0.75);
       backdrop-filter:blur(10px);
@@ -83,7 +85,8 @@
 
     .logo-wrap { width:200px; height:200px; }
     .logo {
-      width:100%; height:100%;
+      width:100%;
+      height:100%;
       object-fit:contain;
       background:white;
       padding:10px;
@@ -96,33 +99,23 @@
       flex-direction:column;
       align-items:flex-start;
     }
-
     h1.slogan {
       font-family:'Bebas Neue',sans-serif;
       font-size:clamp(44px,9vw,96px);
       letter-spacing:4px;
       line-height:0.95;
       text-transform:uppercase;
-      color:var(--text-strong);
     }
-
     .slogan-bar {
       width:90px;
       height:5px;
       background:var(--accent);
       margin:16px 0 20px;
     }
-
     .sub-slogan {
       font-weight:600;
       font-size:clamp(16px,3vw,24px);
       color:var(--text-muted);
-    }
-
-    /* Hidden SEO H2 */
-    h2.seo-hidden {
-      position:absolute;
-      left:-9999px;
     }
 
     .container {
@@ -142,7 +135,7 @@
     }
     .blurb p + p { margin-top:16px; }
 
-    /* Photo Ribbon */
+    /* Ribbon */
     .highlight-strip { margin:60px 0; overflow:hidden; }
     .scrolling-wrapper {
       display:flex;
@@ -237,8 +230,8 @@
       width:36px;
       height:36px;
       background:white;
-      border:none;
       border-radius:50%;
+      border:0;
       cursor:pointer;
     }
     .lb-nav {
@@ -253,7 +246,7 @@
     .lb-nav button {
       pointer-events:auto;
       background:rgba(255,255,255,0.1);
-      border:none;
+      border:0;
       color:#fff;
       padding:10px 14px;
       border-radius:6px;
@@ -273,7 +266,7 @@
 <header class="topbar">
   logo.png
   <nav>
-    gallery.html
+    gallery.htmlGallery</a>
     #contactContact</a>
   </nav>
 </header>
@@ -292,48 +285,34 @@
   </div>
 </section>
 
-<h2 class="seo-hidden">Event Photography in Sussex – Festivals, Parties & Live Events</h2>
-
 <main class="container">
-  
-section class="blurb">
-  <p>
-    Funtime Photography specialises in <strong>event photography across Sussex</strong>, covering everything from local parties and club nights to large festival weekends. Based in Uckfield, we work with promoters, venues, and organisers to capture the real atmosphere of live events.
-  </p>
 
-  <p>
-    Our photographers don’t just turn up and shoot from the sidelines. We blend into the crowd, connect with people, and move with the music to capture genuine moments — the reactions, the energy, and the details that matter long after the night is over.
-  </p>
-
-  <p>
-    Whether you’re running a one‑off celebration or a recurring event that goes late into the night, our approach is relaxed, professional, and focused on telling the full story of your event through natural, engaging photography.
-  </p>
-</section>
-
+  <section class="blurb">
+    <p>Funtime Photography specialises in <strong>event photography across Sussex</strong>, covering everything from grassroots parties to large festival weekends.</p>
+    <p>We don’t stand on the sidelines — our photographers move with the crowd to capture real atmosphere, genuine reactions, and the energy that defines your event.</p>
+    <p>If you want photography that reflects the night as it actually felt, you’re in the right place.</p>
+  </section>
 
   <section class="highlight-strip">
     <div class="scrolling-wrapper" id="scrolling-strip"></div>
   </section>
 
-  
-on class="outro">
-  <p>
-    From grassroots parties to large‑scale festival weekends, Funtime Photography delivers event photography that feels authentic, energetic, and true to the night itself. If you’re looking for photographers who understand live events and work seamlessly with your crowd, get in touch to talk through your plans.
-  </p>
-</section>
+  <section class="outro">
+    <p>From club nights to festival stages, Funtime Photography delivers authentic, people‑focused event photography that tells the full story.</p>
+  </section>
 
 </main>
 
 <footer id="contact">
   <div>
-    events@funtimephotography.co.ukevents@funtimephotography.co.uk</a>
+    mailto:events@funtimephotography.co.ukevents@funtimephotography.co.uk</a>
     tel:+44783435091107834 350911</a>
     https://instagram.com/funtimephotography.co.uk@funtimephotography.co.uk</a>
   </div>
   <div>© 2025 Funtime Photography</div>
 </footer>
 
-events@funtimephotography.co.uk?subject=Booking%20Request
+mailto:events@funtimephotography.co.uk?subject=Booking%20RequestEnquire Now</a>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
@@ -349,48 +328,56 @@ events@funtimephotography.co.uk?subject=Booking%20Request
 </div>
 
 <script>
+/* ✅ FIXED RANDOM RIBBON + LIGHTBOX */
 (function(){
-  const thumbs=[];
-  for(let i=1;i<=243;i++) thumbs.push(`photo${i}.jpg`);
 
-  const shuffled=[...thumbs].sort(()=>Math.random()-0.5);
-  const images=shuffled.concat(shuffled);
-  const strip=document.getElementById('scrolling-strip');
+  const ALBUMS = [
+    { from:1, to:50 },
+    { from:74, to:134 },
+    { from:135, to:243 }
+  ];
 
-  let current=0;
-  images.forEach(src=>{
+  const FEATURED_COUNT = 48;
+  let all = [];
+
+  ALBUMS.forEach(a=>{
+    for(let i=a.from;i<=a.to;i++){
+      all.push(`photo${i}.jpg`);
+    }
+  });
+
+  for(let i=all.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [all[i],all[j]]=[all[j],all[i]];
+  }
+
+  const featured = all.slice(0,FEATURED_COUNT);
+  const strip = document.getElementById('scrolling-strip');
+
+  [...featured, ...featured].forEach((src,i)=>{
     const img=document.createElement('img');
     img.src=src;
-    img.alt="Funtime Photography event photography in Sussex";
-    img.onclick=()=>{
-      current=thumbs.indexOf(src);
-      open();
-    };
+    img.dataset.index=i%FEATURED_COUNT;
     strip.appendChild(img);
   });
 
   const lb=document.getElementById('lightbox');
   const lbImg=document.getElementById('lb-img');
+  let current=0;
 
-  function open(){
-    lbImg.src=thumbs[current];
+  strip.addEventListener('click',e=>{
+    const img=e.target.closest('img');
+    if(!img)return;
+    current=Number(img.dataset.index);
+    lbImg.src=featured[current];
     lb.classList.add('visible');
-  }
-  function close(){ lb.classList.remove('visible'); }
-  function next(){ current=(current+1)%thumbs.length; open(); }
-  function prev(){ current=(current-1+thumbs.length)%thumbs.length; open(); }
-
-  document.getElementById('lb-close').onclick=close;
-  document.getElementById('lb-backdrop').onclick=close;
-  document.getElementById('lb-next').onclick=next;
-  document.getElementById('lb-prev').onclick=prev;
-
-  document.addEventListener('keydown',e=>{
-    if(!lb.classList.contains('visible')) return;
-    if(e.key==='Escape') close();
-    if(e.key==='ArrowRight') next();
-    if(e.key==='ArrowLeft') prev();
   });
+
+  document.getElementById('lb-close').onclick=()=>lb.classList.remove('visible');
+  document.getElementById('lb-backdrop').onclick=()=>lb.classList.remove('visible');
+  document.getElementById('lb-next').onclick=()=>{current=(current+1)%FEATURED_COUNT;lbImg.src=featured[current]};
+  document.getElementById('lb-prev').onclick=()=>{current=(current-1+FEATURED_COUNT)%FEATURED_COUNT;lbImg.src=featured[current]};
+
 })();
 </script>
 
