@@ -348,51 +348,99 @@ We provide professional event photography in Sussex, including Uckfield, Brighto
   </div>
 </div>
 
+
 <script>
 (function(){
-  const thumbs=[];
-  for(let i=1;i<=243;i++) thumbs.push(`photo${i}.jpg`);
 
-  const shuffled=[...thumbs].sort(()=>Math.random()-0.5);
-  const images=shuffled.concat(shuffled);
-  const strip=document.getElementById('scrolling-strip');
+  /* ===== CONFIG ===== */
+  const ALBUMS = {
+    rawfest:  { from: 1,   to: 50 },
+    dedbest:  { from: 74,  to: 134 },
+    taco:     { from: 135, to: 243 }
+  };
 
-  let current=0;
-  images.forEach(src=>{
-    const img=document.createElement('img');
-    img.src=src;
-    img.alt="Funtime Photography event photography in Sussex";
-    img.onclick=()=>{
-      current=thumbs.indexOf(src);
-      open();
-    };
+  const RIBBON_SIZE = 48; // how many unique photos per load
+
+  /* ===== BUILD IMAGE POOL ===== */
+  let pool = [];
+  Object.values(ALBUMS).forEach(r => {
+    for(let i = r.from; i <= r.to; i++){
+      pool.push(`photo${i}.jpg`);
+    }
+  });
+
+  /* ===== SHUFFLE (Fisher–Yates) ===== */
+  function shuffle(arr){
+    for(let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  shuffle(pool);
+
+  /* ===== SELECT RANDOM SET ===== */
+  const featured = pool.slice(0, RIBBON_SIZE);
+
+  /* Duplicate ONLY for scrolling illusion */
+  const scrollImages = featured.concat(featured);
+
+  /* ===== RENDER RIBBON ===== */
+  const strip = document.getElementById('scrolling-strip');
+
+  scrollImages.forEach((src, i) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = "Funtime Photography event photography in Sussex";
+    img.dataset.index = i % featured.length; // critical fix
     strip.appendChild(img);
   });
 
-  const lb=document.getElementById('lightbox');
-  const lbImg=document.getElementById('lb-img');
+  /* ===== LIGHTBOX ===== */
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbClose = document.getElementById('lb-close');
+  const lbBackdrop = document.getElementById('lb-backdrop');
+  const lbPrev = document.getElementById('lb-prev');
+  const lbNext = document.getElementById('lb-next');
 
-  function open(){
-    lbImg.src=thumbs[current];
+  let current = 0;
+
+  function openAt(idx){
+    current = (idx + featured.length) % featured.length;
+    lbImg.src = featured[current];
     lb.classList.add('visible');
   }
+
   function close(){ lb.classList.remove('visible'); }
-  function next(){ current=(current+1)%thumbs.length; open(); }
-  function prev(){ current=(current-1+thumbs.length)%thumbs.length; open(); }
 
-  document.getElementById('lb-close').onclick=close;
-  document.getElementById('lb-backdrop').onclick=close;
-  document.getElementById('lb-next').onclick=next;
-  document.getElementById('lb-prev').onclick=prev;
+  function prev(){ openAt(current - 1); }
+  function next(){ openAt(current + 1); }
 
-  document.addEventListener('keydown',e=>{
-    if(!lb.classList.contains('visible')) return;
-    if(e.key==='Escape') close();
-    if(e.key==='ArrowRight') next();
-    if(e.key==='ArrowLeft') prev();
+  /* Click handling */
+  strip.addEventListener('click', e => {
+    const img = e.target.closest('img');
+    if(!img) return;
+    openAt(Number(img.dataset.index));
   });
+
+  lbClose.onclick = close;
+  lbBackdrop.onclick = close;
+  lbPrev.onclick = prev;
+  lbNext.onclick = next;
+
+  document.addEventListener('keydown', e => {
+    if(!lb.classList.contains('visible')) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowLeft') prev();
+    if(e.key === 'ArrowRight') next();
+  });
+
 })();
 </script>
+``
+
 
 </body>
 </html>
