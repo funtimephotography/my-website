@@ -1,12 +1,13 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Funtime Photography – Event Gallery</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap
 
   <style>
     :root{
@@ -74,7 +75,6 @@
       cursor:pointer;
       font-weight:600;
       color:var(--text-main);
-      backdrop-filter:blur(6px);
     }
     .filter-btn.active{
       background:linear-gradient(135deg,var(--accent),#007d96);
@@ -85,7 +85,6 @@
     .section{
       margin-bottom:32px;
       background:var(--panel);
-      backdrop-filter:blur(6px);
       border-radius:16px;
       padding:16px;
     }
@@ -101,10 +100,8 @@
       font-size:1.3rem;
     }
     .toggle-btn{
-      background:none;
-    }
-    .toggle-btn{
       border:0;
+      background:none;
       color:var(--accent);
       font-weight:700;
       cursor:pointer;
@@ -134,33 +131,26 @@
 
     @media(max-width:1200px){.gallery{column-count:3}}
     @media(max-width:900px){.gallery{column-count:2}}
-    @media(max-width:600px){
-      .gallery{column-count:1}
-      .topbar{flex-direction:column}
-    }
+    @media(max-width:600px){.gallery{column-count:1}}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999}
     .lightbox.visible{display:flex}
-    .lightbox .backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.92)}
-    .lightbox .frame{position:relative;max-width:95%;max-height:95%}
-    .lightbox img{max-width:100%;max-height:100%;border-radius:10px}
+    .backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.92)}
+    .frame{position:relative;max-width:95%;max-height:95%}
+    .frame img{max-width:100%;max-height:100%;border-radius:10px}
     .close-btn{
       position:absolute;
-      right:-12px;
-      top:-12px;
+      right:-12px;top:-12px;
       background:white;
-      width:36px;
-      height:36px;
+      width:36px;height:36px;
       border-radius:50%;
       border:0;
       cursor:pointer;
     }
     .lb-nav{
       position:absolute;
-      top:50%;
-      left:-60px;
-      right:-60px;
+      top:50%;left:-60px;right:-60px;
       display:flex;
       justify-content:space-between;
       pointer-events:none;
@@ -172,7 +162,6 @@
       color:#fff;
       padding:10px 14px;
       border-radius:8px;
-      cursor:pointer;
     }
   </style>
 </head>
@@ -180,7 +169,7 @@
 <body>
 
 <header class="topbar">
-  <img src="logo.png" alt="Funtime Photography logo">
+  <img src="logo.png" alt="Funtime Photography">
   <nav>
     <a href="index.html">Home</a>
     <a href="#contact">Contact</a>
@@ -192,6 +181,97 @@
   <div class="controls">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="rawfest">RAWfest</button>
-    <button class="filter-btn" data-filter="bonfire">High Hurstwood Bonfire</button>
+    
     <button class="filter-btn" data-filter="dedbest">Dedbest / Elsewhere</button>
     <button class="filter-btn" data-filter="taco">Taco Night</button>
+  </div>
+
+  <!-- ✅ REQUIRED: galleries are injected here -->
+  <div id="eventsContainer"></div>
+
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="backdrop" id="lb-backdrop"></div>
+  <div class="frame">
+    <img id="lb-img" src="" alt="">
+    <button class="close-btn" id="lb-close">✕</button>
+    <div class="lb-nav">
+      <button id="lb-prev">‹ Prev</button>
+      <button id="lb-next">Next ›</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const events = [
+    { id:'rawfest', name:'RAWfest', from:1, to:50 },
+    
+    { id:'dedbest', name:'Dedbest / Elsewhere', from:74, to:134 },
+    { id:'taco', name:'The Hurstwood Taco Night', from:135, to:243 }
+  ];
+
+  const container=document.getElementById('eventsContainer');
+  const filterBtns=[...document.querySelectorAll('.filter-btn')];
+
+  const sections={};
+  events.forEach(ev=>{
+    const section=document.createElement('section');
+    section.className='section';
+    section.dataset.event=ev.id;
+
+    section.innerHTML=`
+      <div class="section-header">
+        <div class="section-title">${ev.name}</div>
+        <button class="toggle-btn">Collapse ▲</button>
+      </div>
+      <div class="gallery"></div>
+    `;
+
+    const gallery=section.querySelector('.gallery');
+    const toggle=section.querySelector('.toggle-btn');
+
+    for(let i=ev.from;i<=ev.to;i++){
+      const t=document.createElement('div');
+      t.className='thumb';
+      t.innerHTML=`<img src="photo${i}.jpg" alt="${ev.name} photo ${i}" loadingllery.style.display==='none' ? '' : 'none';
+      toggle.textContent =
+        gallery.style.display==='none' ? 'Expand ▼' : 'Collapse ▲';
+    };
+
+    sections[ev.id]=section;
+    container.appendChild(section);
+  });
+
+  filterBtns.forEach(btn=>{
+    btn.onclick=()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f=btn.dataset.filter;
+      Object.values(sections).forEach(s=>{
+        s.style.display = (f==='all'||s.dataset.event===f) ? '' : 'none';
+      });
+    };
+  });
+
+  /* Lightbox */
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lb-img');
+
+  document.addEventListener('click',e=>{
+    const img=e.target.closest('.thumb img');
+    if(!img)return;
+    lbImg.src=img.src;
+    lb.classList.add('visible');
+  });
+
+  document.getElementById('lb-close').onclick=()=>lb.classList.remove('visible');
+  document.getElementById('lb-backdrop').onclick=()=>lb.classList.remove('visible');
+})();
+</script>
+
+</body>
+</html>
+``
