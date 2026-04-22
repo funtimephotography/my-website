@@ -57,8 +57,12 @@
       color: var(--accent);
       border-bottom:2px solid var(--accent);
     }
+    .topbar {
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    }
 
     /* HERO */
+    <a href="mailto:events@funtimephotography.co.uk?subject=Booking%20Request" class="hero-cta">
     .hero {
       min-height:55vh;
       display:flex;
@@ -77,6 +81,13 @@
       filter:brightness(0.85);
     }
     .hero-inner {
+  animation: fadeUp 0.8s ease;
+  }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to { opacity:1; transform:translateY(0); }
+    }
       position:relative;
       z-index:2;
       max-width:var(--max-width);
@@ -96,6 +107,21 @@
       color:var(--text);
       text-align:center;
     }
+      .hero-cta {
+  margin-top:20px;
+  display:inline-block;
+  padding:14px 26px;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  color:#fff;
+  font-weight:700;
+  border-radius:10px;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(59,0,122,0.3);
+  transition: transform 0.2s ease;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+}
 .sub-slogan {
   color: #fff; 
   font-weight: 600; 
@@ -252,12 +278,16 @@
 
 <main class="container">
   <section class="intro blurb">
-   <p>At Funtime Photography, every event has its own energy, from local parties to large festival weekends. Based in Uckfield, we cover events across Sussex, capturing the moments that matter most.</p>
+   <p>We capture nights as they actually feel - busy dancefloors, big laughs, and the moments you didn’t even realise were happening.</p>
 
-    <p>Our photographers don’t just show up with cameras; we become part of the crowd. We connect with the people, the music, and the atmosphere to capture genuine smiles, energy, and the highlights of your event.</p>
+<p>From local parties to full-on festival weekends, we blend into the crowd and shoot the energy as it unfolds.</p>
 
-    <p>Whether it’s a small celebration or a festival that goes late into the night, our approach is relaxed, fun, and focused on making every moment count.</p>
+<p>No awkward posing, no forced smiles — just proper moments from real nights.</p>
   </section>
+  
+  <section class="blurb">
+  <p><strong>Trusted by local events, venues and festivals across Sussex.</strong></p>
+</section>
 
   <!-- New scrolling highlight strip -->
   <section class="highlight-strip" id="highlight-strip">
