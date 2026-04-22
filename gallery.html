@@ -76,6 +76,8 @@
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="rawfest">RAWfest</button>
     <button class="filter-btn" data-filter="bonfire">High Hurstwood Bonfire</button>
+    <button class="filter-btn" data-filter="dedbest">Dedbest / Elsewhere</button>
+    <button class="filter-btn" data-filter="taco">Taco Night</button>
   </div>
 
   <!-- Sections will be injected here -->
@@ -112,9 +114,11 @@
 (function(){
   // Event registry — adjust ranges once and JS handles the rest
   const events = [
-    { id: 'rawfest', name: 'RAWfest', from: 1, to: 50 },
-    { id: 'bonfire', name: 'High Hurstwood Bonfire', from: 51, to: 73 }
-  ];
+  { id: 'rawfest', name: 'RAWfest', from: 1, to: 50 },
+  { id: 'bonfire', name: 'High Hurstwood Bonfire', from: 51, to: 73 },
+  { id: 'dedbest', name: 'Dedbest / Elsewhere', from: 74, to: 134 },
+  { id: 'taco', name: 'The Hurstwood Taco Night', from: 135, to: 243 }
+];
 
   // Build image items
   const items = [];
