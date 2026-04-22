@@ -234,12 +234,20 @@
     const toggle=section.querySelector('.toggle-btn');
 
     for(let i=ev.from;i<=ev.to;i++){
-      const t=document.createElement('div');
-      t.className='thumb';
-      t.innerHTML=`<img src="photo${i}.jpg" alt="${ev.name} photo ${i}" loadingllery.style.display==='none' ? '' : 'none';
-      toggle.textContent =
-        gallery.style.display==='none' ? 'Expand ▼' : 'Collapse ▲';
+     
     };
+    
+const t = document.createElement('div');
+t.className = 'thumb';
+
+const img = document.createElement('img');
+img.src = `photo${i}.jpg`;           // ROOT folder – stays the same
+img.alt = `${ev.name} photo ${i}`;
+img.loading = 'lazy';
+
+t.appendChild(img);
+gallery.appendChild(t);
+
 
     sections[ev.id]=section;
     container.appendChild(section);
