@@ -308,9 +308,9 @@ If you want photography that reflects how your event actually felt, you’re in 
 <script>
 (function(){
   const thumbs = [];
-  for(let i=1;i<=50;i++) thumbs.push(`photo${i}.jpg`);
-  for(let i=74;i<=134;i++) thumbs.push(`photo${i}.jpg`);
-  for(let i=135;i<=243;i++) thumbs.push(`photo${i}.jpg`);
+  for(let i=1;i<=50;i++) thumbs.push(`./photo${i}.jpg`);
+  for(let i=74;i<=134;i++) thumbs.push(`./photo${i}.jpg`);
+  for(let i=135;i<=243;i++) thumbs.push(`./photo${i}.jpg`);
 
   for(let i=thumbs.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
@@ -327,7 +327,13 @@ If you want photography that reflects how your event actually felt, you’re in 
     images.push(img);
   });
 
-  const strip = document.getElementById('scrolling-strip');
+    const strip=document.getElementById('scrolling-strip');
+  thumbs.concat(thumbs).forEach(src=>{
+    const img=document.createElement('img');
+    img.src=src;
+    img.onclick=()=>{document.getElementById('lb-img').src=src;document.getElementById('lightbox').classList.add('visible');};
+    strip.appendChild(img);
+  });
 
   function appendImagesInBatches(batchSize = 12) {
     let index = 0;
