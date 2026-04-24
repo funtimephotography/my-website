@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,8 +17,10 @@
       --bg-b:#1b0f2e;
       --bg-c:#0d0617;
       --accent:#00e0ff;
+
       --text-main:#f5f5fa;
       --text-muted:rgba(245,245,250,0.65);
+
       --max-width:1100px;
     }
 
@@ -134,39 +135,25 @@
       color:var(--text-muted);
       margin-bottom:50px;
     }
+    .blurb p + p { margin-top:16px; }
 
-    /* Ribbon / Strip */
+    /* Ribbon */
     .highlight-strip {
       margin:60px 0;
       overflow:hidden;
     }
-
     .scrolling-wrapper {
       display:flex;
       gap:16px;
       animation:scroll-left 30s linear infinite;
-      animation-play-state: paused;
-      will-change: transform;
     }
-
-    .scrolling-wrapper.ready {
-      animation-play-state: running;
-    }
-
+    .scrolling-wrapper:hover { animation-play-state:paused; }
     .scrolling-wrapper img {
-      width:200px;
       height:140px;
-      object-fit:cover;
       border-radius:12px;
+      object-fit:cover;
       cursor:pointer;
-      opacity:0;
-      transition:opacity 0.3s ease;
     }
-
-    .scrolling-wrapper img.loaded {
-      opacity:1;
-    }
-
     @keyframes scroll-left {
       from { transform:translateX(0); }
       to { transform:translateX(-50%); }
@@ -187,7 +174,6 @@
       flex-wrap:wrap;
       gap:20px;
     }
-
     footer a {
       color:var(--text-main);
       text-decoration:none;
@@ -195,6 +181,7 @@
       display:block;
       margin-bottom:6px;
     }
+    footer a:hover { color:var(--accent); }
 
     .book-btn {
       position:fixed;
@@ -235,11 +222,6 @@
       max-width:100%;
       max-height:100%;
       border-radius:8px;
-      opacity:0;
-      transition:opacity 0.25s ease;
-    }
-    .lb-frame img.loaded {
-      opacity:1;
     }
     .lb-close {
       position:absolute;
@@ -284,8 +266,12 @@
 </section>
 
 <main class="container">
+
   <section class="blurb">
-    <p><strong>Hi, I’m Frank — the photographer behind Funtime Photography.</strong></p>
+    <p><strong>Hi, I’m Frank — the photographer behind Funtime Photography.
+I cover events across Sussex, from grassroots parties to full weekend festivals.
+I don’t stand on the sidelines. I join the party, move with the crowd, and capture genuine reactions and the real energy that defines the night.
+If you want photography that reflects how your event actually felt, you’re in the right place..</p>
   </section>
 
   <section class="highlight-strip">
@@ -295,6 +281,7 @@
   <section class="outro">
     <p>From intimate pop‑ups to full‑scale festivals, I capture people‑focused event photography that tells the full story of the night.</p>
   </section>
+
 </main>
 
 <footer id="contact">
@@ -317,6 +304,7 @@
   </div>
 </div>
 
+
 <script>
 (function(){
   const thumbs = [];
@@ -329,52 +317,41 @@
     [thumbs[i],thumbs[j]]=[thumbs[j],thumbs[i]];
   }
 
-  const strip = document.getElementById('scrolling-strip');
-  const lightbox = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lb-img');
-
-  function openLightbox(src){
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      lbImg.src = src;
-      lbImg.classList.remove('loaded');
-      lightbox.classList.add('visible');
-      requestAnimationFrame(()=>lbImg.classList.add('loaded'));
-    };
-  }
-
-  document.getElementById('lb-close').onclick =
-  document.getElementById('lb-backdrop').onclick = () =>
-    lightbox.classList.remove('visible');
-
   const images = [];
-  thumbs.concat(thumbs).forEach(name=>{
-    const img=document.createElement('img');
-    img.src=`thumbs/${name}`;
-    img.loading="lazy";
-    img.decoding="async";
-    img.onload=()=>img.classList.add('loaded');
-    img.onclick=()=>openLightbox(`full/${name}`);
+  thumbs.concat(thumbs).forEach(name => {
+    const img = document.createElement('img');
+    img.src = `thumbs/${name}`;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.onload = () => img.classList.add('loaded');
     images.push(img);
   });
 
-  let index = 0;
-  function addBatch(){
-    const frag = document.createDocumentFragment();
-    for(let i=0;i<12 && index<images.length;i++,index++){
-      frag.appendChild(images[index]);
+  const strip = document.getElementById('scrolling-strip');
+
+  function appendImagesInBatches(batchSize = 12) {
+    let index = 0;
+
+    function addBatch() {
+      const fragment = document.createDocumentFragment();
+      for(let i=0;i<batchSize && index<images.length;i++, index++) {
+        fragment.appendChild(images[index]);
+      }
+      strip.appendChild(fragment);
+
+      if(index < images.length) {
+        requestIdleCallback(addBatch);
+      } else {
+        strip.classList.add('ready');
+      }
     }
-    strip.appendChild(frag);
-    if(index < images.length){
-      requestIdleCallback(addBatch);
-    } else {
-      strip.classList.add('ready');
-    }
+    addBatch();
   }
-  addBatch();
+
+  appendImagesInBatches();
 })();
 </script>
+
 
 </body>
 </html>
