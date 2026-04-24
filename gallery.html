@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Funtime Photography – Event Gallery</title>
 
+  <!-- MATCHES INDEX -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 
   <style>
@@ -28,6 +29,7 @@
       overflow-x:hidden;
     }
 
+    /* Topbar */
     .topbar{
       position:fixed;
       top:0;left:0;right:0;
@@ -57,6 +59,7 @@
       padding:0 20px;
     }
 
+    /* Filters */
     .controls{
       display:flex;
       gap:12px;
@@ -77,24 +80,21 @@
       color:#001417;
     }
 
+    /* Sections */
     .section{
       margin-bottom:32px;
       background:var(--panel);
       border-radius:16px;
       padding:16px;
     }
-    .section-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:10px;
-    }
     .section-title{
       font-family:'Bebas Neue',sans-serif;
       letter-spacing:1.5px;
       font-size:1.3rem;
+      margin-bottom:12px;
     }
 
+    /* Gallery */
     .gallery{
       column-count:4;
       column-gap:12px;
@@ -120,6 +120,7 @@
     @media(max-width:900px){.gallery{column-count:2}}
     @media(max-width:600px){.gallery{column-count:1}}
 
+    /* Lightbox */
     .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999}
     .lightbox.visible{display:flex}
     .backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.92)}
@@ -152,7 +153,6 @@
   <div class="controls">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="rawfest">RAWfest</button>
-    <button class="filter-btn" data-filter="bonfire">Bonfire</button>
     <button class="filter-btn" data-filter="dedbest">Dedbest / Elsewhere</button>
     <button class="filter-btn" data-filter="taco">Taco Night</button>
   </div>
@@ -161,6 +161,7 @@
 
 </main>
 
+<!-- Lightbox -->
 <div class="lightbox" id="lightbox">
   <div class="backdrop" id="lb-backdrop"></div>
   <div class="frame">
@@ -174,7 +175,6 @@
 
   const events = [
     { id:'rawfest', name:'RAWfest', from:1, to:50 },
-    { id:'bonfire', name:'High Hurstwood Bonfire', from:51, to:73 },
     { id:'dedbest', name:'Dedbest / Elsewhere', from:74, to:134 },
     { id:'taco', name:'The Hurstwood Taco Night', from:135, to:243 }
   ];
@@ -189,17 +189,13 @@
     section.dataset.event = ev.id;
 
     section.innerHTML = `
-      <div class="section-header">
-        <div class="section-title">${ev.name}</div>
-      </div>
+      <div class="section-title">${ev.name}</div>
       <div class="gallery"></div>
     `;
 
     const gallery = section.querySelector('.gallery');
 
-    // ✅ FIXED LOOP
     for(let i = ev.from; i <= ev.to; i++){
-
       const t = document.createElement('div');
       t.className = 'thumb';
 
@@ -216,7 +212,7 @@
     container.appendChild(section);
   });
 
-  // Filter
+  // Filters
   filterBtns.forEach(btn=>{
     btn.onclick = ()=>{
       filterBtns.forEach(b=>b.classList.remove('active'));
