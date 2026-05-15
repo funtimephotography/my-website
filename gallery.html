@@ -156,6 +156,7 @@
 
 </main>
 
+<!-- Lightbox -->
 <div class="lightbox" id="lightbox">
   <div class="backdrop" id="lb-backdrop"></div>
   <div class="frame">
@@ -189,19 +190,18 @@
 
     const gallery = section.querySelector('.gallery');
 
-    // ✅ SAME LOOP — but loads thumbnails instead
     for(let i = ev.from; i <= ev.to; i++){
       const t = document.createElement('div');
       t.className = 'thumb';
 
       const img = document.createElement('img');
 
-      // ✅ FAST THUMB
-      img.src = `./thumbs/photo${i}.webp`;
+      // ✅ BACK TO WORKING IMAGE PATH
+      img.src = `./photo${i}.jpg`;
 
       img.alt = `${ev.name} photo ${i}`;
 
-      // ✅ performance tweaks
+      // ✅ tiny performance boost (safe)
       img.loading = 'lazy';
       img.decoding = 'async';
 
@@ -213,7 +213,7 @@
     container.appendChild(section);
   });
 
-  // ✅ Filters unchanged (safe)
+  // Filters
   filterBtns.forEach(btn=>{
     btn.onclick = ()=>{
       filterBtns.forEach(b=>b.classList.remove('active'));
@@ -227,20 +227,14 @@
     };
   });
 
-  // ✅ Lightbox (upgraded to load full image)
+  // Lightbox
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lb-img');
 
   document.addEventListener('click', e=>{
     const img = e.target.closest('.thumb img');
     if(!img) return;
-
-    // ✅ swap thumb → full
-    const full = img.src
-      .replace('/thumbs/', '/')
-      .replace('.webp', '.jpg');
-
-    lbImg.src = full;
+    lbImg.src = img.src;
     lb.classList.add('visible');
   });
 
