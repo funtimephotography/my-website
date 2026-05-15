@@ -357,6 +357,10 @@
       img.onclick = ()=>{
         document.getElementById('lb-img').src = src;
         document.getElementById('lightbox').classList.add('visible');
+        
+ document.getElementById('lightbox').onclick = () => {
+    document.getElementById('lightbox').classList.remove('visible');
+
       };
 
     });
