@@ -183,6 +183,18 @@
   const filterBtns = [...document.querySelectorAll('.filter-btn')];
   const sections = {};
 
+  
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.loadMore();
+      }
+    });
+  }, {
+    rootMargin: "300px"
+  });
+
+  
   events.forEach(ev=>{
     const section = document.createElement('section');
     section.className = 'section';
@@ -195,22 +207,68 @@
 
     const gallery = section.querySelector('.gallery');
 
-    for(let i = ev.from; i <= ev.to; i++){
+  
+const BATCH_SIZE = 20;
+
+events.forEach(ev => {
+
+  const section = document.createElement('section');
+  section.className = 'section';
+  section.dataset.event = ev.id;
+
+  section.innerHTML = `
+    <div class="section-title">${ev.name}</div>
+    <div class="gallery"></div>
+    <div class="sentinel"></div>
+  `;
+
+  const gallery = section.querySelector('.gallery');
+  const sentinel = section.querySelector('.sentinel');
+
+  let current = ev.from;
+
+  function loadBatch(){
+    const end = Math.min(current + BATCH_SIZE - 1, ev.to);
+
+    for(let i = current; i <= end; i++){
       const t = document.createElement('div');
       t.className = 'thumb';
 
       const img = document.createElement('img');
-      img.src = `./photo${i}.jpg`;
+
+      // 👉 USE THUMBNAILS HERE
+      img.src = `./thumbs/photo${i}.webp`;
+
       img.alt = `${ev.name} photo ${i}`;
       img.loading = 'lazy';
+      img.decoding = 'async';
 
       t.appendChild(img);
       gallery.appendChild(t);
     }
 
-    sections[ev.id] = section;
-    container.appendChild(section);
-  });
+    current = end + 1;
+
+    // stop when done
+    if(current > ev.to){
+      observer.unobserve(sentinel);
+    }
+  }
+
+  // initial load
+  loadBatch();
+
+  // observe bottom trigger
+  observer.observe(sentinel);
+
+  // store function for reuse
+  sentinel.loadMore = loadBatch;
+
+  sections[ev.id] = section;
+  container.appendChild(section);
+});
+``
+
 
   // Filters
   filterBtns.forEach(btn=>{
