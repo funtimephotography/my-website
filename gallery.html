@@ -1,7 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Funtime Photography – Event Gallery</title>
+
+  <!-- MATCHES INDEX -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-a:#2b1a4a;
+      --bg-b:#1b0f2e;
+      --bg-c:#0d0617;
+      --accent:#00e0ff;
+      --panel:rgba(255,255,255,0.06);
+      --text-main:#f5f5fa;
+      --text-muted:rgba(245,245,250,0.6);
+      --max-width:1200px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      font-family:Montserrat,system-ui,sans-serif;
+      background:radial-gradient(circle at 20% 20%,var(--bg-a),var(--bg-b) 55%,var(--bg-c));
+      color:var(--text-main);
+      overflow-x:hidden;
+    }
+
+    .topbar{
+      position:fixed;
+      top:0;left:0;right:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 30px;
+      background:rgba(10,6,23,0.75);
+      backdrop-filter:blur(10px);
+      z-index:1000;
+    }
+    .topbar img{width:60px;height:60px;border-radius:50%}
+    .topbar nav a{
+      font-family:'Bebas Neue',sans-serif;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:var(--text-main);
+      text-decoration:none;
+      margin:0 14px;
+      font-size:18px;
+    }
+    .topbar nav a:hover{color:var(--accent)}
+
+    .container{
+      max-width:var(--max-width);
+      margin:96px auto 40px;
+      padding:0 20px;
+    }
+
+    .controls{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+    .filter-btn{
+      background:var(--panel);
+      border:0;
+      padding:10px 16px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      color:var(--text-main);
+    }
+    .filter-btn.active{
+      background:linear-gradient(135deg,var(--accent),#007d96);
+      color:#001417;
+    }
+
+    .section{
+      margin-bottom:32px;
+      background:var(--panel);
+      border-radius:16px;
+      padding:16px;
+    }
+    .section-title{
+      font-family:'Bebas Neue',sans-serif;
+      letter-spacing:1.5px;
+      font-size:1.3rem;
+      margin-bottom:12px;
+    }
+
+    .gallery{
+      column-count:4;
+      column-gap:12px;
+    }
+    .thumb{
+      break-inside:avoid;
+      margin-bottom:12px;
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .thumb img{
+      width:100%;
+      display:block;
+      transition:.3s;
+    }
+    .thumb:hover img{
+      transform:scale(1.05);
+      box-shadow:0 10px 26px rgba(0,0,0,0.6);
+    }
+
+    @media(max-width:1200px){.gallery{column-count:3}}
+    @media(max-width:900px){.gallery{column-count:2}}
+    @media(max-width:600px){.gallery{column-count:1}}
+
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999}
+    .lightbox.visible{display:flex}
+    .backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.92)}
+    .frame{position:relative;max-width:95%;max-height:95%}
+    .frame img{max-width:100%;max-height:100%;border-radius:10px}
+    .close-btn{
+      position:absolute;
+      right:-12px;top:-12px;
+      background:white;
+      width:36px;height:36px;
+      border-radius:50%;
+      border:0;
+      cursor:pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <img src="logo.png" alt="Funtime Photography">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <div class="controls">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="rawfest">RAWfest</button>
+    <button class="filter-btn" data-filter="dedbest">Dedbest / Elsewhere</button>
+    <button class="filter-btn" data-filter="taco">Taco Night</button>
+  </div>
+
+  <div id="eventsContainer"></div>
+
+</main>
+
+<div class="lightbox" id="lightbox">
+  <div class="backdrop" id="lb-backdrop"></div>
+  <div class="frame">
+    <img id="lb-img" src="" alt="">
+    <button class="close-btn" id="lb-close">✕</button>
+  </div>
+</div>
+
 <script>
 (function(){
-
-  const BATCH_SIZE = 20;
 
   const events = [
     { id:'rawfest', name:'RAWfest', from:1, to:50 },
@@ -13,20 +177,7 @@
   const filterBtns = [...document.querySelectorAll('.filter-btn')];
   const sections = {};
 
-  // ✅ OBSERVER (for Netflix scroll)
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting && entry.target.loadMore){
-        entry.target.loadMore();
-      }
-    });
-  }, {
-    rootMargin: "300px"
-  });
-
-  // ✅ BUILD SECTIONS (same structure)
-  events.forEach(ev => {
-
+  events.forEach(ev=>{
     const section = document.createElement('section');
     section.className = 'section';
     section.dataset.event = ev.id;
@@ -34,133 +185,70 @@
     section.innerHTML = `
       <div class="section-title">${ev.name}</div>
       <div class="gallery"></div>
-      <div class="sentinel"></div>
     `;
 
     const gallery = section.querySelector('.gallery');
-    const sentinel = section.querySelector('.sentinel');
 
-    let current = ev.from;
+    // ✅ SAME LOOP — but loads thumbnails instead
+    for(let i = ev.from; i <= ev.to; i++){
+      const t = document.createElement('div');
+      t.className = 'thumb';
 
-    // ✅ LOAD NEXT BATCH
-    function loadBatch(){
+      const img = document.createElement('img');
 
-      if(current > ev.to) return;
+      // ✅ FAST THUMB
+      img.src = `./thumbs/photo${i}.webp`;
 
-      const end = Math.min(current + BATCH_SIZE - 1, ev.to);
+      img.alt = `${ev.name} photo ${i}`;
 
-      for(let i = current; i <= end; i++){
+      // ✅ performance tweaks
+      img.loading = 'lazy';
+      img.decoding = 'async';
 
-        const t = document.createElement('div');
-        t.className = 'thumb';
-
-        const img = document.createElement('img');
-
-        // ✅ thumbnail
-        img.src = `./thumbs/photo${i}.webp`;
-
-        img.alt = `${ev.name} photo ${i}`;
-        img.loading = 'lazy';
-        img.decoding = 'async';
-
-        t.appendChild(img);
-        gallery.appendChild(t);
-      }
-
-      current = end + 1;
-
-      // ✅ stop when done
-      if(current > ev.to){
-        observer.unobserve(sentinel);
-      }
+      t.appendChild(img);
+      gallery.appendChild(t);
     }
 
-    // attach loader to sentinel
-    sentinel.loadMore = loadBatch;
-
-    sections[ev.id] = {
-      element: section,
-      gallery,
-      sentinel,
-      loadBatch,
-      loadedFirst: false
-    };
-
+    sections[ev.id] = section;
     container.appendChild(section);
-
-    section.style.display = 'none';
   });
 
-  // ✅ FILTERS (folder only)
-  filterBtns.forEach(btn => {
-
-    btn.onclick = () => {
-
-      filterBtns.forEach(b => b.classList.remove('active'));
+  // ✅ Filters unchanged (safe)
+  filterBtns.forEach(btn=>{
+    btn.onclick = ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
 
-      const selected = btn.dataset.filter;
+      const f = btn.dataset.filter;
 
-      Object.entries(sections).forEach(([key, obj]) => {
-
-        if(key === selected){
-
-          obj.element.style.display = 'block';
-
-          // ✅ FIRST LOAD ONLY ON OPEN
-          if(!obj.loadedFirst){
-            obj.loadBatch();
-            obj.loadedFirst = true;
-          }
-
-          // ✅ activate scroll loading
-          observer.observe(obj.sentinel);
-
-        } else {
-
-          obj.element.style.display = 'none';
-
-          // ✅ STOP watching hidden sections
-          observer.unobserve(obj.sentinel);
-        }
-
+      Object.values(sections).forEach(s=>{
+        s.style.display = (f === 'all' || s.dataset.event === f) ? '' : 'none';
       });
     };
   });
 
-  // ✅ AUTO OPEN FIRST FOLDER
-  if(filterBtns.length){
-    filterBtns[0].click();
-  }
-
-  // ✅ LIGHTBOX (same + full image swap)
+  // ✅ Lightbox (upgraded to load full image)
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lb-img');
 
-  document.addEventListener('click', e => {
-
+  document.addEventListener('click', e=>{
     const img = e.target.closest('.thumb img');
     if(!img) return;
 
-    let fullSrc = img.src;
+    // ✅ swap thumb → full
+    const full = img.src
+      .replace('/thumbs/', '/')
+      .replace('.webp', '.jpg');
 
-    if(fullSrc.includes('/thumbs/')){
-      fullSrc = fullSrc.replace('/thumbs/', '/').replace('.webp', '.jpg');
-    }
-
-    lbImg.src = fullSrc;
+    lbImg.src = full;
     lb.classList.add('visible');
   });
 
-  document.getElementById('lb-close').onclick = () => {
-    lb.classList.remove('visible');
-    lbImg.src = "";
-  };
-
-  document.getElementById('lb-backdrop').onclick = () => {
-    lb.classList.remove('visible');
-    lbImg.src = "";
-  };
+  document.getElementById('lb-close').onclick = ()=> lb.classList.remove('visible');
+  document.getElementById('lb-backdrop').onclick = ()=> lb.classList.remove('visible');
 
 })();
 </script>
+
+</body>
+</html>
