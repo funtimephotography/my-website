@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -104,15 +105,10 @@
 
     .slogan .brand { color:#fff; }
 
-    .slogan .brand {
-  color: #fff;
-  font-size: 1em;
-}
-
-.slogan .tagline {
-  color: #000;
-  font-size: 0.6em;
-  text-shadow:0 6px 25px rgba(0,0,0,0.9);
+    .slogan .tagline {
+      color:#000;
+      font-size:0.6em;
+      text-shadow:0 6px 25px rgba(0,0,0,0.9);
     }
 
     .slogan-bar {
@@ -134,21 +130,53 @@
       padding:0 20px;
     }
 
-  
-.blurb {
-  background:rgba(255,255,255,0.06);
-  border-radius:16px;
-  padding:40px;
-  line-height:1.8;
-  color:var(--text-muted);
-  margin-bottom:50px;
-  text-align: center; /* ✅ centers all text */
-}
+    /* ✅ NEW LAYOUT */
+    .blurb-row {
+      max-width:var(--max-width);
+      margin:50px auto;
+      padding:0 20px;
+      display:grid;
+      grid-template-columns:1fr 2fr 1fr;
+      gap:20px;
+      align-items:start;
+    }
 
+    /* ✅ SIDE IMAGES */
+    .side-images {
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
 
-    .blurb p + p { margin-top:16px; }
+    .side-images img {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:12px;
+      opacity:0;
+      transform:translateY(20px);
+      transition:0.4s ease;
+      cursor:pointer;
+    }
 
-    /* NEW RANDOM IMAGES */
+    .side-images img.loaded {
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .side-images img:hover {
+      transform:scale(1.04);
+    }
+
+    .blurb {
+      background:rgba(255,255,255,0.06);
+      border-radius:16px;
+      padding:40px;
+      line-height:1.8;
+      color:var(--text-muted);
+      text-align:center;
+    }
+
     .random-images {
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -170,10 +198,6 @@
     .random-images img.loaded {
       opacity:1;
       transform:translateY(0);
-    }
-
-    .random-images img:hover {
-      transform:scale(1.03);
     }
 
     .outro {
@@ -201,43 +225,42 @@
       text-decoration:none;
     }
 
-  
-.lightbox {
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.85); /* ✅ dark backdrop */
-  z-index:9999;
-}
+    .lightbox {
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.85);
+      z-index:9999;
+    }
 
-.lightbox.visible {
-  display:flex;
-}
+    .lightbox.visible {
+      display:flex;
+    }
 
-.lightbox img {
-  max-width:900px;     /* ✅ controlled size */
-  width:90%;
-  max-height:85vh;
-  border-radius:12px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.8);
-  background:#111;
-  transition:transform 0.25s ease;
-  
-}
-
-.lightbox.visible img {
-  transform:scale(1);
-
-}
-
+    .lightbox img {
+      max-width:900px;
+      width:90%;
+      max-height:85vh;
+      border-radius:12px;
+    }
 
     .footer-left a {
-  color: #fff !important;
-  text-decoration: none !important;
+      color:#fff !important;
+      text-decoration:none !important;
     }
-  
+
+    /* ✅ MOBILE FIX */
+    @media(max-width:900px){
+      .blurb-row{
+        grid-template-columns:1fr;
+      }
+      .side-images{
+        flex-direction:row;
+        overflow-x:auto;
+      }
+    }
 
   </style>
 </head>
@@ -269,49 +292,46 @@
   </div>
 </section>
 
+<!-- ✅ NEW BLURB WITH SIDE IMAGES -->
+<div class="blurb-row">
 
-<section class="blurb">
+  <div class="side-images random-images">
+    <img><img><img>
+  </div>
 
-  <p><strong>I’m Frank, the photographer behind Funtime Photography.</strong></p>
+  <section class="blurb">
+    <p><strong>I’m Frank, the photographer behind Funtime Photography.</strong></p>
+    <p>I don’t shoot from the sidelines. I’m in the crowd, moving with the music, capturing the moments that actually define your night - the energy, the people, and everything in between.</p>
+    <p>From grassroots parties to full-scale festivals across Sussex, I create content that makes your events look as good as they feel.</p>
+    <p><strong>Your event isn’t just a night. It’s your brand.</strong></p>
+    <p>The right photos don’t just document it, they:</p>
+    <p>• Fill your next event<br>
+       • Build your presence online<br>
+       • Show the energy people don’t want to miss
+    </p>
+    <p>That’s what I focus on every time I shoot.</p>
+  </section>
 
-  <p>I don’t shoot from the sidelines. I’m in the crowd, moving with the music, capturing the moments that actually define your night - the energy, the people, and everything in between.</p>
+  <div class="side-images random-images">
+    <img><img><img>
+  </div>
 
-  <p>From grassroots parties to full-scale festivals across Sussex, I create content that makes your events look as good as they feel.</p>
+</div>
 
-  <p><strong>Your event isn’t just a night. It’s your brand.</strong></p>
-
-  <p>The right photos don’t just document it, they:</p>
-
-  <p>• Fill your next event<br>
-     • Build your presence online<br>
-     • Show the energy people don’t want to miss
-  </p>
-
-  <p>That’s what I focus on every time I shoot.</p>
-
-</section>
-
-<!-- RANDOM IMAGES -->
+<!-- EXISTING -->
 <div class="random-images">
   <img><img><img>
 </div>
 
 <section class="outro">
 <p>From intimate events to packed venues, I capture the full story of the night.</p>
-
 <p>From intimate pop-ups to packed-out venues and weekend festivals</p>
-  
-  <p>I provide people-focused photography that captures the full story of the night - not just what it looked like, but what it felt like.</p>
-  
+<p>I provide people-focused photography that captures the full story of the night - not just what it looked like, but what it felt like.</p>
 </section>
 
-<!-- RANDOM IMAGES -->
 <div class="random-images">
   <img><img><img>
-  
 </div>
-
-</main>
 
 <footer id="contact">
   <div class="footer-left">
@@ -357,10 +377,10 @@
       img.onclick = ()=>{
         document.getElementById('lb-img').src = src;
         document.getElementById('lightbox').classList.add('visible');
-        
- document.getElementById('lightbox').onclick = () => {
-    document.getElementById('lightbox').classList.remove('visible');
 
+        document.getElementById('lightbox').onclick = () => {
+          document.getElementById('lightbox').classList.remove('visible');
+        };
       };
 
     });
