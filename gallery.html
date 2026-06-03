@@ -1,265 +1,266 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Funtime Photography – Event Gallery</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <!-- MATCHES INDEX -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<title>Funtime Photography – Event Gallery</title>
 
-  <style>
-    :root{
-      --bg-a:#2b1a4a;
-      --bg-b:#1b0f2e;
-      --bg-c:#0d0617;
-      --accent:#00e0ff;
-      --panel:rgba(255,255,255,0.06);
-      --text-main:#f5f5fa;
-      --text-muted:rgba(245,245,250,0.6);
-      --max-width:1200px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 
-    *{box-sizing:border-box;margin:0;padding:0}
-
-    body{
-      font-family:Montserrat,system-ui,sans-serif;
-      background:radial-gradient(circle at 20% 20%,var(--bg-a),var(--bg-b) 55%,var(--bg-c));
-      color:var(--text-main);
-      overflow-x:hidden;
-    }
-
-    .topbar{
-      position:fixed;
-      top:0;left:0;right:0;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 30px;
-      background:rgba(10,6,23,0.75);
-      backdrop-filter:blur(10px);
-      z-index:1000;
-    }
-    .topbar img{width:60px;height:60px;border-radius:50%}
-    .topbar nav a{
-      font-family:'Bebas Neue',sans-serif;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      color:var(--text-main);
-      text-decoration:none;
-      margin:0 14px;
-      font-size:18px;
-    }
-    .topbar nav a:hover{color:var(--accent)}
-
-    .container{
-      max-width:var(--max-width);
-      margin:96px auto 40px;
-      padding:0 20px;
-    }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:24px;
-    }
-    .filter-btn{
-      background:var(--panel);
-      border:0;
-      padding:10px 16px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:600;
-      color:var(--text-main);
-    }
-    .filter-btn.active{
-      background:linear-gradient(135deg,var(--accent),#007d96);
-      color:#001417;
-    }
-
-    .section{
-      margin-bottom:32px;
-      background:var(--panel);
-      border-radius:16px;
-      padding:16px;
-    }
-    .section-title{
-      font-family:'Bebas Neue',sans-serif;
-      letter-spacing:1.5px;
-      font-size:1.3rem;
-      margin-bottom:12px;
-    }
-
-    .gallery{
-      column-count:4;
-      column-gap:12px;
-    }
-    .thumb{
-      break-inside:avoid;
-      margin-bottom:12px;
-      border-radius:12px;
-      overflow:hidden;
-      cursor:pointer;
-    }
-    .thumb img{
-      width:100%;
-      display:block;
-      transition:.3s;
-    }
-    .thumb:hover img{
-      transform:scale(1.05);
-      box-shadow:0 10px 26px rgba(0,0,0,0.6);
-    }
-
-    @media(max-width:1200px){.gallery{column-count:3}}
-    @media(max-width:900px){.gallery{column-count:2}}
-    @media(max-width:600px){.gallery{column-count:1}}
-
-    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999}
-    .lightbox.visible{display:flex}
-    .backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.92)}
-   
-.frame {
-  position: relative;
-  max-width: 900px;
-  max-height: 85vh;
-  width: 90%;
-  background: rgba(20, 15, 40, 0.95);
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+<style>
+:root{
+  --bg-a:#2b1a4a;
+  --bg-b:#1b0f2e;
+  --bg-c:#0d0617;
+  --accent:#00e0ff;
+  --panel:rgba(255,255,255,0.06);
+  --text-main:#f5f5fa;
+  --text-muted:rgba(245,245,250,0.6);
 }
 
-.frame img {
-  width: 100%;
-  height: auto;
-  max-height: 85vh;
-  border-radius: 8px;
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Montserrat,sans-serif;
+  background:radial-gradient(circle at 20% 20%,var(--bg-a),var(--bg-b) 55%,var(--bg-c));
+  color:var(--text-main);
 }
 
-    .close-btn{
-      position:absolute;
-      right:-12px;top:-12px;
-      background:white;
-      width:36px;height:36px;
-      border-radius:50%;
-      border:0;
-      cursor:pointer;
-    }
-  </style>
+.topbar{
+  position:fixed;
+  top:0;left:0;right:0;
+  display:flex;
+  justify-content:space-between;
+  padding:14px 30px;
+  background:rgba(10,6,23,0.75);
+}
+
+.topbar img{width:60px;border-radius:50%}
+
+.topbar a{
+  font-family:'Bebas Neue';
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+}
+
+.container{
+  max-width:1200px;
+  margin:100px auto;
+  padding:0 20px;
+}
+
+.controls{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.filter-btn{
+  padding:10px 14px;
+  border-radius:8px;
+  border:0;
+  background:var(--panel);
+  color:white;
+  cursor:pointer;
+}
+
+.filter-btn.active{
+  background:var(--accent);
+  color:black;
+}
+
+.section{
+  margin-bottom:40px;
+}
+
+.section-title{
+  font-family:'Bebas Neue';
+  margin-bottom:15px;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:12px;
+}
+
+.thumb img{
+  width:100%;
+  border-radius:10px;
+  height:250px;
+  object-fit:cover;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.thumb img:hover{
+  transform:scale(1.05);
+}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.lightbox.active{display:flex}
+
+.lightbox img{
+  max-width:90%;
+  max-height:85vh;
+  border-radius:10px;
+}
+
+</style>
 </head>
 
 <body>
 
 <header class="topbar">
-  <img src="logo.png" alt="Funtime Photography">
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<img src="logo.png">
+<div>
+<a href="index.html">Home</a>
+<a href="#contact">Contact</a>
+</div>
 </header>
 
 <main class="container">
 
-  <div class="controls">
-    
-    <button class="filter-btn" data-filter="rawfest">RAWfest</button>
-    <button class="filter-btn" data-filter="dedbest">Dedbest / Elsewhere</button>
-    <button class="filter-btn" data-filter="taco">Taco Night</button>
-  </div>
+<div class="controls">
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="rawfest">RAWfest</button>
+<button class="filter-btn" data-filter="dedbest">Dedbest</button>
+<button class="filter-btn" data-filter="taco">Taco Night</button>
+</div>
 
-  <div id="eventsContainer"></div>
+<div id="eventsContainer"></div>
 
 </main>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox">
-  <div class="backdrop" id="lb-backdrop"></div>
-  <div class="frame">
-    <img id="lb-img" src="" alt="">
-    <button class="close-btn" id="lb-close">✕</button>
-  </div>
+<img id="lightbox-img">
 </div>
 
 <script>
 (function(){
 
-  const events = [
-    { id:'rawfest', name:'RAWfest', from:1, to:50 },
-    { id:'dedbest', name:'Dedbest / Elsewhere', from:74, to:134 },
-    { id:'taco', name:'The Hurstwood Taco Night', from:135, to:243 }
-  ];
+const events = [
+  { id:'rawfest', name:'RAWfest', from:1, to:50 },
+  { id:'dedbest', name:'Dedbest / Elsewhere', from:74, to:134 },
+  { id:'taco', name:'Taco Night', from:135, to:243 }
+];
 
-  const container = document.getElementById('eventsContainer');
-  const filterBtns = [...document.querySelectorAll('.filter-btn')];
-  const sections = {};
+const container = document.getElementById('eventsContainer');
 
-  events.forEach(ev=>{
-    const section = document.createElement('section');
-    section.className = 'section';
-    section.dataset.event = ev.id;
+const sections = {};
 
-    section.innerHTML = `
-      <div class="section-title">${ev.name}</div>
-      <div class="gallery"></div>
-    `;
+// ✅ Create sections (empty at first)
+events.forEach(ev=>{
+  const section = document.createElement('div');
+  section.className = 'section';
+  section.dataset.event = ev.id;
 
-    const gallery = section.querySelector('.gallery');
+  section.innerHTML = `
+    <div class="section-title">${ev.name}</div>
+    <div class="gallery"></div>
+  `;
 
-    for(let i = ev.from; i <= ev.to; i++){
-      const t = document.createElement('div');
-      t.className = 'thumb';
+  container.appendChild(section);
+  sections[ev.id] = { el:section, ev, loaded:0 };
+});
 
-      const img = document.createElement('img');
+// ✅ LOAD IMAGES IN CHUNKS
+function loadMore(sectionObj){
 
-      // ✅ BACK TO WORKING IMAGE PATH
-      img.src = `./photo${i}.jpg`;
+  const {ev} = sectionObj;
+  const gallery = sectionObj.el.querySelector('.gallery');
 
-      img.alt = `${ev.name} photo ${i}`;
+  const batchSize = 12;
 
-      // ✅ tiny performance boost (safe)
-      img.loading = 'lazy';
-      img.decoding = 'async';
+  for(let i=0;i<batchSize;i++){
 
-      t.appendChild(img);
-      gallery.appendChild(t);
+    const index = ev.from + sectionObj.loaded;
+
+    if(index > ev.to) return;
+
+    const img = document.createElement('img');
+    img.src = `photo${index}.jpg`;
+    img.loading = "lazy";
+
+    const wrap = document.createElement('div');
+    wrap.className = "thumb";
+    wrap.appendChild(img);
+
+    gallery.appendChild(wrap);
+
+    sectionObj.loaded++;
+  }
+}
+
+// ✅ INTERSECTION OBSERVER (loads when visible)
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const section = sections[entry.target.dataset.event];
+      loadMore(section);
     }
-
-    sections[ev.id] = section;
-    container.appendChild(section);
   });
+},{threshold:0.2});
 
-  // Filters
-  filterBtns.forEach(btn=>{
-    btn.onclick = ()=>{
-      filterBtns.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
+// Observe sections
+Object.values(sections).forEach(s=>{
+  observer.observe(s.el);
+});
 
-      const f = btn.dataset.filter;
-
-      Object.values(sections).forEach(s=>{
-        s.style.display = (f === 'all' || s.dataset.event === f) ? '' : 'none';
-      });
-    };
+// ✅ Load more on scroll inside section
+window.addEventListener('scroll', ()=>{
+  Object.values(sections).forEach(s=>{
+    if(s.loaded < (s.ev.to - s.ev.from)){
+      const rect = s.el.getBoundingClientRect();
+      if(rect.bottom < window.innerHeight + 200){
+        loadMore(s);
+      }
+    }
   });
+});
 
-  // Lightbox
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lb-img');
+// FILTERS
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
 
-  document.addEventListener('click', e=>{
-    const img = e.target.closest('.thumb img');
-    if(!img) return;
-    lbImg.src = img.src;
-    lb.classList.add('visible');
-  });
+    const f = btn.dataset.filter;
 
-  document.getElementById('lb-close').onclick = ()=> lb.classList.remove('visible');
-  document.getElementById('lb-backdrop').onclick = ()=> lb.classList.remove('visible');
+    Object.values(sections).forEach(s=>{
+      s.el.style.display = (f==='all'||s.ev.id===f) ? '' : 'none';
+    });
+  };
+});
+
+// LIGHTBOX
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+
+document.addEventListener('click', e=>{
+  const img = e.target.closest('.thumb img');
+  if(!img) return;
+
+  lbImg.src = img.src;
+  lb.classList.add('active');
+});
+
+lb.onclick = ()=>lb.classList.remove('active');
 
 })();
 </script>
 
 </body>
 </html>
+``
