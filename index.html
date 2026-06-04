@@ -1,22 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-<title>Funtime Photography | Sussex Event & Nightlife Photographer</title>
+<title>Funtime Photography | Sussex Event Photographer</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 
 <style>
 
-:root {
+:root{
   --bg:#0d0617;
   --bg2:#2b1a4a;
   --accent:#00e0ff;
   --text:#f5f5fa;
-  --muted:rgba(255,255,255,0.65);
-  --max:1100px;
+  --muted:rgba(255,255,255,0.75);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -29,191 +28,200 @@ body{
 
 /* NAV */
 .topbar{
-  position:fixed;
-  top:0;left:0;right:0;
-  display:flex;
-  justify-content:space-between;
+  position:fixed;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;
   padding:15px 30px;
   background:rgba(0,0,0,0.6);
   backdrop-filter:blur(10px);
   z-index:999;
 }
 
-.topbar img{
-  width:60px;
-  border-radius:50%;
-}
+.topbar img{width:60px;border-radius:50%}
 
 .topbar a{
-  color:white;
-  text-decoration:none;
-  margin-left:20px;
-  font-family:'Bebas Neue';
-  letter-spacing:2px;
+  color:white;text-decoration:none;margin-left:20px;
+  font-family:'Bebas Neue';letter-spacing:2px;
 }
 
 /* HERO */
 .hero{
-  height:90vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  height:95vh;
+  display:flex;align-items:center;justify-content:center;
   text-align:center;
   position:relative;
 }
 
 .hero:before{
   content:"";
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background:url("ftp-hero.jpg") center/cover no-repeat;
-  filter:brightness(0.5);
+  filter:brightness(0.45);
 }
 
 .hero-inner{
-  position:relative;
-  z-index:2;
+  position:relative;z-index:2;
   max-width:800px;
+  animation:fadeUp 1s ease;
 }
 
 .hero h1{
   font-family:'Bebas Neue';
-  font-size:clamp(50px,10vw,110px);
-  letter-spacing:3px;
-  text-shadow:0 10px 40px rgba(0,0,0,0.7);
+  font-size:clamp(60px,10vw,120px);
+  letter-spacing:4px;
+  text-shadow:0 20px 50px rgba(0,0,0,0.8);
 }
 
 .hero p{
-  margin:15px 0 25px;
+  margin:15px 0;
   color:var(--muted);
+}
+
+.hero-punch{
+  color:var(--accent);
+  font-weight:600;
+  margin-bottom:20px;
 }
 
 /* CTA */
 .cta{
-  display:inline-block;
   padding:16px 32px;
   background:linear-gradient(135deg,var(--accent),#006c80);
   border-radius:8px;
   text-decoration:none;
   color:white;
   font-weight:700;
-  box-shadow:0 10px 30px rgba(0,224,255,0.3);
-  transition:0.25s;
+  box-shadow:0 15px 40px rgba(0,224,255,0.4);
+  transition:.25s;
+  display:inline-block;
 }
 
 .cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 20px 40px rgba(0,224,255,0.5);
+  transform:translateY(-3px);
+  box-shadow:0 25px 60px rgba(0,224,255,0.6);
 }
 
 /* SECTION */
 .section{
-  max-width:var(--max);
-  margin:80px auto;
-  padding:40px 20px;
+  max-width:1100px;
+  margin:100px auto;
+  padding:50px 20px;
   background:rgba(255,255,255,0.03);
   border-radius:16px;
+  animation:fadeUp .8s ease;
+}
+
+/* TITLES */
+.section-title{
+  font-family:'Bebas Neue';
+  text-align:center;
+  font-size:40px;
+  margin-bottom:25px;
 }
 
 /* ABOUT */
 .about{
   text-align:center;
-  line-height:1.8;
+  line-height:1.9;
+  max-width:760px;
+  margin:auto;
   color:var(--muted);
-  max-width:750px;
-  margin:0 auto;
 }
 
-.about strong{
-  color:white;
+.highlight{
+  color:var(--accent);
+  font-weight:600;
+  margin-top:20px;
 }
 
 /* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
-  margin-top:40px;
+  gap:18px;
 }
 
 .grid img{
   width:100%;
   height:260px;
   object-fit:cover;
-  border-radius:10px;
+  border-radius:12px;
   cursor:pointer;
-  transition:0.4s;
-  box-shadow:0 15px 35px rgba(0,0,0,0.5);
+  box-shadow:0 15px 40px rgba(0,0,0,0.5);
+  transition:.4s;
+  opacity:0;
+  transform:translateY(20px);
+}
+
+.grid img.loaded{
+  opacity:1;
+  transform:translateY(0);
 }
 
 .grid img:hover{
   transform:scale(1.07);
-  box-shadow:0 25px 60px rgba(0,0,0,0.8);
 }
 
-/* SELL SECTION */
+/* FEATURED IMAGE */
+.grid img:first-child{
+  grid-column:span 2;
+  height:100%;
+}
+
+/* SELL */
 .sell{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:60px;
+  gap:70px;
   align-items:center;
 }
 
 .sell h2{
   font-family:'Bebas Neue';
-  font-size:56px;
-}
-
-.sell ul{
-  margin-top:20px;
-  list-style:none;
+  font-size:60px;
 }
 
 .sell li{
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
 
 /* FOOTER */
 footer{
-  margin-top:80px;
-  padding:50px 20px;
+  margin-top:100px;
+  padding:60px 20px;
   background:black;
   display:flex;
   justify-content:space-between;
   flex-wrap:wrap;
 }
 
-footer a{
-  color:white;
-  text-decoration:none;
-}
-
 /* LIGHTBOX */
 .lightbox{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.9);
+  background:rgba(0,0,0,0.95);
   display:none;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   z-index:9999;
 }
+
+.lightbox.active{display:flex}
 
 .lightbox img{
   max-width:90%;
   max-height:85vh;
-  border-radius:10px;
+  border-radius:12px;
 }
 
-.lightbox.active{
-  display:flex;
+/* ANIMATION */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* MOBILE */
 @media(max-width:800px){
-  .sell{
-    grid-template-columns:1fr;
-  }
+  .sell{grid-template-columns:1fr}
+  .grid img:first-child{grid-column:span 1;}
 }
 
 </style>
@@ -233,31 +241,32 @@ footer a{
 <div class="hero-inner">
 <h1>Funtime Photography</h1>
 <p>Nightlife & Event Photography Across Sussex</p>
+<p class="hero-punch">Photos that fill your next event</p>
 <a class="cta" href="mailto:events@funtimephotography.co.uk">Book Your Event</a>
 </div>
 </section>
 
 <section class="section about">
 <p><strong>I’m Frank, the photographer behind Funtime Photography.</strong></p>
-
-<p>I’m in the middle of the dancefloor — capturing real moments, real energy, and the nights people actually remember.</p>
-
-<p>From grassroots events to packed-out venues and festivals, I create images that don’t just document your night — they sell your next one.</p>
+<p>I’m in the middle of the dancefloor capturing real moments, real energy, and nights people remember.</p>
+<p class="highlight">I create images that don’t just document your night — they sell your next one.</p>
 </section>
 
-<section class="section grid">
+<section class="section">
+<h2 class="section-title">Real Nights. Real Energy.</h2>
+<div class="grid">
 <img><img><img><img><img><img>
+</div>
 </section>
 
 <section class="section sell">
 <div>
 <h2>Your Event = Your Brand</h2>
-
 <ul>
 <li>✔ Fill your next event</li>
 <li>✔ Build your online presence</li>
 <li>✔ Show the energy people don’t want to miss</li>
-<li>✔ Stand out from every other promoter</li>
+<li>✔ Stand out from every promoter</li>
 </ul>
 </div>
 
@@ -270,9 +279,8 @@ footer a{
 <div>
 <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a><br>
 <a href="tel:+447834350911">07834 350911</a><br>
-<a href="https://instagram.com/funtimephotography.co.uk">@funtimephotography.co.uk</a>
+<a href="#">@funtimephotography.co.uk</a>
 </div>
-
 <div>© 2026 Funtime Photography</div>
 </footer>
 
@@ -284,31 +292,31 @@ footer a{
 (function(){
 
 const images=[];
-
 for(let i=1;i<=243;i++){
   images.push(`photo${i}.jpg`);
 }
 
 images.sort(()=>Math.random()-0.5);
 
-const allImgs=document.querySelectorAll("section img");
+const imgs=document.querySelectorAll("section img");
 
-allImgs.forEach((img,i)=>{
+imgs.forEach((img,i)=>{
   const src=images[i % images.length];
-
   img.src=src;
+
+  img.onload=()=>img.classList.add("loaded");
 
   img.onclick=()=>{
     document.getElementById("lb-img").src=src;
     document.getElementById("lightbox").classList.add("active");
-  };
+  }
 });
 
-const lightbox=document.getElementById("lightbox");
+const lb=document.getElementById("lightbox");
 
-lightbox.onclick=(e)=>{
-  if(e.target === lightbox){
-    lightbox.classList.remove("active");
+lb.onclick=(e)=>{
+  if(e.target===lb){
+    lb.classList.remove("active");
   }
 };
 
@@ -317,4 +325,3 @@ lightbox.onclick=(e)=>{
 
 </body>
 </html>
-``
