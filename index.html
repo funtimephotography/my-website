@@ -6,14 +6,13 @@
 
 <title>Funtime Photography | Sussex Event Photographer</title>
 
-https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-  --bg:#0d0617;
-  --bg2:#2b1a4a;
   --accent:#00e0ff;
+  --bg:#0d0617;
   --text:#f5f5fa;
   --muted:rgba(255,255,255,0.75);
 }
@@ -22,25 +21,30 @@ https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=
 
 body{
   font-family:Montserrat,sans-serif;
-  background:radial-gradient(circle at 20% 20%, #2b1a4a, #1b0f2e 60%, #0d0617);
+  background:linear-gradient(180deg,#0d0617,#1b0f2e,#0d0617);
   color:var(--text);
 }
 
 /* NAV */
 .topbar{
-  position:fixed;top:0;left:0;right:0;
-  display:flex;justify-content:space-between;
+  position:fixed;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
   padding:15px 30px;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(12px);
   z-index:999;
 }
 
 .topbar img{width:60px;border-radius:50%}
 
 .topbar a{
-  color:white;text-decoration:none;margin-left:20px;
-  font-family:'Bebas Neue';letter-spacing:2px;
+  font-family:'Bebas Neue';
+  color:white;
+  letter-spacing:2px;
+  margin-left:20px;
+  text-decoration:none;
 }
 
 /* HERO */
@@ -54,12 +58,12 @@ body{
   overflow:hidden;
 }
 
-.hero:before{
-  content:"";
+.hero-bg{
   position:absolute;
   inset:0;
   background:url("ftp-hero.jpg") center/cover no-repeat;
-  filter:brightness(0.45) scale(1.1);
+  transform:scale(1.1);
+  filter:brightness(0.45);
 }
 
 .hero-inner{
@@ -71,42 +75,45 @@ body{
 .hero h1{
   font-family:'Bebas Neue';
   font-size:clamp(60px,10vw,130px);
-  letter-spacing:4px;
-  text-shadow:0 20px 80px rgba(0,0,0,0.9);
+  text-shadow:0 30px 80px black;
+}
+
+.hero-sub{
+  margin:10px 0;
+  color:var(--muted);
 }
 
 .hero-punch{
   color:var(--accent);
   font-weight:700;
-  margin:15px 0 25px;
-  font-size:20px;
+  margin:20px 0;
 }
 
 /* CTA */
 .cta{
+  display:inline-block;
   padding:18px 36px;
   background:linear-gradient(135deg,var(--accent),#006c80);
   border-radius:10px;
+  font-weight:700;
   text-decoration:none;
   color:white;
-  font-weight:700;
   box-shadow:0 20px 60px rgba(0,224,255,0.4);
   transition:.3s;
 }
 
 .cta:hover{
   transform:translateY(-4px);
-  box-shadow:0 30px 80px rgba(0,224,255,0.7);
 }
 
 /* SECTIONS */
 .section{
   max-width:1100px;
   margin:120px auto;
-  padding:60px 30px;
+  padding:0 20px;
 }
 
-/* Fade scroll */
+/* FADE SCROLL */
 .fade{
   opacity:0;
   transform:translateY(40px);
@@ -121,53 +128,49 @@ body{
 /* ABOUT */
 .about{
   text-align:center;
-  max-width:750px;
+  max-width:700px;
   margin:auto;
-  line-height:1.9;
+  line-height:1.8;
   color:var(--muted);
 }
 
 .highlight{
   color:var(--accent);
   font-weight:600;
-  font-size:18px;
+  margin-top:20px;
 }
 
-/* GRID */
-.grid{
+/* FEATURE GRID */
+.feature-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:2fr 1fr 1fr;
   gap:20px;
 }
 
-.grid img{
+.feature-grid img{
   width:100%;
-  height:260px;
+  height:300px;
   object-fit:cover;
   border-radius:12px;
   cursor:pointer;
   transition:.4s;
   box-shadow:0 20px 50px rgba(0,0,0,0.6);
-  transform:scale(1);
 }
 
-.grid img:hover{
-  transform:scale(1.08) rotate(0.5deg);
-  box-shadow:0 30px 80px rgba(0,0,0,0.8);
-}
-
-/* FEATURE */
-.grid img:first-child{
-  grid-column:span 2;
+.feature-grid img:first-child{
+  grid-row:span 2;
   height:100%;
+}
+
+.feature-grid img:hover{
+  transform:scale(1.08);
 }
 
 /* SELL */
 .sell{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:70px;
-  align-items:center;
+  gap:80px;
 }
 
 .sell h2{
@@ -177,7 +180,15 @@ body{
 
 .sell li{
   margin-bottom:14px;
-  font-size:18px;
+}
+
+/* FOOTER */
+footer{
+  padding:60px 20px;
+  background:black;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
 }
 
 /* LIGHTBOX */
@@ -189,23 +200,19 @@ body{
   justify-content:center;
   align-items:center;
   z-index:9999;
-  backdrop-filter:blur(6px);
 }
+
+.lightbox.active{display:flex}
 
 .lightbox img{
   max-width:90%;
   max-height:85vh;
-  border-radius:12px;
-}
-
-.lightbox.active{
-  display:flex;
 }
 
 /* MOBILE */
-@media(max-width:800px){
+@media(max-width:900px){
+  .feature-grid{grid-template-columns:1fr}
   .sell{grid-template-columns:1fr}
-  .grid img:first-child{grid-column:span 1;}
 }
 
 </style>
@@ -222,45 +229,46 @@ body{
 </header>
 
 <section class="hero">
-<div class="hero-inner fade">
-<h1>Funtime Photography</h1>
+<div class="hero-bg" id="heroBg"></div>
+<div class="hero-inner">
+<h1>FUNTIME</h1>
+<p class="hero-sub">Nightlife & Event Photography Across Sussex</p>
 <p class="hero-punch">Photos that fill your next event</p>
 <a class="cta" href="mailto:events@funtimephotography.co.uk">Book Your Event</a>
 </div>
 </section>
 
-<section class="section fade about">
-<p><strong>I’m Frank, the photographer behind Funtime Photography.</strong></p>
+<section class="section about fade">
+<p><strong>I’m Frank...</strong></p>
 <p>I’m in the middle of the dancefloor capturing real moments and real energy.</p>
-<p class="highlight">I create images that don’t just document your night - they sell your next one.</p>
+<p class="highlight">I create images that sell your next night.</p>
 </section>
 
 <section class="section fade">
-<div class="grid">
-<img><img><img><img><img><img>
+<div class="feature-grid">
+<img><img><img><img><img>
 </div>
 </section>
 
-<section class="section fade sell">
+<section class="section sell fade">
 <div>
 <h2>Your Event = Your Brand</h2>
 <ul>
 <li>✔ Fill your next event</li>
-<li>✔ Build your online presence</li>
-<li>✔ Show the energy people don’t want to miss</li>
-<li>✔ Stand out from every promoter</li>
+<li>✔ Build presence</li>
+<li>✔ Create FOMO</li>
+<li>✔ Stand out</li>
 </ul>
 </div>
 
-<div class="grid">
+<div class="feature-grid">
 <img><img><img>
 </div>
 </section>
 
-<footer id="contact" class="section">
+<footer id="contact">
 events@funtimephotography.co.uk</a><br>
-07834 350911</a><br>
-<a href="#">@funtimephotography.co.uk</a>
+07834 350911</a>
 </footer>
 
 <div class="lightbox" id="lightbox">
@@ -270,44 +278,47 @@ events@funtimephotography.co.uk</a><br>
 <script>
 (function(){
 
-const images=[];
+/* RANDOM IMAGES */
+const imgs=[...document.querySelectorAll("img:not(.topbar img)")];
+let images=[];
+
 for(let i=1;i<=243;i++){
-  images.push(`photo${i}.jpg`);
+images.push(`photo${i}.jpg`);
 }
 
 images.sort(()=>Math.random()-0.5);
 
-const imgs=document.querySelectorAll("section img");
-
 imgs.forEach((img,i)=>{
-  const src=images[i % images.length];
-  img.src=src;
+const src=images[i % images.length];
+img.src=src;
 
-  img.onclick=()=>{
-    document.getElementById("lb-img").src=src;
-    document.getElementById("lightbox").classList.add("active");
-  };
+img.onclick=()=>{
+document.getElementById("lb-img").src=src;
+document.getElementById("lightbox").classList.add("active");
+};
 });
 
-/* Lightbox close */
+/* LIGHTBOX CLOSE */
 const lb=document.getElementById("lightbox");
-lb.onclick=(e)=>{
-  if(e.target===lb){
-    lb.classList.remove("active");
-  }
+lb.onclick=e=>{
+if(e.target===lb){lb.classList.remove("active");}
 };
 
-/* Scroll animation */
-const fades=document.querySelectorAll(".fade");
+/* SCROLL REVEAL */
 const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("visible");
-    }
-  });
+entries.forEach(e=>{
+if(e.isIntersecting){e.target.classList.add("visible");}
+});
 },{threshold:0.2});
 
-fades.forEach(el=>observer.observe(el));
+document.querySelectorAll(".fade").forEach(el=>observer.observe(el));
+
+/* HERO PARALLAX */
+const heroBg=document.getElementById("heroBg");
+
+window.addEventListener("scroll",()=>{
+heroBg.style.transform=`translateY(${window.scrollY * 0.2}px) scale(1.1)`;
+});
 
 })();
 </script>
