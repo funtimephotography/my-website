@@ -137,14 +137,16 @@ body{
 
 /* GRID */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:18px;
+ 
+display:grid;
+  grid-template-columns:repeat(3, 1fr); /* ✅ Instagram-style grid */
+  gap:10px; /* ✅ tighter spacing */
 }
 
+/* ✅ square images */
 .grid img{
   width:100%;
-  height:260px;
+  aspect-ratio:1 / 1; /* ✅ makes them square */
   object-fit:cover;
   border-radius:12px;
   cursor:pointer;
@@ -152,6 +154,28 @@ body{
   transition:.4s;
   opacity:0;
   transform:translateY(20px);
+}
+
+/* ✅ staggered feature tiles (adds interest) */
+.grid img:nth-child(5),
+.grid img:nth-child(10){
+  grid-column:span 2;
+  aspect-ratio:2 / 1;
+}
+
+/* ✅ hover polish */
+.grid img:hover{
+  transform:scale(1.05);
+  filter:brightness(0.9);
+}
+
+@media(max-width:800px){
+  .grid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+}
+``
+
 }
 
 .grid img.loaded{
