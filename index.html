@@ -33,34 +33,38 @@ body{
   padding:15px 30px;
   background:rgba(0,0,0,0.6);
   backdrop-filter:blur(10px);
-  z-index:999;
 }
 
 .topbar img{width:60px;border-radius:50%}
 
 .topbar a{
-  color:white;text-decoration:none;margin-left:20px;
-  font-family:'Bebas Neue';letter-spacing:2px;
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-family:'Bebas Neue';
 }
 
 /* HERO */
 .hero{
   height:95vh;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
   position:relative;
 }
 
 .hero:before{
   content:"";
-  position:absolute;inset:0;
+  position:absolute;
+  inset:0;
   background:url("ftp-hero.jpg") center/cover no-repeat;
   filter:brightness(0.45);
 }
 
 .hero-inner{
-  position:relative;z-index:2;
-  max-width:800px;
+  position:relative;
+  z-index:2;
 }
 
 .hero h1{
@@ -68,14 +72,10 @@ body{
   font-size:clamp(60px,10vw,120px);
 }
 
-.hero p{
-  margin:15px 0;
-  color:var(--muted);
-}
+.hero p{color:var(--muted)}
 
 .hero-punch{
   color:var(--accent);
-  font-weight:600;
   margin-bottom:20px;
 }
 
@@ -104,32 +104,34 @@ body{
   margin-bottom:25px;
 }
 
-/* ABOUT */
+/* ✅ ABOUT (YOUR ORIGINAL TEXT STYLE) */
 .about{
   text-align:center;
-  line-height:1.9;
-  max-width:760px;
+  line-height:1.8;
+  max-width:800px;
   margin:auto;
   color:var(--muted);
 }
 
-.highlight{
-  color:var(--accent);
-  font-weight:600;
-  margin-top:20px;
+.about p{
+  margin-bottom:15px;
+}
+
+.about strong{
+  color:white;
 }
 
 /* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:10px;
-  grid-auto-flow:dense; /* ✅ no gaps */
+  grid-auto-flow:dense;
 }
 
 .grid img{
   width:100%;
-  aspect-ratio:1 / 1;
+  aspect-ratio:1/1;
   object-fit:cover;
   border-radius:12px;
   cursor:pointer;
@@ -143,34 +145,29 @@ body{
   transform:translateY(0);
 }
 
-/* FEATURE TILE */
 .grid img:nth-child(4){
   grid-column:span 2;
   aspect-ratio:2/1;
 }
 
-.grid img:hover{
-  transform:scale(1.05);
-}
-
 /* MOBILE */
 @media(max-width:800px){
-  .grid{
-    grid-template-columns:repeat(2, 1fr);
-  }
+  .grid{grid-template-columns:repeat(2,1fr);}
 }
 
 /* SELL */
 .sell{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:70px;
-  align-items:center;
+  gap:60px;
+}
+
+@media(max-width:800px){
+  .sell{grid-template-columns:1fr;}
 }
 
 /* FOOTER */
 footer{
-  margin-top:100px;
   padding:60px 20px;
   background:black;
   display:flex;
@@ -181,12 +178,10 @@ footer{
 footer a{
   color:white;
   text-decoration:none;
-  transition:0.2s;
+  transition:.2s;
 }
 
-footer a:hover{
-  color:var(--accent);
-}
+footer a:hover{color:var(--accent);}
 
 /* LIGHTBOX */
 .lightbox{
@@ -227,17 +222,37 @@ footer a:hover{
 </div>
 </section>
 
+<!-- ✅ RESTORED ORIGINAL TEXT -->
 <section class="section about">
-<p><strong>I’m Frank...</strong></p>
-<p>I’m in the middle of the dancefloor capturing real moments.</p>
-<p class="highlight">I create images that sell your next night.</p>
+<p><strong>I’m Frank, the photographer behind Funtime Photography.</strong></p>
+
+<p>I’m in the middle of the dancefloor — not the edge of it — capturing the moments people actually remember.</p>
+
+<p>From grassroots events to packed-out venues and festivals across Sussex, I create content that makes your events look as good as they feel.</p>
+
+<p><strong>Your event isn’t just a night. It’s your brand.</strong></p>
+
+<p>I create images that don’t just document your night — they sell your next one.</p>
+
+<p>
+• Fill your next event<br>
+• Build your presence online<br>
+• Show the energy people don’t want to miss
+</p>
+
+<p>That’s what I focus on every time I shoot.</p>
 </section>
 
 <section class="section">
 <h2 class="section-title">Real Nights. Real Energy.</h2>
+
 <div class="grid">
-<img><img><img><img><img><img><img><img>
+<img><img><img>
+<img><img><img>
+<img><img><img>
+<img><img>
 </div>
+
 </section>
 
 <section class="section sell">
@@ -245,9 +260,9 @@ footer a:hover{
 <h2>Your Event = Your Brand</h2>
 <ul>
 <li>✔ Fill your next event</li>
-<li>✔ Build your presence</li>
-<li>✔ Create FOMO</li>
-<li>✔ Stand out</li>
+<li>✔ Build your online presence</li>
+<li>✔ Show the energy people don’t want to miss</li>
+<li>✔ Stand out from every promoter</li>
 </ul>
 </div>
 
@@ -273,47 +288,42 @@ footer a:hover{
 <script>
 (function(){
 
-// ✅ CURATED IMAGES ONLY
+// ✅ REVERSED CURATED IMAGES
 const images = [
-  "photo100.jpg",
-  "photo102.jpg",
-  "photo11.jpg",
-  "photo17.jpg",
-  "photo45.jpg",
-  "photo80.jpg",
-  "photo95.jpg",
-  "photo123.jpg",
-  "photo144.jpg",
-  "photo149.jpg",
-  "photo155.jpg",
-  "photo193.jpg",
+  "photo229.jpg",
   "photo225.jpg",
-  "photo229.jpg"
+  "photo193.jpg",
+  "photo155.jpg",
+  "photo149.jpg",
+  "photo144.jpg",
+  "photo123.jpg",
+  "photo95.jpg",
+  "photo80.jpg",
+  "photo45.jpg",
+  "photo17.jpg",
+  "photo11.jpg",
+  "photo102.jpg",
+  "photo100.jpg"
 ];
 
-const imgs = document.querySelectorAll("section img");
+const imgs=document.querySelectorAll("section img");
 
 imgs.forEach((img,i)=>{
+  const src=images[i % images.length];
+  img.src=src;
 
-  const src = images[i % images.length];
-  img.src = src;
+  img.onload=()=>img.classList.add("loaded");
 
-  img.onload = ()=> img.classList.add("loaded");
-
-  img.onclick = ()=>{
-    document.getElementById("lb-img").src = src;
+  img.onclick=()=>{
+    document.getElementById("lb-img").src=src;
     document.getElementById("lightbox").classList.add("active");
-  };
-
+  }
 });
 
-// lightbox close
-const lb = document.getElementById("lightbox");
+const lb=document.getElementById("lightbox");
 
-lb.onclick = (e)=>{
-  if(e.target === lb){
-    lb.classList.remove("active");
-  }
+lb.onclick=e=>{
+  if(e.target===lb) lb.classList.remove("active");
 };
 
 })();
