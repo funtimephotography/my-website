@@ -61,14 +61,11 @@ body{
 .hero-inner{
   position:relative;z-index:2;
   max-width:800px;
-  animation:fadeUp 1s ease;
 }
 
 .hero h1{
   font-family:'Bebas Neue';
   font-size:clamp(60px,10vw,120px);
-  letter-spacing:4px;
-  text-shadow:0 20px 50px rgba(0,0,0,0.8);
 }
 
 .hero p{
@@ -82,7 +79,6 @@ body{
   margin-bottom:20px;
 }
 
-/* CTA */
 .cta{
   padding:16px 32px;
   background:linear-gradient(135deg,var(--accent),#006c80);
@@ -90,14 +86,6 @@ body{
   text-decoration:none;
   color:white;
   font-weight:700;
-  box-shadow:0 15px 40px rgba(0,224,255,0.4);
-  transition:.25s;
-  display:inline-block;
-}
-
-.cta:hover{
-  transform:translateY(-3px);
-  box-shadow:0 25px 60px rgba(0,224,255,0.6);
 }
 
 /* SECTION */
@@ -109,7 +97,6 @@ body{
   border-radius:16px;
 }
 
-/* TITLES */
 .section-title{
   font-family:'Bebas Neue';
   text-align:center;
@@ -132,25 +119,23 @@ body{
   margin-top:20px;
 }
 
-/* ✅ FIXED GRID */
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
   gap:10px;
-  grid-auto-flow:dense; /* ✅ fills gaps automatically */
+  grid-auto-flow:dense; /* ✅ no gaps */
 }
 
-/* images */
 .grid img{
   width:100%;
   aspect-ratio:1 / 1;
   object-fit:cover;
   border-radius:12px;
   cursor:pointer;
-  box-shadow:0 15px 40px rgba(0,0,0,0.5);
-  transition:.4s;
   opacity:0;
   transform:translateY(20px);
+  transition:.4s;
 }
 
 .grid img.loaded{
@@ -158,19 +143,17 @@ body{
   transform:translateY(0);
 }
 
-/* ✅ SINGLE FEATURE TILE (safe) */
+/* FEATURE TILE */
 .grid img:nth-child(4){
   grid-column:span 2;
-  aspect-ratio:2 / 1;
+  aspect-ratio:2/1;
 }
 
-/* hover */
 .grid img:hover{
   transform:scale(1.05);
-  filter:brightness(0.9);
 }
 
-/* mobile */
+/* MOBILE */
 @media(max-width:800px){
   .grid{
     grid-template-columns:repeat(2, 1fr);
@@ -183,15 +166,6 @@ body{
   grid-template-columns:1fr 1fr;
   gap:70px;
   align-items:center;
-}
-
-.sell h2{
-  font-family:'Bebas Neue';
-  font-size:60px;
-}
-
-.sell li{
-  margin-bottom:12px;
 }
 
 /* FOOTER */
@@ -222,7 +196,6 @@ footer a:hover{
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:9999;
 }
 
 .lightbox.active{display:flex}
@@ -230,13 +203,6 @@ footer a:hover{
 .lightbox img{
   max-width:90%;
   max-height:85vh;
-  border-radius:12px;
-}
-
-/* ANIMATION */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
 }
 
 </style>
@@ -262,15 +228,15 @@ footer a:hover{
 </section>
 
 <section class="section about">
-<p><strong>I’m Frank, the photographer behind Funtime Photography.</strong></p>
-<p>I’m in the middle of the dancefloor capturing real moments, real energy, and nights people remember.</p>
-<p class="highlight">I create images that don’t just document your night — they sell your next one.</p>
+<p><strong>I’m Frank...</strong></p>
+<p>I’m in the middle of the dancefloor capturing real moments.</p>
+<p class="highlight">I create images that sell your next night.</p>
 </section>
 
 <section class="section">
 <h2 class="section-title">Real Nights. Real Energy.</h2>
 <div class="grid">
-<img><img><img><img><img><img>
+<img><img><img><img><img><img><img><img>
 </div>
 </section>
 
@@ -279,9 +245,9 @@ footer a:hover{
 <h2>Your Event = Your Brand</h2>
 <ul>
 <li>✔ Fill your next event</li>
-<li>✔ Build your online presence</li>
-<li>✔ Show the energy people don’t want to miss</li>
-<li>✔ Stand out from every promoter</li>
+<li>✔ Build your presence</li>
+<li>✔ Create FOMO</li>
+<li>✔ Stand out</li>
 </ul>
 </div>
 
@@ -294,9 +260,7 @@ footer a:hover{
 <div>
 <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a><br>
 <a href="tel:+447834350911">07834 350911</a><br>
-<a href="https://www.instagram.com/funtimephotography.co.uk/" target="_blank">
-@funtimephotography.co.uk
-</a>
+<a href="https://www.instagram.com/funtimephotography.co.uk/" target="_blank">@funtimephotography.co.uk</a>
 </div>
 
 <div>© 2026 Funtime Photography</div>
@@ -309,31 +273,45 @@ footer a:hover{
 <script>
 (function(){
 
-const images=[];
-for(let i=1;i<=243;i++){
-  images.push(`photo${i}.jpg`);
-}
+// ✅ CURATED IMAGES ONLY
+const images = [
+  "photo100.jpg",
+  "photo102.jpg",
+  "photo11.jpg",
+  "photo17.jpg",
+  "photo45.jpg",
+  "photo80.jpg",
+  "photo95.jpg",
+  "photo123.jpg",
+  "photo144.jpg",
+  "photo149.jpg",
+  "photo155.jpg",
+  "photo193.jpg",
+  "photo225.jpg",
+  "photo229.jpg"
+];
 
-images.sort(()=>Math.random()-0.5);
-
-const imgs=document.querySelectorAll("section img");
+const imgs = document.querySelectorAll("section img");
 
 imgs.forEach((img,i)=>{
-  const src=images[i % images.length];
-  img.src=src;
 
-  img.onload=()=>img.classList.add("loaded");
+  const src = images[i % images.length];
+  img.src = src;
 
-  img.onclick=()=>{
-    document.getElementById("lb-img").src=src;
+  img.onload = ()=> img.classList.add("loaded");
+
+  img.onclick = ()=>{
+    document.getElementById("lb-img").src = src;
     document.getElementById("lightbox").classList.add("active");
-  }
+  };
+
 });
 
-const lb=document.getElementById("lightbox");
+// lightbox close
+const lb = document.getElementById("lightbox");
 
-lb.onclick=(e)=>{
-  if(e.target===lb){
+lb.onclick = (e)=>{
+  if(e.target === lb){
     lb.classList.remove("active");
   }
 };
