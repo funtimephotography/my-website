@@ -132,14 +132,15 @@ body{
   margin-top:20px;
 }
 
-/* GRID */
+/* ✅ FIXED GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
   gap:10px;
+  grid-auto-flow:dense; /* ✅ fills gaps automatically */
 }
 
-/* square images */
+/* images */
 .grid img{
   width:100%;
   aspect-ratio:1 / 1;
@@ -157,9 +158,8 @@ body{
   transform:translateY(0);
 }
 
-/* mixed tiles */
-.grid img:nth-child(5),
-.grid img:nth-child(10){
+/* ✅ SINGLE FEATURE TILE (safe) */
+.grid img:nth-child(4){
   grid-column:span 2;
   aspect-ratio:2 / 1;
 }
