@@ -1,5 +1,3 @@
-script 4/6/26
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -109,7 +107,6 @@ body{
   padding:50px 20px;
   background:rgba(255,255,255,0.03);
   border-radius:16px;
-  animation:fadeUp .8s ease;
 }
 
 /* TITLES */
@@ -137,16 +134,15 @@ body{
 
 /* GRID */
 .grid{
- 
-display:grid;
-  grid-template-columns:repeat(3, 1fr); /* ✅ Instagram-style grid */
-  gap:10px; /* ✅ tighter spacing */
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:10px;
 }
 
-/* ✅ square images */
+/* square images */
 .grid img{
   width:100%;
-  aspect-ratio:1 / 1; /* ✅ makes them square */
+  aspect-ratio:1 / 1;
   object-fit:cover;
   border-radius:12px;
   cursor:pointer;
@@ -156,41 +152,29 @@ display:grid;
   transform:translateY(20px);
 }
 
-/* ✅ staggered feature tiles (adds interest) */
+.grid img.loaded{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* mixed tiles */
 .grid img:nth-child(5),
 .grid img:nth-child(10){
   grid-column:span 2;
   aspect-ratio:2 / 1;
 }
 
-/* ✅ hover polish */
+/* hover */
 .grid img:hover{
   transform:scale(1.05);
   filter:brightness(0.9);
 }
 
+/* mobile */
 @media(max-width:800px){
   .grid{
     grid-template-columns:repeat(2, 1fr);
   }
-}
-``
-
-}
-
-.grid img.loaded{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.grid img:hover{
-  transform:scale(1.07);
-}
-
-/* FEATURED IMAGE */
-.grid img:first-child{
-  grid-column:span 2;
-  height:100%;
 }
 
 /* SELL */
@@ -218,9 +202,16 @@ footer{
   display:flex;
   justify-content:space-between;
   flex-wrap:wrap;
-  
-footer a:hover {
-  color: var(--accent);
+}
+
+footer a{
+  color:white;
+  text-decoration:none;
+  transition:0.2s;
+}
+
+footer a:hover{
+  color:var(--accent);
 }
 
 /* LIGHTBOX */
@@ -246,11 +237,6 @@ footer a:hover {
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(30px)}
   to{opacity:1;transform:translateY(0)}
-}
-
-@media(max-width:800px){
-  .sell{grid-template-columns:1fr}
-  .grid img:first-child{grid-column:span 1;}
 }
 
 </style>
@@ -309,11 +295,10 @@ footer a:hover {
 <a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a><br>
 <a href="tel:+447834350911">07834 350911</a><br>
 <a href="https://www.instagram.com/funtimephotography.co.uk/" target="_blank">
-  @funtimephotography.co.uk
+@funtimephotography.co.uk
 </a>
-  
-
 </div>
+
 <div>© 2026 Funtime Photography</div>
 </footer>
 
