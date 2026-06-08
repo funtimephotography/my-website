@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Funtime Photography – Event Gallery</title>
+<meta name="description" content="Browse Funtime Photography's event gallery featuring RAWfest, Dedbest, and Taco Night events.">
+<meta property="og:title" content="Funtime Photography – Event Gallery">
+<meta property="og:description" content="Browse professional event photography from Funtime Photography">
+<meta property="og:type" content="website">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 
@@ -37,13 +41,18 @@ body{
   z-index:999;
 }
 
-.topbar img{width:60px;border-radius:50%}
+.topbar img{width:60px;height:60px;border-radius:50%;object-fit:cover}
 
 .topbar a{
   font-family:'Bebas Neue';
   color:white;
   text-decoration:none;
   margin-left:20px;
+  transition:.3s;
+}
+
+.topbar a:hover{
+  color:var(--accent);
 }
 
 /* CONTAINER */
@@ -71,21 +80,28 @@ body{
   align-items:flex-end;
   padding:15px;
   transition:.3s;
+  background-size:cover;
+  background-position:center;
+  border:none;
+  background-color:transparent;
 }
 
 .tile::before{
   content:"";
   position:absolute;
   inset:0;
-  background-size:cover;
-  background-position:center;
-  filter:brightness(0.5);
+  background-color:rgba(0,0,0,0.5);
   transition:.3s;
 }
 
 .tile:hover::before{
-  transform:scale(1.1);
-  filter:brightness(0.7);
+  background-color:rgba(0,0,0,0.3);
+  transform:scale(1.05);
+}
+
+.tile:focus{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
 }
 
 .tile span{
@@ -93,10 +109,12 @@ body{
   font-size:28px;
   position:relative;
   z-index:2;
+  color:var(--text-main);
 }
 
 .tile.active{
   outline:2px solid var(--accent);
+  outline-offset:2px;
 }
 
 /* ✅ SECTION */
@@ -116,6 +134,7 @@ body{
 /* ✅ HEADER */
 .section-header{
   height:180px;
+  width:100%;
   border-radius:14px;
   overflow:hidden;
   margin-bottom:20px;
@@ -123,15 +142,15 @@ body{
   align-items:flex-end;
   padding:20px;
   position:relative;
+  background-size:cover;
+  background-position:center;
 }
 
 .section-header::before{
   content:"";
   position:absolute;
   inset:0;
-  background-size:cover;
-  background-position:center;
-  filter:brightness(0.5);
+  background-color:rgba(0,0,0,0.5);
 }
 
 .section-header h2{
@@ -148,13 +167,20 @@ body{
   gap:12px;
 }
 
+.thumb{
+  position:relative;
+  overflow:hidden;
+  border-radius:10px;
+  aspect-ratio:1;
+}
+
 .thumb img{
   width:100%;
-  height:250px;
+  height:100%;
   object-fit:cover;
-  border-radius:10px;
   cursor:pointer;
   transition:.3s;
+  display:block;
 }
 
 .thumb img:hover{
@@ -169,14 +195,29 @@ body{
   display:none;
   justify-content:center;
   align-items:center;
+  z-index:1000;
 }
 
-.lightbox.active{display:flex}
+.lightbox.active{
+  display:flex;
+}
 
 .lightbox img{
   max-width:90%;
   max-height:85vh;
   border-radius:10px;
+  object-fit:contain;
+}
+
+.lightbox::after{
+  content:"Press ESC to close";
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--text-main);
+  font-size:12px;
+  opacity:0.6;
 }
 
 </style>
@@ -185,9 +226,9 @@ body{
 <body>
 
 <header class="topbar">
-<img src="logo.png">
+<img src="/logo.png" alt="Funtime Photography logo">
 <div>
-<a href="index.html">Home</a>
+<a href="/index.html">Home</a>
 <a href="#contact">Contact</a>
 </div>
 </header>
@@ -202,12 +243,17 @@ body{
 
 </main>
 
-<div class="lightbox" id="lightbox">
-<img id="lightbox-img">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+<img id="lightbox-img" alt="Full size event photo">
 </div>
 
 <script>
 (function(){
+
+// ✅ CONFIGURATION CONSTANTS
+const BATCH_SIZE = 12;
+const OBSERVER_THRESHOLD = 0.2;
+const IMAGE_BASE_PATH = '/';
 
 const events = [
   { id:'rawfest', name:'RAWfest', from:1, to:50 },
@@ -217,57 +263,68 @@ const events = [
 
 const container = document.getElementById('eventsContainer');
 const tilesWrap = document.getElementById('tiles');
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
 
 const sections = {};
 
+/* ✅ VALIDATE PHOTO INDEX */
+function isValidPhotoIndex(index) {
+  return Number.isInteger(index) && index > 0;
+}
+
 /* ✅ CREATE TILES + SECTIONS */
-events.forEach((ev,i)=>{
+events.forEach((ev) => {
 
   // TILE
-  const tile = document.createElement('div');
+  const tile = document.createElement('button');
   tile.className = 'tile';
+  tile.setAttribute('data-event-id', ev.id);
+  tile.setAttribute('aria-label', `View ${ev.name} gallery`);
   tile.innerHTML = `<span>${ev.name}</span>`;
-  tile.style.setProperty('--bg', `url('photo${ev.from}.jpg')`);
-  tile.querySelector('span');
-
-  tile.style.backgroundImage = `url('photo${ev.from}.jpg')`;
-  tile.style.position = "relative";
-  tile.style.backgroundSize = "cover";
-  tile.style.backgroundPosition = "center";
+  tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}photo${ev.from}.jpg')`;
 
   tilesWrap.appendChild(tile);
 
   // SECTION
   const section = document.createElement('div');
   section.className = 'section';
+  section.setAttribute('data-event-id', ev.id);
 
   section.innerHTML = `
-    <div class="section-header" style="background-image:url('photo${ev.from}.jpg')">
+    <div class="section-header" style="background-image:url('${IMAGE_BASE_PATH}photo${ev.from}.jpg')">
       <h2>${ev.name}</h2>
     </div>
-    <div class="gallery"></div>
+    <div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>
   `;
 
   container.appendChild(section);
 
   sections[ev.id] = {
-    el:section,
-    tile:tile,
-    ev,
-    loaded:0
+    el: section,
+    tile: tile,
+    ev: ev,
+    loaded: 0
   };
 
-  // CLICK
-  tile.onclick = ()=>{
+  // CLICK & KEYBOARD
+  tile.addEventListener('click', () => {
     switchGallery(ev.id);
-  };
+  });
+
+  tile.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      switchGallery(ev.id);
+    }
+  });
 
 });
 
 /* ✅ SWITCH FUNCTION */
-function switchGallery(id){
+function switchGallery(id) {
 
-  Object.values(sections).forEach(s=>{
+  Object.values(sections).forEach(s => {
     s.el.classList.remove('active');
     s.tile.classList.remove('active');
   });
@@ -276,28 +333,35 @@ function switchGallery(id){
   s.el.classList.add('active');
   s.tile.classList.add('active');
 
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ✅ LOAD IMAGES */
-function loadMore(sectionObj){
+function loadMore(sectionObj) {
 
-  const {ev} = sectionObj;
+  const { ev } = sectionObj;
   const gallery = sectionObj.el.querySelector('.gallery');
 
-  const batchSize = 12;
-
-  for(let i=0;i<batchSize;i++){
+  for (let i = 0; i < BATCH_SIZE; i++) {
 
     const index = ev.from + sectionObj.loaded;
-    if(index > ev.to) return;
+    if (index > ev.to) return;
+
+    if (!isValidPhotoIndex(index)) {
+      console.warn(`Invalid photo index: ${index}`);
+      sectionObj.loaded++;
+      continue;
+    }
 
     const img = document.createElement('img');
-    img.src = `photo${index}.jpg`;
-    img.loading = "lazy";
+    img.src = `${IMAGE_BASE_PATH}photo${index}.jpg`;
+    img.alt = `Photo ${index} from ${ev.name}`;
+    img.loading = 'lazy';
+    img.width = 250;
+    img.height = 250;
 
     const wrap = document.createElement('div');
-    wrap.className = "thumb";
+    wrap.className = 'thumb';
     wrap.appendChild(img);
 
     gallery.appendChild(wrap);
@@ -306,45 +370,45 @@ function loadMore(sectionObj){
   }
 }
 
-/* ✅ OBSERVER */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
+/* ✅ OBSERVER - Single loading mechanism */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
       const sectionObj = Object.values(sections).find(s => s.el === entry.target);
-      if(sectionObj) loadMore(sectionObj);
-    }
-  });
-},{threshold:0.2});
-
-Object.values(sections).forEach(s=>{
-  observer.observe(s.el);
-});
-
-/* ✅ SCROLL LOAD */
-window.addEventListener('scroll', ()=>{
-  Object.values(sections).forEach(s=>{
-    if(s.loaded < (s.ev.to - s.ev.from)){
-      const rect = s.el.getBoundingClientRect();
-      if(rect.bottom < window.innerHeight + 200){
-        loadMore(s);
+      if (sectionObj && sectionObj.loaded < (sectionObj.ev.to - sectionObj.ev.from + 1)) {
+        loadMore(sectionObj);
       }
     }
   });
+}, { threshold: OBSERVER_THRESHOLD });
+
+Object.values(sections).forEach(s => {
+  observer.observe(s.el);
 });
 
 /* ✅ LIGHTBOX */
-const lb = document.getElementById('lightbox');
-const lbImg = document.getElementById('lightbox-img');
-
-document.addEventListener('click', e=>{
+document.addEventListener('click', e => {
   const img = e.target.closest('.thumb img');
-  if(!img) return;
+  if (!img) return;
 
   lbImg.src = img.src;
+  lbImg.alt = img.alt;
   lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
 });
 
-lb.onclick = ()=>lb.classList.remove('active');
+lb.addEventListener('click', () => {
+  lb.classList.remove('active');
+  document.body.style.overflow = '';
+});
+
+// Close lightbox with ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && lb.classList.contains('active')) {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
 
 /* ✅ DEFAULT LOAD */
 switchGallery(events[0].id);
