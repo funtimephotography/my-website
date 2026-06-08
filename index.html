@@ -3,10 +3,16 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Funtime Photography - Nightlife & Event Photography across Sussex. Professional event photography capturing the energy and moments that matter."/>
+<meta property="og:title" content="Funtime Photography | Sussex Event Photographer"/>
+<meta property="og:description" content="Nightlife & Event Photography Across Sussex - Capturing the moments people actually remember."/>
+<meta property="og:type" content="business.business"/>
 
 <title>Funtime Photography | Sussex Event Photographer</title>
 
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png" type="image/png">
 
 <style>
 
@@ -19,6 +25,8 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth}
 
 body{
   font-family:Montserrat,sans-serif;
@@ -34,6 +42,7 @@ body{
   right:0;
   display:flex;
   justify-content:space-between;
+  align-items:center;
   padding:15px 30px;
   background:rgba(0,0,0,0.6);
   backdrop-filter:blur(10px);
@@ -42,14 +51,24 @@ body{
 
 .topbar img{
   width:60px;
+  height:60px;
   border-radius:50%;
+}
+
+.topbar nav{
+  display:flex;
+  gap:20px;
 }
 
 .topbar a{
   color:white;
   text-decoration:none;
-  margin-left:20px;
   font-family:'Bebas Neue';
+  transition:color 0.2s;
+}
+
+.topbar a:hover{
+  color:var(--accent);
 }
 
 /* HERO */
@@ -60,6 +79,7 @@ body{
   justify-content:center;
   text-align:center;
   position:relative;
+  margin-top:60px;
 }
 
 .hero:before{
@@ -78,11 +98,13 @@ body{
 .hero h1{
   font-family:'Bebas Neue';
   font-size:clamp(60px,10vw,120px);
+  animation:fadeInDown 0.8s ease-out;
 }
 
 .hero p{
   color:var(--muted);
   margin-top:10px;
+  animation:fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .hero-punch{
@@ -100,6 +122,25 @@ body{
   font-weight:700;
   display:inline-block;
   margin-top:20px;
+  border:none;
+  cursor:pointer;
+  transition:transform 0.2s, box-shadow 0.2s;
+  animation:fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,224,255,0.3);
+}
+
+@keyframes fadeInDown{
+  from{opacity:0;transform:translateY(-20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 /* SECTION */
@@ -138,7 +179,7 @@ body{
 /* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr); /* ✅ UPDATED */
+  grid-template-columns:repeat(4,1fr);
   gap:10px;
   grid-auto-flow:dense;
 }
@@ -152,6 +193,7 @@ body{
   opacity:0;
   transform:translateY(20px);
   transition:.4s;
+  loading:lazy;
 }
 
 .grid img.loaded{
@@ -159,23 +201,69 @@ body{
   transform:translateY(0);
 }
 
-/* MOBILE */
-@media(max-width:800px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+.grid img:hover{
+  transform:scale(1.02);
 }
 
-/* SELL */
+/* SELL SECTION */
 .sell{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:60px;
+  align-items:center;
 }
 
+.sell h2{
+  font-family:'Bebas Neue';
+  font-size:32px;
+  margin-bottom:20px;
+}
+
+.sell ul{
+  list-style:none;
+}
+
+.sell li{
+  padding:10px 0;
+  font-size:18px;
+  color:var(--muted);
+}
+
+/* MOBILE */
 @media(max-width:800px){
+  .topbar{
+    padding:12px 20px;
+  }
+
+  .topbar img{
+    width:50px;
+    height:50px;
+  }
+
+  .topbar a{
+    margin-left:0;
+  }
+
+  .hero{
+    margin-top:50px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
   .sell{
     grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .section{
+    margin:60px auto;
+    padding:30px 15px;
+  }
+
+  .section-title{
+    font-size:28px;
   }
 }
 
@@ -185,13 +273,19 @@ footer{
   background:black;
   display:flex;
   justify-content:space-between;
+  align-items:center;
   flex-wrap:wrap;
+  gap:40px;
+}
+
+footer > div{
+  line-height:1.8;
 }
 
 footer a{
   color:white;
   text-decoration:none;
-  transition:.2s;
+  transition:color 0.2s;
 }
 
 footer a:hover{
@@ -206,6 +300,9 @@ footer a:hover{
   display:none;
   align-items:center;
   justify-content:center;
+  flex-direction:column;
+  gap:20px;
+  z-index:1000;
 }
 
 .lightbox.active{
@@ -214,7 +311,50 @@ footer a:hover{
 
 .lightbox img{
   max-width:90%;
-  max-height:85vh;
+  max-height:75vh;
+  border-radius:8px;
+}
+
+.lightbox-controls{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
+
+.lightbox-btn{
+  background:rgba(255,255,255,0.2);
+  border:none;
+  color:white;
+  padding:10px 15px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:700;
+  transition:background 0.2s;
+}
+
+.lightbox-btn:hover{
+  background:rgba(0,224,255,0.3);
+}
+
+.lightbox-close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  background:rgba(255,255,255,0.2);
+  border:none;
+  color:white;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:24px;
+  transition:background 0.2s;
+}
+
+.lightbox-close:hover{
+  background:rgba(255,0,0,0.3);
 }
 
 </style>
@@ -224,10 +364,10 @@ footer a:hover{
 
 <header class="topbar">
   <img src="logo.png" alt="Funtime Photography Logo">
-  <div>
+  <nav>
     <a href="gallery.html">Gallery</a>
     <a href="#contact">Contact</a>
-  </div>
+  </nav>
 </header>
 
 <section class="hero">
@@ -241,13 +381,13 @@ footer a:hover{
 
 <section class="section about">
 
-<p><strong>I’m Frank, the photographer behind Funtime Photography.</strong></p>
+<p><strong>I'm Frank, the photographer behind Funtime Photography.</strong></p>
 
-<p>I’m in the middle of the dancefloor, not the edge of it - capturing the moments people actually remember.</p>
+<p>I'm in the middle of the dancefloor, not the edge of it - capturing the moments people actually remember.</p>
 
 <p>From grassroots events to packed-out venues and festivals across Sussex, I create content that makes your events look as good as they feel.</p>
 
-<p><strong>Your event isn’t just a night. It’s your brand.</strong></p>
+<p><strong>Your event isn't just a night. It's your brand.</strong></p>
 
 </section>
 
@@ -255,10 +395,10 @@ footer a:hover{
 <h2 class="section-title">Real Nights. Real Energy.</h2>
 
 <div class="grid">
-<img><img><img>
-<img><img><img>
-<img><img><img>
-<img><img><img>
+<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
+<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
+<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
+<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
 </div>
 
 </section>
@@ -269,13 +409,13 @@ footer a:hover{
 <ul>
 <li>✔ Fill your next event</li>
 <li>✔ Build your online presence</li>
-<li>✔ Show the energy people don’t want to miss</li>
+<li>✔ Show the energy people don't want to miss</li>
 <li>✔ Stand out from every other event</li>
 </ul>
 </div>
 
 <div class="grid">
-<img><img><img><img>
+<img alt="Event photography"><img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
 </div>
 </section>
 
@@ -292,7 +432,13 @@ footer a:hover{
 </footer>
 
 <div class="lightbox" id="lightbox">
-<img id="lb-img">
+  <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+  <img id="lb-img" alt="Full size image">
+  <div class="lightbox-controls">
+    <button class="lightbox-btn" id="lb-prev" aria-label="Previous image">← Prev</button>
+    <span id="lb-counter"></span>
+    <button class="lightbox-btn" id="lb-next" aria-label="Next image">Next →</button>
+  </div>
 </div>
 
 <script>
@@ -317,31 +463,71 @@ const images = [
   "photo17.jpg"
 ];
 
+let currentImageIndex = 0;
 const imgs = document.querySelectorAll("section img");
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lb-img");
+const lbCounter = document.getElementById("lb-counter");
+const lbPrev = document.getElementById("lb-prev");
+const lbNext = document.getElementById("lb-next");
+const lbClose = document.querySelector(".lightbox-close");
 
 imgs.forEach((img,i)=>{
   const src = images[i % images.length];
   img.src = src;
+  img.loading = "lazy";
 
   img.onload = ()=> img.classList.add("loaded");
 
   img.onclick = ()=>{
-    document.getElementById("lb-img").src = src;
-    document.getElementById("lightbox").classList.add("active");
+    currentImageIndex = i % images.length;
+    openLightbox();
   };
 });
 
-const lb = document.getElementById("lightbox");
+function openLightbox(){
+  const src = images[currentImageIndex];
+  lbImg.src = src;
+  lbCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+  lb.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-lb.onclick = (e)=>{
+function closeLightbox(){
+  lb.classList.remove("active");
+  document.body.style.overflow = "auto";
+}
+
+function showNext(){
+  currentImageIndex = (currentImageIndex + 1) % images.length;
+  openLightbox();
+}
+
+function showPrev(){
+  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+  openLightbox();
+}
+
+lbPrev.addEventListener("click", showPrev);
+lbNext.addEventListener("click", showNext);
+lbClose.addEventListener("click", closeLightbox);
+
+lb.addEventListener("click", (e)=>{
   if(e.target === lb){
-    lb.classList.remove("active");
+    closeLightbox();
   }
-};
+});
+
+document.addEventListener("keydown", (e)=>{
+  if(!lb.classList.contains("active")) return;
+  
+  if(e.key === "Escape") closeLightbox();
+  if(e.key === "ArrowRight") showNext();
+  if(e.key === "ArrowLeft") showPrev();
+});
 
 })();
 </script>
 
 </body>
 </html>
-``
