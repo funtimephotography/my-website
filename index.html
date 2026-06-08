@@ -80,13 +80,14 @@ body{
   text-align:center;
   position:relative;
   overflow:hidden;
+  background:radial-gradient(circle at 20% 20%, #2b1a4a, #1b0f2e 60%, #0d0617);
 }
 
 .hero:before{
   content:"";
   position:absolute;
   inset:0;
-  background:url("ftp-hero.jpg") center/cover no-repeat;
+  background:url("ftp-hero.jpg") center/contain no-repeat;
   z-index:1;
 }
 
