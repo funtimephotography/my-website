@@ -95,16 +95,25 @@ body{
   z-index:2;
 }
 
+.hero-logo{
+  width:clamp(150px,20vw,300px);
+  height:auto;
+  margin-bottom:20px;
+  animation:fadeInDown 0.8s ease-out;
+}
+
 .hero h1{
   font-family:'Bebas Neue';
-  font-size:clamp(60px,10vw,120px);
-  animation:fadeInDown 0.8s ease-out;
+  font-size:clamp(20px,5vw,48px);
+  animation:fadeInDown 0.8s ease-out 0.1s both;
+  letter-spacing:2px;
 }
 
 .hero p{
   color:var(--muted);
   margin-top:10px;
   animation:fadeInUp 0.8s ease-out 0.2s both;
+  font-size:clamp(14px,2vw,20px);
 }
 
 .hero-punch{
@@ -372,7 +381,7 @@ footer a:hover{
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>Funtime Photography</h1>
+    <img src="ftp-hero-logo.png" alt="Funtime Photography Logo" class="hero-logo">
     <p>Nightlife & Event Photography Across Sussex</p>
     <p class="hero-punch"></p>
     <a class="cta" href="mailto:events@funtimephotography.co.uk">Book Your Event</a>
