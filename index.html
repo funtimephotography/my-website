@@ -73,14 +73,13 @@ body{
 
 /* HERO */
 .hero{
-  height:60vh;
+  height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   position:relative;
-  margin-top:60px;
-  padding-bottom:40px;
+  overflow:hidden;
 }
 
 .hero:before{
@@ -88,7 +87,7 @@ body{
   position:absolute;
   inset:0;
   background:url("ftp-hero.jpg") center/cover no-repeat;
-  filter:brightness(0.45);
+  z-index:1;
 }
 
 .hero-inner{
@@ -104,23 +103,10 @@ body{
   height:auto;
   margin-bottom:20px;
   animation:fadeInDown 0.8s ease-out;
+  display:none;
 }
 
 .hero-content{
-  position:relative;
-  z-index:1;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(8px);
-  padding:30px 40px;
-  border-radius:12px;
-  margin-top:20px;
-  animation:fadeInUp 0.8s ease-out 0.2s both;
-}
-
-.hero-content p{
-  color:var(--muted);
-  font-size:clamp(14px,2vw,18px);
-  margin-bottom:20px;
   display:none;
 }
 
@@ -272,13 +258,7 @@ body{
   }
 
   .hero{
-    margin-top:50px;
-    height:auto;
-    padding:30px 20px;
-  }
-
-  .hero-content{
-    padding:20px 20px;
+    height:80vh;
   }
 
   .floating-cta{
@@ -409,10 +389,6 @@ footer a:hover{
 
 <section class="hero">
   <div class="hero-inner">
-    <img src="ftp-hero-logo.png" alt="Funtime Photography Logo" class="hero-logo">
-    <div class="hero-content">
-      <p>Nightlife & Event Photography Across Sussex</p>
-    </div>
   </div>
 </section>
 
