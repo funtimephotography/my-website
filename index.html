@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="description" content="Funtime Photography - Nightlife & Event Photography across Sussex. Professional event photography capturing the energy and moments that matter."/>
-<meta property="og:title" content="Funtime Photography | Sussex Event Photographer"/>
-<meta property="og:description" content="Nightlife & Event Photography Across Sussex - Capturing the moments people actually remember."/>
-<meta property="og:type" content="business.business"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Funtime Photography | Sussex Event Photographer</title>
+<title>Funtime Photography – Event Gallery</title>
+<meta name="description" content="Browse Funtime Photography's event gallery featuring RAWfest, Dedbest, and Taco Night events.">
+<meta property="og:title" content="Funtime Photography – Event Gallery">
+<meta property="og:description" content="Browse professional event photography from Funtime Photography">
+<meta property="og:type" content="website">
 
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -16,13 +16,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
 :root{
   --bg:#0d0617;
   --bg2:#2b1a4a;
   --accent:#00e0ff;
   --text:#f5f5fa;
   --muted:rgba(255,255,255,0.75);
+  --panel:rgba(255,255,255,0.04);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -33,14 +33,13 @@ body{
   font-family:Montserrat,sans-serif;
   background:radial-gradient(circle at 20% 20%, #2b1a4a, #1b0f2e 60%, #0d0617);
   color:var(--text);
+  min-height:100vh;
 }
 
-/* NAV */
+/* NAV — identical to homepage */
 .topbar{
   position:fixed;
-  top:0;
-  left:0;
-  right:0;
+  top:0;left:0;right:0;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -51,14 +50,11 @@ body{
 }
 
 .topbar img{
-  width:60px;
-  height:60px;
-  border-radius:50%;
+  width:60px;height:60px;border-radius:50%;
 }
 
 .topbar nav{
-  display:flex;
-  gap:20px;
+  display:flex;gap:20px;
 }
 
 .topbar a{
@@ -68,259 +64,167 @@ body{
   transition:color 0.2s;
 }
 
-.topbar a:hover{
-  color:var(--accent);
+.topbar a:hover{color:var(--accent);}
+
+/* CONTAINER */
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:100px 20px 60px;
 }
 
-/* HERO */
-.hero{
-  height:50vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+/* PAGE TITLE */
+.page-title{
+  font-family:'Bebas Neue';
+  font-size:clamp(32px,6vw,56px);
   text-align:center;
+  margin-bottom:40px;
+  letter-spacing:1px;
+}
+
+/* TILES NAV */
+.tiles{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+  margin-bottom:40px;
+}
+
+.tile{
+  height:140px;
+  border-radius:14px;
   position:relative;
   overflow:hidden;
-  background:#000;
+  cursor:pointer;
+  display:flex;
+  align-items:flex-end;
+  padding:15px;
+  transition:.3s;
+  background-size:cover;
+  background-position:center;
+  border:1px solid rgba(0,224,255,0.15);
+  background-color:var(--panel);
 }
 
-.hero:before{
+.tile::before{
   content:"";
   position:absolute;
   inset:0;
-  background:url("ftp-hero.jpg") center/contain no-repeat;
-  z-index:1;
+  background:rgba(0,0,0,0.5);
+  transition:.3s;
 }
 
-.hero-inner{
+.tile:hover::before{
+  background:rgba(0,0,0,0.25);
+}
+
+.tile:hover{
+  border-color:rgba(0,224,255,0.5);
+  box-shadow:0 0 16px rgba(0,224,255,0.2);
+  transform:translateY(-2px);
+}
+
+.tile:focus{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+
+.tile span{
+  font-family:'Bebas Neue';
+  font-size:28px;
   position:relative;
   z-index:2;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  color:var(--text);
 }
 
-.hero-logo{
-  width:clamp(120px,18vw,250px);
-  height:auto;
-  margin-bottom:20px;
-  animation:fadeInDown 0.8s ease-out;
-  display:none;
-}
-
-.hero-content{
-  display:none;
-}
-
-/* FLOATING CTA */
-.floating-cta{
-  position:fixed;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:500;
-  opacity:0;
-  transition:opacity 0.3s ease;
-  pointer-events:none;
-}
-
-.floating-cta.visible{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.cta{
-  padding:14px 28px;
-  background:linear-gradient(135deg,var(--accent),#006c80);
-  border-radius:8px;
-  text-decoration:none;
-  color:white;
-  font-weight:700;
-  display:inline-block;
-  border:none;
-  cursor:pointer;
-  transition:transform 0.2s, box-shadow 0.2s;
-  font-size:clamp(13px,1.5vw,16px);
-}
-
-.cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(0,224,255,0.3);
-}
-
-@keyframes fadeInDown{
-  from{opacity:0;transform:translateY(-20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-@keyframes fadeInUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
+.tile.active{
+  border-color:var(--accent);
+  box-shadow:
+    0 0 12px rgba(0,224,255,0.5),
+    0 0 30px rgba(0,224,255,0.2),
+    inset 0 0 12px rgba(0,224,255,0.1);
 }
 
 /* SECTION */
 .section{
-  max-width:1100px;
-  margin:100px auto;
-  padding:50px 20px;
-  background:rgba(255,255,255,0.03);
-  border-radius:16px;
-}
-
-.section-title{
-  font-family:'Bebas Neue';
-  text-align:center;
-  font-size:40px;
-  margin-bottom:25px;
-}
-
-/* ABOUT */
-.about{
-  text-align:center;
-  line-height:1.8;
-  max-width:800px;
-  margin:auto;
-  color:var(--muted);
-}
-
-.about p{
-  margin-bottom:15px;
-}
-
-.about strong{
-  color:white;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  grid-auto-flow:dense;
-}
-
-.grid img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:12px;
-  cursor:pointer;
+  display:none;
   opacity:0;
   transform:translateY(20px);
-  transition:.4s;
-  loading:lazy;
+  transition:opacity .4s ease, transform .4s ease;
 }
 
-.grid img.loaded{
+.section.active{
+  display:block;
+}
+
+.section.visible{
   opacity:1;
   transform:translateY(0);
 }
 
-.grid img:hover{
-  transform:scale(1.02);
-}
-
-/* SELL SECTION */
-.sell{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.sell h2{
-  font-family:'Bebas Neue';
-  font-size:32px;
+/* SECTION HEADER */
+.section-header{
+  height:200px;
+  width:100%;
+  border-radius:14px;
+  overflow:hidden;
   margin-bottom:20px;
-}
-
-.sell ul{
-  list-style:none;
-}
-
-.sell li{
-  padding:10px 0;
-  font-size:18px;
-  color:var(--muted);
-}
-
-/* MOBILE */
-@media(max-width:800px){
-  .topbar{
-    padding:12px 20px;
-  }
-
-  .topbar img{
-    width:50px;
-    height:50px;
-  }
-
-  .topbar a{
-    margin-left:0;
-  }
-
-  .hero{
-    height:40vh;
-  }
-
-  .floating-cta{
-    bottom:20px;
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .sell{
-    grid-template-columns:1fr;
-    gap:30px;
-  }
-
-  .section{
-    margin:60px auto;
-    padding:30px 15px;
-  }
-
-  .section-title{
-    font-size:28px;
-  }
-}
-
-/* FOOTER */
-footer{
-  padding:60px 20px;
-  background:black;
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:40px;
+  align-items:flex-end;
+  padding:24px;
+  position:relative;
+  background-size:cover;
+  background-position:center;
+  border:1px solid rgba(255,255,255,0.08);
 }
 
-footer > div{
-  line-height:1.8;
+.section-header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 100%);
 }
 
-footer a{
-  color:white;
-  text-decoration:none;
-  transition:color 0.2s;
+.section-header h2{
+  font-family:'Bebas Neue';
+  font-size:clamp(32px,5vw,48px);
+  position:relative;
+  z-index:2;
+  letter-spacing:1px;
 }
 
-/* only apply layout to icon links */
-footer a i{
-  margin-right:10px;
-  color:var(--accent);
-  font-size:18px;
-  width:22px;
-  text-align:center;
-  transition:0.2s;
+/* GRID */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:10px;
 }
 
-/* Optional glow */
-footer a:hover i{
-  transform:scale(1.2);
-  color:#00e0ff;
+.thumb{
+  position:relative;
+  overflow:hidden;
+  border-radius:10px;
+  aspect-ratio:1;
+  background:rgba(255,255,255,0.04);
+}
+
+.thumb img{
+  width:100%;height:100%;
+  object-fit:cover;
+  cursor:pointer;
+  display:block;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .4s ease, transform .4s ease, scale .25s ease;
+}
+
+.thumb img.loaded{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.thumb img:hover{
+  scale:1.04;
 }
 
 /* LIGHTBOX */
@@ -344,6 +248,7 @@ footer a:hover i{
   max-width:90%;
   max-height:75vh;
   border-radius:8px;
+  object-fit:contain;
 }
 
 .lightbox-controls{
@@ -355,13 +260,14 @@ footer a:hover i{
 }
 
 .lightbox-btn{
-  background:rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.15);
   border:none;
   color:white;
-  padding:10px 15px;
+  padding:10px 18px;
   border-radius:6px;
   cursor:pointer;
   font-weight:700;
+  font-family:Montserrat,sans-serif;
   transition:background 0.2s;
 }
 
@@ -371,21 +277,39 @@ footer a:hover i{
 
 .lightbox-close{
   position:absolute;
-  top:20px;
-  right:20px;
-  background:rgba(255,255,255,0.2);
+  top:20px;right:20px;
+  background:rgba(255,255,255,0.15);
   border:none;
   color:white;
-  width:40px;
-  height:40px;
+  width:40px;height:40px;
   border-radius:50%;
   cursor:pointer;
-  font-size:24px;
+  font-size:22px;
   transition:background 0.2s;
+  display:flex;align-items:center;justify-content:center;
 }
 
 .lightbox-close:hover{
-  background:rgba(255,0,0,0.3);
+  background:rgba(255,0,0,0.35);
+}
+
+#lb-counter{
+  font-size:14px;
+  color:var(--muted);
+  min-width:60px;
+  text-align:center;
+}
+
+/* FOOTER — identical to homepage */
+footer{
+  padding:60px 20px;
+  background:black;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:40px;
+  margin-top:80px;
 }
 
 .neon-contact{
@@ -426,106 +350,106 @@ footer a:hover i{
     inset 0 0 10px rgba(0,224,255,0.2);
 }
 
+.gallery-prompt{
+  text-align:center;
+  color:var(--muted);
+  font-size:15px;
+  margin-bottom:40px;
+  transition:opacity 0.3s;
+}
+
+.gallery-prompt.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+  .topbar{padding:12px 20px;}
+  .topbar img{width:50px;height:50px;}
+
+  .tiles{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .tile{height:110px;}
+  .tile span{font-size:22px;}
+
+  .section-header{height:140px;}
+
+  .gallery{
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+  }
+
+  footer{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:24px;
+    padding:40px 20px;
+  }
+
+  .neon-contact{gap:12px;}
+
+  .neon-contact a{
+    padding:10px 16px;
+    font-size:14px;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header class="topbar">
-  <img src="logo.png" alt="Funtime Photography Logo">
+  <img src="/logo.png" alt="Funtime Photography logo">
   <nav>
-    <a href="gallery.html">Gallery</a>
-    <a href="booking.html">Book</a>
+    <a href="/index.html">Home</a>
+    <a href="/booking.html">Book</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
-  
-<section class="hero">
-  <div class="hero-inner">
-  </div>
-</section>
 
-<div class="floating-cta" id="floatingCta">
-  <a class="cta" href="mailto:events@funtimephotography.co.uk">Book Your Event</a>
-</div>
+<main class="container">
 
-<section class="section about">
+  <h1 class="page-title">Event Gallery</h1>
 
-<p><strong>Hi, I'm Frank, the photographer behind Funtime Photography.</strong></p>
+  <div class="tiles" id="tiles"></div>
 
-<p>I'm in the middle of the dancefloor, not the edge of it - capturing the moments people actually remember.</p>
+  <p class="gallery-prompt" id="galleryPrompt">Select an event above to browse the photos</p>
 
-<p>From grassroots events to packed-out venues and festivals across Sussex, I create content that makes your events look as good as they feel.</p>
+  <div id="eventsContainer"></div>
 
-<p><strong>Your event isn't just a night, it's what people remember after.</strong></p>
-
-</section>
-
-<section class="section">
-<h2 class="section-title">Real Nights. Real Energy.</h2>
-
-<div class="grid">
-<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
-<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
-<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
-<img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
-</div>
-
-</section>
-
-<section class="section sell">
-<div>
-<h2>Make it a night people talk about</h2>
-<ul>
-<li>✔ Photos that make people wish they were there</li>
-<li>✔ Give your crowd something to share the next day</li>
-<li>✔ Capture the moments that actually matter</li>
-<li>✔ Make your event stand out without trying too hard</li>
-</ul>
-</div>
-
-<div class="grid">
-<img alt="Event photography"><img alt="Event photography"><img alt="Event photography"><img alt="Event photography">
-</div>
-</section>
-
+</main>
 
 <footer id="contact">
-
-<div class="neon-contact">
-
-  <a href="mailto:events@funtimephotography.co.uk">
-    <i class="fa-solid fa-envelope"></i>
-    <span>Email</span>
-  </a>
-
-  <a href="tel:+447834350911">
-    <i class="fa-solid fa-phone"></i>
-    <span>Call</span>
-  </a>
-
-  <a href="https://wa.me/447834350911" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-    <span>WhatsApp</span>
-  </a>
-
-  <a href="https://www.instagram.com/funtimephotography.co.uk/" target="_blank">
-    <i class="fa-brands fa-instagram"></i>
-    <span>Instagram</span>
-  </a>
-
-</div>
-
-<div class="footer-bottom">
-  © 2026 Funtime Photography
-</div>
-
+  <div class="neon-contact">
+    <a href="mailto:events@funtimephotography.co.uk">
+      <i class="fa-solid fa-envelope"></i>
+      <span>Email</span>
+    </a>
+    <a href="tel:+447834350911">
+      <i class="fa-solid fa-phone"></i>
+      <span>Call</span>
+    </a>
+    <a href="https://wa.me/447834350911" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="https://www.instagram.com/funtimephotography.co.uk/" target="_blank">
+      <i class="fa-brands fa-instagram"></i>
+      <span>Instagram</span>
+    </a>
+  </div>
+  <div class="footer-bottom">© 2026 Funtime Photography</div>
 </footer>
 
-
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
-  <img id="lb-img" alt="Full size image">
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lb-close" aria-label="Close lightbox">&times;</button>
+  <img id="lb-img" alt="Full size event photo">
   <div class="lightbox-controls">
     <button class="lightbox-btn" id="lb-prev" aria-label="Previous image">← Prev</button>
     <span id="lb-counter"></span>
@@ -536,101 +460,208 @@ footer a:hover i{
 <script>
 (function(){
 
-const images = [
-  "photo229.jpg",
-  "photo225.jpg",
-  "photo193.jpg",
-  "photo155.jpg",
-  "photo149.jpg",
-  "photo144.jpg",
-  "photo123.jpg",
-  "photo95.jpg",
-  "photo80.jpg",
-  "photo45.jpg",
-  "photo41.jpg",
-  "photo43.jpg",
-  "photo11.jpg",
-  "photo102.jpg",
-  "photo100.jpg",
-  "photo17.jpg"
+const BATCH_SIZE = 12;
+const IMAGE_BASE_PATH = '/';
+
+const events = [
+  {
+    id: 'rawfest',
+    name: 'RAWfest',
+    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg','photo43.jpg','photo44.jpg','photo48.jpg','photo50.jpg']
+  },
+  {
+    id: 'dedbest',
+    name: 'Dedbest',
+    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg','photo96.jpg','photo103.jpg','photo100.jpg','photo111.jpg','photo131.jpg']
+  },
+  {
+    id: 'taco',
+    name: 'Taco Night',
+    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg','photo205.jpg','photo217.jpg','photo222.jpg','photo229.jpg','photo243.jpg','photo240.jpg']
+  }
 ];
 
-let currentImageIndex = 0;
-const imgs = document.querySelectorAll(".grid img");
-const lb = document.getElementById("lightbox");
-const lbImg = document.getElementById("lb-img");
-const lbCounter = document.getElementById("lb-counter");
-const lbPrev = document.getElementById("lb-prev");
-const lbNext = document.getElementById("lb-next");
-const lbClose = document.querySelector(".lightbox-close");
-const floatingCta = document.getElementById("floatingCta");
-const hero = document.querySelector(".hero");
+const container   = document.getElementById('eventsContainer');
+const tilesWrap   = document.getElementById('tiles');
+const lb          = document.getElementById('lightbox');
+const lbImg       = document.getElementById('lb-img');
+const lbCounter   = document.getElementById('lb-counter');
+const lbPrev      = document.getElementById('lb-prev');
+const lbNext      = document.getElementById('lb-next');
+const lbClose     = document.getElementById('lb-close');
 
-// Floating CTA visibility on scroll
-function updateFloatingCtaVisibility(){
-  const heroBottom = hero.getBoundingClientRect().bottom;
-  if(heroBottom < 0){
-    floatingCta.classList.add("visible");
-  } else {
-    floatingCta.classList.remove("visible");
+const galleryPrompt = document.getElementById('galleryPrompt');
+
+const sections = {};
+
+// Track all loaded images for lightbox navigation, per active gallery
+let activeSectionId = null;
+let lbImages = [];
+let lbIndex  = 0;
+
+/* BUILD TILES + SECTIONS */
+events.forEach(ev => {
+
+  // TILE
+  const tile = document.createElement('button');
+  tile.className = 'tile';
+  tile.setAttribute('data-event-id', ev.id);
+  tile.setAttribute('aria-label', `View ${ev.name} gallery`);
+  tile.innerHTML = `<span>${ev.name}</span>`;
+  tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}${ev.photos[0]}')`;
+  tilesWrap.appendChild(tile);
+
+  // SECTION
+  const section = document.createElement('div');
+  section.className = 'section';
+  section.setAttribute('data-event-id', ev.id);
+  section.innerHTML = `
+    <div class="section-header" style="background-image:url('${IMAGE_BASE_PATH}${ev.photos[0]}')">
+      <h2>${ev.name}</h2>
+    </div>
+    <div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>
+  `;
+  container.appendChild(section);
+
+  sections[ev.id] = {
+    el: section,
+    tile: tile,
+    ev: ev,
+    loaded: 0,
+    imgEls: []
+  };
+
+  tile.addEventListener('click', () => switchGallery(ev.id));
+  tile.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); switchGallery(ev.id); }
+  });
+});
+
+/* SWITCH GALLERY */
+function switchGallery(id){
+  Object.values(sections).forEach(s => {
+    s.el.classList.remove('active','visible');
+    s.tile.classList.remove('active');
+  });
+
+  const s = sections[id];
+  s.el.classList.add('active');
+  s.tile.classList.add('active');
+  galleryPrompt.classList.add('hidden');
+
+  // Trigger transition on next frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => s.el.classList.add('visible'));
+  });
+
+  // Load first batch if not yet loaded
+  if(s.loaded === 0) loadMore(s);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* LOAD IMAGES */
+function loadMore(sectionObj){
+  const { ev } = sectionObj;
+  const gallery = sectionObj.el.querySelector('.gallery');
+
+  for(let i = 0; i < BATCH_SIZE; i++){
+    const photo = ev.photos[sectionObj.loaded];
+    if(!photo) return;
+
+    const img = new Image();
+    img.src = `${IMAGE_BASE_PATH}${photo}`;
+    img.alt = `${ev.name} – ${photo}`;
+    img.loading = 'lazy';
+    img.width = 250;
+    img.height = 250;
+
+    img.onload = () => img.classList.add('loaded');
+    img.onerror = () => wrap.style.display = 'none';
+
+    img.dataset.galleryIndex = sectionObj.imgEls.length;
+    sectionObj.imgEls.push(img);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'thumb';
+    wrap.appendChild(img);
+    gallery.appendChild(wrap);
+
+    sectionObj.loaded++;
   }
 }
 
-window.addEventListener("scroll", updateFloatingCtaVisibility);
+/* INFINITE SCROLL via IntersectionObserver */
+const loadObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(!entry.isIntersecting) return;
+    const sectionObj = Object.values(sections).find(s => s.el === entry.target);
+    if(sectionObj && sectionObj.loaded < sectionObj.ev.photos.length){
+      loadMore(sectionObj);
+    }
+  });
+}, { threshold: 0.1 });
 
-imgs.forEach((img,i)=>{
-  const src = images[i % images.length];
-  img.src = src;
-  img.loading = "lazy";
+Object.values(sections).forEach(s => loadObserver.observe(s.el));
 
-  img.onload = ()=> img.classList.add("loaded");
+/* LIGHTBOX */
+function openLightbox(sectionId, index){
+  const s = sections[sectionId];
+  lbImages = s.imgEls;
+  lbIndex = index;
+  showLbImage();
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
-  img.onclick = ()=>{
-    currentImageIndex = i % images.length;
-    openLightbox();
-  };
-});
-
-function openLightbox(){
-  const src = images[currentImageIndex];
-  lbImg.src = src;
-  lbCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
-  lb.classList.add("active");
-  document.body.style.overflow = "hidden";
+function showLbImage(){
+  lbImg.src = lbImages[lbIndex].src;
+  lbImg.alt = lbImages[lbIndex].alt;
+  lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
 }
 
 function closeLightbox(){
-  lb.classList.remove("active");
-  document.body.style.overflow = "auto";
+  lb.classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 function showNext(){
-  currentImageIndex = (currentImageIndex + 1) % images.length;
-  openLightbox();
+  lbIndex = (lbIndex + 1) % lbImages.length;
+  // load more if near end
+  const s = sections[activeSectionId];
+  if(lbIndex >= lbImages.length - 3) loadMore(s);
+  showLbImage();
 }
 
 function showPrev(){
-  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-  openLightbox();
+  lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+  showLbImage();
 }
 
-lbPrev.addEventListener("click", showPrev);
-lbNext.addEventListener("click", showNext);
-lbClose.addEventListener("click", closeLightbox);
-
-lb.addEventListener("click", (e)=>{
-  if(e.target === lb){
-    closeLightbox();
-  }
+// Delegate click on gallery images
+container.addEventListener('click', e => {
+  const img = e.target.closest('.thumb img');
+  if(!img) return;
+  const idx = parseInt(img.dataset.galleryIndex, 10);
+  openLightbox(activeSectionId, idx);
 });
 
-document.addEventListener("keydown", (e)=>{
-  if(!lb.classList.contains("active")) return;
-  
-  if(e.key === "Escape") closeLightbox();
-  if(e.key === "ArrowRight") showNext();
-  if(e.key === "ArrowLeft") showPrev();
+lbPrev.addEventListener('click', showPrev);
+lbNext.addEventListener('click', showNext);
+lbClose.addEventListener('click', closeLightbox);
+
+lb.addEventListener('click', e => {
+  if(e.target === lb) closeLightbox();
 });
+
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('active')) return;
+  if(e.key === 'Escape')      closeLightbox();
+  if(e.key === 'ArrowRight')  showNext();
+  if(e.key === 'ArrowLeft')   showPrev();
+});
+
+/* No default — user picks a gallery to open */
 
 })();
 </script>
