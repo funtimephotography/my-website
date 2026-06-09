@@ -10,64 +10,84 @@
 <meta property="og:description" content="Browse professional event photography from Funtime Photography">
 <meta property="og:type" content="website">
 
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
-  --bg-a:#2b1a4a;
-  --bg-b:#1b0f2e;
-  --bg-c:#0d0617;
+  --bg:#0d0617;
+  --bg2:#2b1a4a;
   --accent:#00e0ff;
-  --panel:rgba(255,255,255,0.06);
-  --text-main:#f5f5fa;
+  --text:#f5f5fa;
+  --muted:rgba(255,255,255,0.75);
+  --panel:rgba(255,255,255,0.04);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 
+html{scroll-behavior:smooth}
+
 body{
   font-family:Montserrat,sans-serif;
-  background:radial-gradient(circle at 20% 20%,var(--bg-a),var(--bg-b) 55%,var(--bg-c));
-  color:var(--text-main);
+  background:radial-gradient(circle at 20% 20%, #2b1a4a, #1b0f2e 60%, #0d0617);
+  color:var(--text);
+  min-height:100vh;
 }
 
-/* NAV */
+/* NAV — identical to homepage */
 .topbar{
   position:fixed;
   top:0;left:0;right:0;
   display:flex;
   justify-content:space-between;
-  padding:14px 30px;
-  background:rgba(10,6,23,0.75);
+  align-items:center;
+  padding:8px 25px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
   z-index:999;
 }
 
-.topbar img{width:60px;height:60px;border-radius:50%;object-fit:cover}
+.topbar img{
+  width:60px;height:60px;border-radius:50%;
+}
+
+.topbar nav{
+  display:flex;gap:20px;
+}
 
 .topbar a{
-  font-family:'Bebas Neue';
   color:white;
   text-decoration:none;
-  margin-left:20px;
-  transition:.3s;
+  font-family:'Bebas Neue';
+  transition:color 0.2s;
 }
 
-.topbar a:hover{
-  color:var(--accent);
-}
+.topbar a:hover{color:var(--accent);}
 
 /* CONTAINER */
 .container{
   max-width:1200px;
-  margin:100px auto;
-  padding:0 20px;
+  margin:0 auto;
+  padding:100px 20px 60px;
 }
 
-/* ✅ TILES NAV */
+/* PAGE TITLE */
+.page-title{
+  font-family:'Bebas Neue';
+  font-size:clamp(32px,6vw,56px);
+  text-align:center;
+  margin-bottom:40px;
+  letter-spacing:1px;
+}
+
+/* TILES NAV */
 .tiles{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
-  margin-bottom:30px;
+  gap:12px;
+  margin-bottom:40px;
 }
 
 .tile{
@@ -82,21 +102,26 @@ body{
   transition:.3s;
   background-size:cover;
   background-position:center;
-  border:none;
-  background-color:transparent;
+  border:1px solid rgba(0,224,255,0.15);
+  background-color:var(--panel);
 }
 
 .tile::before{
   content:"";
   position:absolute;
   inset:0;
-  background-color:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.5);
   transition:.3s;
 }
 
 .tile:hover::before{
-  background-color:rgba(0,0,0,0.3);
-  transform:scale(1.05);
+  background:rgba(0,0,0,0.25);
+}
+
+.tile:hover{
+  border-color:rgba(0,224,255,0.5);
+  box-shadow:0 0 16px rgba(0,224,255,0.2);
+  transform:translateY(-2px);
 }
 
 .tile:focus{
@@ -109,62 +134,70 @@ body{
   font-size:28px;
   position:relative;
   z-index:2;
-  color:var(--text-main);
+  color:var(--text);
 }
 
 .tile.active{
-  outline:2px solid var(--accent);
-  outline-offset:2px;
+  border-color:var(--accent);
+  box-shadow:
+    0 0 12px rgba(0,224,255,0.5),
+    0 0 30px rgba(0,224,255,0.2),
+    inset 0 0 12px rgba(0,224,255,0.1);
 }
 
-/* ✅ SECTION */
+/* SECTION */
 .section{
-  opacity:0;
-  transform:translateY(30px);
-  transition:.5s;
   display:none;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .4s ease, transform .4s ease;
 }
 
 .section.active{
   display:block;
+}
+
+.section.visible{
   opacity:1;
   transform:translateY(0);
 }
 
-/* ✅ HEADER */
+/* SECTION HEADER */
 .section-header{
-  height:180px;
+  height:200px;
   width:100%;
   border-radius:14px;
   overflow:hidden;
   margin-bottom:20px;
   display:flex;
   align-items:flex-end;
-  padding:20px;
+  padding:24px;
   position:relative;
   background-size:cover;
   background-position:center;
+  border:1px solid rgba(255,255,255,0.08);
 }
 
 .section-header::before{
   content:"";
   position:absolute;
   inset:0;
-  background-color:rgba(0,0,0,0.5);
+  background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 100%);
 }
 
 .section-header h2{
   font-family:'Bebas Neue';
-  font-size:42px;
+  font-size:clamp(32px,5vw,48px);
   position:relative;
   z-index:2;
+  letter-spacing:1px;
 }
 
-/* ✅ GRID */
+/* GRID */
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:12px;
+  gap:10px;
 }
 
 .thumb{
@@ -172,29 +205,38 @@ body{
   overflow:hidden;
   border-radius:10px;
   aspect-ratio:1;
+  background:rgba(255,255,255,0.04);
 }
 
 .thumb img{
-  width:100%;
-  height:100%;
+  width:100%;height:100%;
   object-fit:cover;
   cursor:pointer;
-  transition:.3s;
   display:block;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .4s ease, transform .4s ease, scale .25s ease;
+}
+
+.thumb img.loaded{
+  opacity:1;
+  transform:translateY(0);
 }
 
 .thumb img:hover{
-  transform:scale(1.05);
+  scale:1.04;
 }
 
 /* LIGHTBOX */
 .lightbox{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.9);
+  background:rgba(0,0,0,0.95);
   display:none;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:20px;
   z-index:1000;
 }
 
@@ -204,77 +246,248 @@ body{
 
 .lightbox img{
   max-width:90%;
-  max-height:85vh;
-  border-radius:10px;
+  max-height:75vh;
+  border-radius:8px;
   object-fit:contain;
 }
 
-.lightbox::after{
-  content:"Press ESC to close";
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  color:var(--text-main);
-  font-size:12px;
-  opacity:0.6;
+.lightbox-controls{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  align-items:center;
+  color:white;
 }
 
+.lightbox-btn{
+  background:rgba(255,255,255,0.15);
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:700;
+  font-family:Montserrat,sans-serif;
+  transition:background 0.2s;
+}
+
+.lightbox-btn:hover{
+  background:rgba(0,224,255,0.3);
+}
+
+.lightbox-close{
+  position:absolute;
+  top:20px;right:20px;
+  background:rgba(255,255,255,0.15);
+  border:none;
+  color:white;
+  width:40px;height:40px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:22px;
+  transition:background 0.2s;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.lightbox-close:hover{
+  background:rgba(255,0,0,0.35);
+}
+
+#lb-counter{
+  font-size:14px;
+  color:var(--muted);
+  min-width:60px;
+  text-align:center;
+}
+
+/* FOOTER — identical to homepage */
+footer{
+  padding:60px 20px;
+  background:black;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:40px;
+  margin-top:80px;
+}
+
+.neon-contact{
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  flex-wrap:wrap;
+}
+
+.neon-contact a{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 22px;
+  border-radius:30px;
+  text-decoration:none;
+  color:white;
+  font-weight:600;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,224,255,0.3);
+  transition:all 0.25s ease;
+}
+
+.neon-contact i{
+  font-size:18px;
+  color:var(--accent);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.neon-contact a:hover{
+  transform:translateY(-2px);
+  border-color:#00e0ff;
+  box-shadow:
+    0 0 10px rgba(0,224,255,0.6),
+    0 0 25px rgba(0,224,255,0.4),
+    inset 0 0 10px rgba(0,224,255,0.2);
+}
+
+.gallery-prompt{
+  text-align:center;
+  color:var(--muted);
+  font-size:15px;
+  margin-bottom:40px;
+  transition:opacity 0.3s;
+}
+
+.gallery-prompt.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+  .topbar{padding:12px 20px;}
+  .topbar img{width:50px;height:50px;}
+
+  .tiles{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .tile{height:110px;}
+  .tile span{font-size:22px;}
+
+  .section-header{height:140px;}
+
+  .gallery{
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+  }
+
+  footer{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:24px;
+    padding:40px 20px;
+  }
+
+  .neon-contact{gap:12px;}
+
+  .neon-contact a{
+    padding:10px 16px;
+    font-size:14px;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header class="topbar">
-<img src="/logo.png" alt="Funtime Photography logo">
-<div>
-<a href="/index.html">Home</a>
-<a href="#contact">Contact</a>
-</div>
+  <img src="/logo.png" alt="Funtime Photography logo">
+  <nav>
+    <a href="/index.html">Home</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <main class="container">
 
-<!-- ✅ VISUAL TILES -->
-<div class="tiles" id="tiles"></div>
+  <h1 class="page-title">Event Gallery</h1>
 
-<!-- ✅ GALLERIES -->
-<div id="eventsContainer"></div>
+  <div class="tiles" id="tiles"></div>
+
+  <p class="gallery-prompt" id="galleryPrompt">Select an event above to browse the photos</p>
+
+  <div id="eventsContainer"></div>
 
 </main>
 
+<footer id="contact">
+  <div class="neon-contact">
+    <a href="mailto:events@funtimephotography.co.uk">
+      <i class="fa-solid fa-envelope"></i>
+      <span>Email</span>
+    </a>
+    <a href="tel:+447834350911">
+      <i class="fa-solid fa-phone"></i>
+      <span>Call</span>
+    </a>
+    <a href="https://wa.me/447834350911" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="https://www.instagram.com/funtimephotography.co.uk/" target="_blank">
+      <i class="fa-brands fa-instagram"></i>
+      <span>Instagram</span>
+    </a>
+  </div>
+  <div class="footer-bottom">© 2026 Funtime Photography</div>
+</footer>
+
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-<img id="lightbox-img" alt="Full size event photo">
+  <button class="lightbox-close" id="lb-close" aria-label="Close lightbox">&times;</button>
+  <img id="lb-img" alt="Full size event photo">
+  <div class="lightbox-controls">
+    <button class="lightbox-btn" id="lb-prev" aria-label="Previous image">← Prev</button>
+    <span id="lb-counter"></span>
+    <button class="lightbox-btn" id="lb-next" aria-label="Next image">Next →</button>
+  </div>
 </div>
 
 <script>
 (function(){
 
-// ✅ CONFIGURATION CONSTANTS
 const BATCH_SIZE = 12;
-const OBSERVER_THRESHOLD = 0.2;
 const IMAGE_BASE_PATH = '/';
 
 const events = [
-  { id:'rawfest', name:'RAWfest', from:1, to:50 },
-  { id:'dedbest', name:'Dedbest', from:74, to:134 },
-  { id:'taco', name:'Taco Night', from:135, to:243 }
+  { id:'rawfest',  name:'RAWfest',    from:1,   to:50  },
+  { id:'dedbest',  name:'Dedbest',    from:74,  to:134 },
+  { id:'taco',     name:'Taco Night', from:135, to:243 }
 ];
 
-const container = document.getElementById('eventsContainer');
-const tilesWrap = document.getElementById('tiles');
-const lb = document.getElementById('lightbox');
-const lbImg = document.getElementById('lightbox-img');
+const container   = document.getElementById('eventsContainer');
+const tilesWrap   = document.getElementById('tiles');
+const lb          = document.getElementById('lightbox');
+const lbImg       = document.getElementById('lb-img');
+const lbCounter   = document.getElementById('lb-counter');
+const lbPrev      = document.getElementById('lb-prev');
+const lbNext      = document.getElementById('lb-next');
+const lbClose     = document.getElementById('lb-close');
+
+const galleryPrompt = document.getElementById('galleryPrompt');
 
 const sections = {};
 
-/* ✅ VALIDATE PHOTO INDEX */
-function isValidPhotoIndex(index) {
-  return Number.isInteger(index) && index > 0;
-}
+// Track all loaded images for lightbox navigation, per active gallery
+let activeSectionId = null;
+let lbImages = [];
+let lbIndex  = 0;
 
-/* ✅ CREATE TILES + SECTIONS */
-events.forEach((ev) => {
+/* BUILD TILES + SECTIONS */
+events.forEach(ev => {
 
   // TILE
   const tile = document.createElement('button');
@@ -283,135 +496,160 @@ events.forEach((ev) => {
   tile.setAttribute('aria-label', `View ${ev.name} gallery`);
   tile.innerHTML = `<span>${ev.name}</span>`;
   tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}photo${ev.from}.jpg')`;
-
   tilesWrap.appendChild(tile);
 
   // SECTION
   const section = document.createElement('div');
   section.className = 'section';
   section.setAttribute('data-event-id', ev.id);
-
   section.innerHTML = `
     <div class="section-header" style="background-image:url('${IMAGE_BASE_PATH}photo${ev.from}.jpg')">
       <h2>${ev.name}</h2>
     </div>
     <div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>
   `;
-
   container.appendChild(section);
 
   sections[ev.id] = {
     el: section,
     tile: tile,
     ev: ev,
-    loaded: 0
+    loaded: 0,
+    imgEls: []
   };
 
-  // CLICK & KEYBOARD
-  tile.addEventListener('click', () => {
-    switchGallery(ev.id);
+  tile.addEventListener('click', () => switchGallery(ev.id));
+  tile.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); switchGallery(ev.id); }
   });
-
-  tile.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      switchGallery(ev.id);
-    }
-  });
-
 });
 
-/* ✅ SWITCH FUNCTION */
-function switchGallery(id) {
-
+/* SWITCH GALLERY */
+function switchGallery(id){
   Object.values(sections).forEach(s => {
-    s.el.classList.remove('active');
+    s.el.classList.remove('active','visible');
     s.tile.classList.remove('active');
   });
 
   const s = sections[id];
   s.el.classList.add('active');
   s.tile.classList.add('active');
+  galleryPrompt.classList.add('hidden');
+
+  // Trigger transition on next frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => s.el.classList.add('visible'));
+  });
+
+  // Load first batch if not yet loaded
+  if(s.loaded === 0) loadMore(s);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ✅ LOAD IMAGES */
-function loadMore(sectionObj) {
-
+/* LOAD IMAGES */
+function loadMore(sectionObj){
   const { ev } = sectionObj;
   const gallery = sectionObj.el.querySelector('.gallery');
 
-  for (let i = 0; i < BATCH_SIZE; i++) {
-
+  for(let i = 0; i < BATCH_SIZE; i++){
     const index = ev.from + sectionObj.loaded;
-    if (index > ev.to) return;
+    if(index > ev.to) return;
 
-    if (!isValidPhotoIndex(index)) {
-      console.warn(`Invalid photo index: ${index}`);
-      sectionObj.loaded++;
-      continue;
-    }
-
-    const img = document.createElement('img');
+    const img = new Image();
     img.src = `${IMAGE_BASE_PATH}photo${index}.jpg`;
     img.alt = `Photo ${index} from ${ev.name}`;
     img.loading = 'lazy';
     img.width = 250;
     img.height = 250;
 
+    img.onload = () => img.classList.add('loaded');
+    img.onerror = () => wrap.style.display = 'none'; // hide broken images silently
+
+    // store reference for lightbox navigation
+    img.dataset.galleryIndex = sectionObj.imgEls.length;
+    sectionObj.imgEls.push(img);
+
     const wrap = document.createElement('div');
     wrap.className = 'thumb';
     wrap.appendChild(img);
-
     gallery.appendChild(wrap);
 
     sectionObj.loaded++;
   }
 }
 
-/* ✅ OBSERVER - Single loading mechanism */
-const observer = new IntersectionObserver(entries => {
+/* INFINITE SCROLL via IntersectionObserver */
+const loadObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const sectionObj = Object.values(sections).find(s => s.el === entry.target);
-      if (sectionObj && sectionObj.loaded < (sectionObj.ev.to - sectionObj.ev.from + 1)) {
-        loadMore(sectionObj);
-      }
+    if(!entry.isIntersecting) return;
+    const sectionObj = Object.values(sections).find(s => s.el === entry.target);
+    if(sectionObj && sectionObj.loaded < (sectionObj.ev.to - sectionObj.ev.from + 1)){
+      loadMore(sectionObj);
     }
   });
-}, { threshold: OBSERVER_THRESHOLD });
+}, { threshold: 0.1 });
 
-Object.values(sections).forEach(s => {
-  observer.observe(s.el);
-});
+Object.values(sections).forEach(s => loadObserver.observe(s.el));
 
-/* ✅ LIGHTBOX */
-document.addEventListener('click', e => {
-  const img = e.target.closest('.thumb img');
-  if (!img) return;
-
-  lbImg.src = img.src;
-  lbImg.alt = img.alt;
+/* LIGHTBOX */
+function openLightbox(sectionId, index){
+  const s = sections[sectionId];
+  lbImages = s.imgEls;
+  lbIndex = index;
+  showLbImage();
   lb.classList.add('active');
   document.body.style.overflow = 'hidden';
-});
+}
 
-lb.addEventListener('click', () => {
+function showLbImage(){
+  lbImg.src = lbImages[lbIndex].src;
+  lbImg.alt = lbImages[lbIndex].alt;
+  lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
+}
+
+function closeLightbox(){
   lb.classList.remove('active');
   document.body.style.overflow = '';
+}
+
+function showNext(){
+  lbIndex = (lbIndex + 1) % lbImages.length;
+  // load more if near end
+  const s = sections[activeSectionId];
+  if(lbIndex >= lbImages.length - 3) loadMore(s);
+  showLbImage();
+}
+
+function showPrev(){
+  lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+  showLbImage();
+}
+
+// Delegate click on gallery images
+container.addEventListener('click', e => {
+  const img = e.target.closest('.thumb img');
+  if(!img) return;
+  const idx = parseInt(img.dataset.galleryIndex, 10);
+  openLightbox(activeSectionId, idx);
 });
 
-// Close lightbox with ESC key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && lb.classList.contains('active')) {
-    lb.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+lbPrev.addEventListener('click', showPrev);
+lbNext.addEventListener('click', showNext);
+lbClose.addEventListener('click', closeLightbox);
+
+lb.addEventListener('click', e => {
+  if(e.target === lb) closeLightbox();
 });
 
-/* ✅ DEFAULT LOAD */
-switchGallery(events[0].id);
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('active')) return;
+  if(e.key === 'Escape')      closeLightbox();
+  if(e.key === 'ArrowRight')  showNext();
+  if(e.key === 'ArrowLeft')   showPrev();
+});
+
+/* No default — user picks a gallery to open */
 
 })();
 </script>
