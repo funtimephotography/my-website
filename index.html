@@ -13,6 +13,7 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="icon" href="logo.png" type="image/png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
@@ -300,15 +301,29 @@ footer > div{
   line-height:1.8;
 }
 
+
 footer a{
   color:white;
   text-decoration:none;
   transition:color 0.2s;
 }
 
-footer a:hover{
+/* only apply layout to icon links */
+footer a i{
+  margin-right:10px;
   color:var(--accent);
+  font-size:18px;
+  width:22px;
+  text-align:center;
+  transition:0.2s;
 }
+
+/* Optional glow */
+footer a:hover i{
+  transform:scale(1.2);
+  color:#00e0ff;
+}
+
 
 /* LIGHTBOX */
 .lightbox{
@@ -387,7 +402,7 @@ footer a:hover{
     <a href="#contact">Contact</a>
   </nav>
 </header>
-
+  
 <section class="hero">
   <div class="hero-inner">
   </div>
@@ -440,11 +455,21 @@ footer a:hover{
 
 <footer id="contact">
 <div>
-<a href="mailto:events@funtimephotography.co.uk">events@funtimephotography.co.uk</a><br>
-<a href="tel:+447834350911">07834 350911</a><br>
+<a href="mailto:events@funtimephotography.co.uk">
+  <i class="fa-solid fa-envelope"></i>
+  events@funtimephotography.co.uk
+</a><br>
+
+<a href="tel:+447834350911">
+  <i class="fa-solid fa-phone"></i>
+  07834 350911
+</a><br>
+
 <a href="https://www.instagram.com/funtimephotography.co.uk/" target="_blank">
-@funtimephotography.co.uk
+  <i class="fa-brands fa-instagram"></i>
+  <strong>@funtimephotography</strong>
 </a>
+``
 </div>
 
 <div>© 2026 Funtime Photography</div>
