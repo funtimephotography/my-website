@@ -463,9 +463,21 @@ const BATCH_SIZE = 12;
 const IMAGE_BASE_PATH = '/';
 
 const events = [
-  { id:'rawfest',  name:'RAWfest',    from:1,   to:50  },
-  { id:'dedbest',  name:'Dedbest',    from:74,  to:134 },
-  { id:'taco',     name:'Taco Night', from:135, to:243 }
+  {
+    id: 'rawfest',
+    name: 'RAWfest',
+    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg','photo43.jpg','photo44.jpg','photo48.jpg','photo50.jpg']
+  },
+  {
+    id: 'dedbest',
+    name: 'Dedbest',
+    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg','photo96.jpg','photo103.jpg','photo100.jpg','photo111.jpg','photo131.jpg']
+  },
+  {
+    id: 'taco',
+    name: 'Taco Night',
+    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg','photo205.jpg','photo217.jpg','photo222.jpg','photo229.jpg','photo243.jpg','photo240.jpg']
+  }
 ];
 
 const container   = document.getElementById('eventsContainer');
@@ -495,7 +507,7 @@ events.forEach(ev => {
   tile.setAttribute('data-event-id', ev.id);
   tile.setAttribute('aria-label', `View ${ev.name} gallery`);
   tile.innerHTML = `<span>${ev.name}</span>`;
-  tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}photo${ev.from}.jpg')`;
+  tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}${ev.photos[0]}')`;
   tilesWrap.appendChild(tile);
 
   // SECTION
@@ -503,7 +515,7 @@ events.forEach(ev => {
   section.className = 'section';
   section.setAttribute('data-event-id', ev.id);
   section.innerHTML = `
-    <div class="section-header" style="background-image:url('${IMAGE_BASE_PATH}photo${ev.from}.jpg')">
+    <div class="section-header" style="background-image:url('${IMAGE_BASE_PATH}${ev.photos[0]}')">
       <h2>${ev.name}</h2>
     </div>
     <div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>
@@ -553,20 +565,19 @@ function loadMore(sectionObj){
   const gallery = sectionObj.el.querySelector('.gallery');
 
   for(let i = 0; i < BATCH_SIZE; i++){
-    const index = ev.from + sectionObj.loaded;
-    if(index > ev.to) return;
+    const photo = ev.photos[sectionObj.loaded];
+    if(!photo) return;
 
     const img = new Image();
-    img.src = `${IMAGE_BASE_PATH}photo${index}.jpg`;
-    img.alt = `Photo ${index} from ${ev.name}`;
+    img.src = `${IMAGE_BASE_PATH}${photo}`;
+    img.alt = `${ev.name} – ${photo}`;
     img.loading = 'lazy';
     img.width = 250;
     img.height = 250;
 
     img.onload = () => img.classList.add('loaded');
-    img.onerror = () => wrap.style.display = 'none'; // hide broken images silently
+    img.onerror = () => wrap.style.display = 'none';
 
-    // store reference for lightbox navigation
     img.dataset.galleryIndex = sectionObj.imgEls.length;
     sectionObj.imgEls.push(img);
 
@@ -584,7 +595,7 @@ const loadObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(!entry.isIntersecting) return;
     const sectionObj = Object.values(sections).find(s => s.el === entry.target);
-    if(sectionObj && sectionObj.loaded < (sectionObj.ev.to - sectionObj.ev.from + 1)){
+    if(sectionObj && sectionObj.loaded < sectionObj.ev.photos.length){
       loadMore(sectionObj);
     }
   });
