@@ -41,7 +41,7 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' s[...]
   opacity:0.04;
   pointer-events:none;
   z-index:1000;
@@ -119,24 +119,16 @@ body::after{
   text-align:center;
   position:relative;
   overflow:hidden;
-  background:#000;
+  background:url("DSC_5003.jpg") center/cover no-repeat fixed;
 }
 
-.hero:before{
+.hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background:url("ftp-hero.jpg") center/cover no-repeat;
+  background:rgba(0,0,0,0.3);
   z-index:1;
-  animation:kenburns 20s ease-in-out infinite alternate;
-  transform-origin:center;
 }
-
-@keyframes kenburns {
-  from { transform: scale(0.5); }
-  to { transform: scale(0.9); }
-}
-
 
 .hero-inner{
   position:relative;
@@ -144,18 +136,46 @@ body::after{
   display:flex;
   flex-direction:column;
   align-items:center;
+  gap:20px;
 }
 
 .hero-logo{
   width:clamp(120px,18vw,250px);
   height:auto;
-  margin-bottom:20px;
   animation:fadeInDown 0.8s ease-out;
-  display:none;
 }
 
 .hero-content{
-  display:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+  animation:fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.hero-tag{
+  font-size:clamp(12px,1.2vw,14px);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+}
+
+.hero h1{
+  font-family:'Bebas Neue';
+  font-size:clamp(32px,5vw,56px);
+  line-height:1.2;
+  color:white;
+  max-width:800px;
+  letter-spacing:0.02em;
+}
+
+.hero-copy{
+  font-size:clamp(14px,1.3vw,16px);
+  line-height:1.6;
+  color:var(--muted);
+  max-width:600px;
+  white-space:pre-line;
 }
 
 /* PHOTO STRIP */
@@ -632,7 +652,27 @@ footer a:hover i{
 </header>
 
 <section class="hero">
-  <div class="hero-inner"></div>
+  <div class="hero-inner">
+    <img src="logo.png" alt="Funtime Photography Logo" class="hero-logo">
+    <div class="hero-content">
+      <p class="hero-tag">
+        SUSSEX MUSIC • FESTIVAL • NIGHTLIFE PHOTOGRAPHER
+      </p>
+
+      <h1>
+        CAPTURING THE ENERGY OF LIVE MUSIC, FESTIVALS & NIGHTLIFE
+      </h1>
+
+      <p class="hero-copy">
+        Photography for festivals, promoters, venues,
+        DJs, artists and brands across Sussex.
+
+        Real moments.
+        Real atmosphere.
+        Real crowd energy.
+      </p>
+    </div>
+  </div>
 </section>
 
 <div class="photo-strip">
