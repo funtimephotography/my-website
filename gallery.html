@@ -145,6 +145,34 @@ body{
     inset 0 0 12px rgba(0,224,255,0.1);
 }
 
+.tile.coming-soon{
+  cursor:not-allowed;
+  opacity:0.6;
+}
+
+.tile.coming-soon:hover::before{
+  background:rgba(0,0,0,0.5);
+}
+
+.tile.coming-soon:hover{
+  border-color:rgba(0,224,255,0.15);
+  box-shadow:none;
+  transform:none;
+}
+
+.coming-soon-badge{
+  position:absolute;
+  top:8px;right:8px;
+  background:rgba(255,165,0,0.9);
+  color:white;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  z-index:3;
+  letter-spacing:0.5px;
+}
+
 /* SECTION */
 .section{
   display:none;
@@ -191,6 +219,37 @@ body{
   position:relative;
   z-index:2;
   letter-spacing:1px;
+}
+
+/* COMING SOON NOTICE */
+.coming-soon-notice{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:400px;
+  gap:20px;
+  text-align:center;
+}
+
+.coming-soon-icon{
+  font-size:64px;
+  color:var(--accent);
+  opacity:0.8;
+}
+
+.coming-soon-notice h3{
+  font-family:'Bebas Neue';
+  font-size:32px;
+  letter-spacing:1px;
+  color:var(--text);
+}
+
+.coming-soon-notice p{
+  color:var(--muted);
+  font-size:16px;
+  max-width:500px;
+  line-height:1.6;
 }
 
 /* GRID */
@@ -376,11 +435,28 @@ footer{
   .tile{height:110px;}
   .tile span{font-size:22px;}
 
+  .coming-soon-badge{
+    font-size:11px;
+    padding:5px 10px;
+  }
+
   .section-header{height:140px;}
 
   .gallery{
     grid-template-columns:repeat(2,1fr);
     gap:8px;
+  }
+
+  .coming-soon-notice{
+    min-height:300px;
+  }
+
+  .coming-soon-icon{
+    font-size:48px;
+  }
+
+  .coming-soon-notice h3{
+    font-size:24px;
   }
 
   footer{
@@ -467,17 +543,38 @@ const events = [
   {
     id: 'rawfest',
     name: 'RAWfest',
-    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg','photo43.jpg','photo44.jpg','photo48.jpg','photo50.jpg']
+    comingSoon: false,
+    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','pho[...]
   },
   {
     id: 'dedbest',
     name: 'Dedbest',
-    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg','photo96.jpg','photo103.jpg','photo100.jpg','photo111.jpg','photo131.jpg']
+    comingSoon: false,
+    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.j[...]
   },
   {
     id: 'taco',
     name: 'Taco Night',
-    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg','photo205.jpg','photo217.jpg','photo222.jpg','photo229.jpg','photo243.jpg','photo240.jpg']
+    comingSoon: false,
+    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg','p[...]
+  },
+  {
+    id: 'elsewhere',
+    name: 'Elsewhere Launch',
+    comingSoon: true,
+    photos: []
+  },
+  {
+    id: 'forest-row',
+    name: 'Forest Row Festival',
+    comingSoon: true,
+    photos: []
+  },
+  {
+    id: 'elemental',
+    name: 'Elemental',
+    comingSoon: true,
+    photos: []
   }
 ];
 
@@ -505,22 +602,41 @@ events.forEach(ev => {
   // TILE
   const tile = document.createElement('button');
   tile.className = 'tile';
+  if(ev.comingSoon) tile.classList.add('coming-soon');
   tile.setAttribute('data-event-id', ev.id);
   tile.setAttribute('aria-label', `View ${ev.name} gallery`);
-  tile.innerHTML = `<span>${ev.name}</span>`;
-  tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}${ev.photos[0]}')`;
+  
+  let tileHTML = `<span>${ev.name}</span>`;
+  if(ev.comingSoon) tileHTML += `<div class="coming-soon-badge">Coming Soon</div>`;
+  
+  tile.innerHTML = tileHTML;
+  if(ev.photos.length > 0) tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}${ev.photos[0]}')`;
   tilesWrap.appendChild(tile);
 
   // SECTION
   const section = document.createElement('div');
   section.className = 'section';
   section.setAttribute('data-event-id', ev.id);
-  section.innerHTML = `
-    <div class="section-header" style="background-image:url('${IMAGE_BASE_PATH}${ev.photos[0]}')">
-      <h2>${ev.name}</h2>
-    </div>
-    <div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>
-  `;
+  
+  let sectionHTML = `<div class="section-header"`;
+  if(ev.photos.length > 0) sectionHTML += ` style="background-image:url('${IMAGE_BASE_PATH}${ev.photos[0]}')"`;
+  sectionHTML += `><h2>${ev.name}</h2></div>`;
+  
+  if(ev.comingSoon){
+    sectionHTML += `
+      <div class="coming-soon-notice">
+        <div class="coming-soon-icon">
+          <i class="fa-solid fa-camera"></i>
+        </div>
+        <h3>Coming Soon</h3>
+        <p>Photos from this event will be available shortly. Check back soon!</p>
+      </div>
+    `;
+  } else {
+    sectionHTML += `<div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>`;
+  }
+  
+  section.innerHTML = sectionHTML;
   container.appendChild(section);
 
   sections[ev.id] = {
@@ -531,10 +647,12 @@ events.forEach(ev => {
     imgEls: []
   };
 
-  tile.addEventListener('click', () => switchGallery(ev.id));
-  tile.addEventListener('keydown', e => {
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); switchGallery(ev.id); }
-  });
+  if(!ev.comingSoon){
+    tile.addEventListener('click', () => switchGallery(ev.id));
+    tile.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); switchGallery(ev.id); }
+    });
+  }
 });
 
 /* SWITCH GALLERY */
@@ -545,6 +663,7 @@ function switchGallery(id){
   });
 
   const s = sections[id];
+  activeSectionId = id;
   s.el.classList.add('active');
   s.tile.classList.add('active');
   galleryPrompt.classList.add('hidden');
@@ -554,8 +673,8 @@ function switchGallery(id){
     requestAnimationFrame(() => s.el.classList.add('visible'));
   });
 
-  // Load first batch if not yet loaded
-  if(s.loaded === 0) loadMore(s);
+  // Load first batch if not yet loaded and not coming soon
+  if(!s.ev.comingSoon && s.loaded === 0) loadMore(s);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -596,7 +715,7 @@ const loadObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(!entry.isIntersecting) return;
     const sectionObj = Object.values(sections).find(s => s.el === entry.target);
-    if(sectionObj && sectionObj.loaded < sectionObj.ev.photos.length){
+    if(sectionObj && !sectionObj.ev.comingSoon && sectionObj.loaded < sectionObj.ev.photos.length){
       loadMore(sectionObj);
     }
   });
