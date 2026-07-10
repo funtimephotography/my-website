@@ -8,7 +8,7 @@
 <meta property="og:description" content="Live Music, Festival, Artist and Event Photography Across Sussex."/>
 <meta property="og:type" content="business.business"/>
 
-<title>untime Photography | Music & Event Photographer Sussex</title>
+<title>Funtime Photography | Music & Event Photographer Sussex</title>
 
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -21,6 +21,8 @@
   --bg:#0d0617;
   --bg2:#2b1a4a;
   --accent:#00e0ff;
+  --pink:#ff3ecf;
+  --orange:#ff8c28;
   --text:#f5f5fa;
   --muted:rgba(255,255,255,0.75);
 }
@@ -112,7 +114,8 @@ body::after{
 
 /* HERO */
 .hero{
-  height:50vh;
+  height:100vh;
+  min-height:780px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -127,64 +130,76 @@ body::after{
   position:absolute;
   inset:0;
   background:url("ftp-hero.jpg") center/cover no-repeat;
-  z-index:1;
   animation:kenburns 20s ease-in-out infinite alternate;
   transform-origin:center;
+  z-index:1;
 }
 
-@keyframes kenburns {
-  from { transform: scale(0.5); }
-  to { transform: scale(0.9); }
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.35),
+    rgba(0,0,0,.65)
+  );
+  z-index:1;
 }
 
+@keyframes kenburns{
+  from {transform:scale(1);}
+  to {transform:scale(1.12);}
+}
 
 .hero-inner{
   position:relative;
   z-index:2;
   display:flex;
-  flex-direction:column;
   align-items:center;
-}
-
-.hero-logo{
-  width:clamp(120px,18vw,250px);
-  height:auto;
-  margin-bottom:20px;
-  animation:fadeInDown 0.8s ease-out;
-  display:none;
+  justify-content:center;
 }
 
 .hero-content{
-  display:none;
+  display:block;
+  max-width:950px;
+  padding:20px;
 }
 
-/* PHOTO STRIP */
-.photo-strip{
+.hero-tag{
+  color:var(--accent);
+  font-size:14px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-family:'Bebas Neue';
+  font-size:clamp(4rem,8vw,8rem);
+  line-height:.95;
+  margin-bottom:25px;
+}
+
+.hero-copy{
+  max-width:700px;
+  margin:auto;
+  font-size:clamp(1rem,2vw,1.3rem);
+  color:rgba(255,255,255,.92);
+  line-height:1.8;
+}
+
+.hero-buttons{
   display:flex;
-  height:70px;
-  overflow:hidden;
-  position:relative;
-  z-index:1;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-top:35px;
 }
 
-.strip-item{
-  flex:1;
-  background:#1a1a2e;
-  border-right:1px solid rgba(0,0,0,0.4);
-  position:relative;
-  overflow:hidden;
 }
 
-.strip-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0.5;
-  transition:opacity 0.3s;
-}
-
-.strip-item:nth-child(odd){background:#110d1e;}
-.strip-item:nth-child(3n){background:#0d1a1f;}
 
 /* SECTION DIVIDER */
 .divider{
@@ -229,6 +244,15 @@ body::after{
   box-shadow:0 8px 24px rgba(0,224,255,0.3);
 }
 
+  .secondary{
+  background:transparent;
+  border:2px solid rgba(255,255,255,.45);
+}
+
+.secondary:hover{
+  border-color:var(--accent);
+}
+  
 @keyframes fadeInDown{
   from{opacity:0;transform:translateY(-20px)}
   to{opacity:1;transform:translateY(0)}
@@ -270,7 +294,7 @@ body::after{
 .about{
   text-align:center;
   line-height:1.8;
-  max-width:800px;
+  max-width:950px;
   margin:80px auto;
   color:var(--muted);
   padding:50px 20px;
@@ -349,8 +373,10 @@ body::after{
 }
 
 .grid img:hover{
-  transform:scale(1.02);
-  box-shadow:0 0 0 2px rgba(0,224,255,0.5);
+  transform:scale(1.05);
+  box-shadow:
+  0 0 20px rgba(0,224,255,.4),
+  0 0 40px rgba(255,62,207,.2);
 }
 
 /* SELL SECTION */
@@ -450,7 +476,10 @@ body::after{
   .topbar{padding:12px 20px;}
   .topbar img{width:50px;height:50px;}
   .topbar a{margin-left:0;}
-  .hero{height:40vh;}
+  .hero{height:100vh;
+   min-height:650px;
+ }
+
   .floating-cta{bottom:20px;}
   .grid{grid-template-columns:repeat(2,1fr);}
 
@@ -481,7 +510,6 @@ body::after{
     padding:30px 15px;
   }
 
-  .photo-strip{height:50px;}
   .divider{margin:0 20px;}
 }
 
@@ -632,19 +660,46 @@ footer a:hover i{
 </header>
 
 <section class="hero">
-  <div class="hero-inner"></div>
+
+  <div class="hero-inner">
+
+    <div class="hero-content">
+
+      <p class="hero-tag">
+        SUSSEX MUSIC • FESTIVAL • NIGHTLIFE PHOTOGRAPHER
+      </p>
+
+      <h1>
+        CAPTURING THE ENERGY OF LIVE MUSIC, FESTIVALS & NIGHTLIFE
+      </h1>
+
+      <p class="hero-copy">
+        Photography for festivals, promoters, venues,
+        DJs, artists and brands across Sussex.
+
+        Real moments.
+        Real atmosphere.
+        Real crowd energy.
+      </p>
+
+      <div class="hero-buttons">
+
+        ">
+          View Portfolio
+        </a>
+
+        <a class="cta secondary" href="booking.html">
+          Book Photography
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
-<div class="photo-strip">
-  <div class="strip-item"><img src="photo229.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo155.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo95.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo43.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo193.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo80.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo17.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo144.jpg" alt="" loading="lazy"></div>
-</div>
 
 <div class="floating-cta" id="floatingCta">
   <a class="cta" href="booking.html">Book Your Event</a>
@@ -652,15 +707,17 @@ footer a:hover i{
 
 <section class="about">
   <div class="about-bg-text"></div>
-  <p><strong>Hi, I'm Frank, the photographer behind Funtime Photography.</strong></p>
-  <p>I specialise in live music, nightlife and event photography across Sussex.</p>
-  <p>
-From festivals and club nights to live venues, DJs, bands and artists,
-I work with the people who create the experiences everyone remembers.
-Whether it's promoting the next event, building an artist profile or
-capturing the atmosphere of a packed room, the goal is always the same:
-real moments, real energy and photos people actually connect with.
-</strong></p>
+<p>
+  <strong>
+    Hi, I'm Frank — a Sussex-based photographer specialising in live music,
+    festivals, venues, DJs and nightlife.
+  </strong>
+</p>
+
+<p>
+  I work with festivals, promoters, venues, artists and brands to create
+  photography that captures atmosphere, excitement and genuine moments.
+</p>
 </section>
 
 <div class="divider"></div>
