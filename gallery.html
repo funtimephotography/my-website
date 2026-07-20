@@ -539,6 +539,13 @@ footer{
 const BATCH_SIZE = 12;
 const IMAGE_BASE_PATH = '/';
 
+// Helper function to get image URLs with format variants
+function getImageUrl(filename, isThumbnail = false) {
+  const nameWithoutExt = filename.replace(/\.[^.]+$/, '');
+  const size = isThumbnail ? '-thumb' : '-lg';
+  return `${IMAGE_BASE_PATH}${nameWithoutExt}${size}`;
+}
+
 const events = [
   {
     id: 'rawfest',
@@ -550,7 +557,7 @@ const events = [
     id: 'dedbest',
     name: 'Dedbest',
     comingSoon: false,
-    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.j[...]
+    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg']
   },
   {
     id: 'taco',
@@ -574,7 +581,7 @@ const events = [
     id: 'elemental',
     name: 'Elemental Festival',
     comingSoon: false,
-    photos: ['24-DSC_0332.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0284.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-D[...]
+    photos: ['24-DSC_0332.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0284.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-DSC_5765.jpg','12-DSC_0206.jpg']
   }
 ];
 
@@ -611,7 +618,8 @@ events.forEach(ev => {
   
   tile.innerHTML = tileHTML;
   if(ev.photos.length > 0) {
-    tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}${ev.photos[0]}')`;
+    const thumbUrl = getImageUrl(ev.photos[0], true);
+    tile.style.backgroundImage = `url('${thumbUrl}.jpg')`;
   }
   tilesWrap.appendChild(tile);
 
@@ -622,7 +630,8 @@ events.forEach(ev => {
   
   let sectionHTML = `<div class="section-header"`;
   if(ev.photos.length > 0) {
-    sectionHTML += ` style="background-image:url('${IMAGE_BASE_PATH}${ev.photos[0]}')"`;
+    const thumbUrl = getImageUrl(ev.photos[0], true);
+    sectionHTML += ` style="background-image:url('${thumbUrl}.jpg')"`;
   }
   sectionHTML += `><h2>${ev.name}</h2></div>`;
   
@@ -693,7 +702,7 @@ function loadMore(sectionObj){
     if(!photo) return;
 
     const img = new Image();
-    img.src = `${IMAGE_BASE_PATH}${photo}`;
+    img.src = `${getImageUrl(photo, true)}.jpg`;
     img.alt = `${ev.name} – photo`;
     img.loading = 'lazy';
     img.width = 250;
@@ -741,8 +750,9 @@ function openLightbox(sectionId, index){
 
 function showLbImage(){
   const fullImageName = lbImages[lbIndex].dataset.fullImage;
+  const lgUrl = getImageUrl(fullImageName, false);
   
-  lbImg.src = `${IMAGE_BASE_PATH}${fullImageName}`;
+  lbImg.src = `${lgUrl}.jpg`;
   lbImg.alt = lbImages[lbIndex].alt;
   lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
 }
