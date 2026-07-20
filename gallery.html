@@ -540,17 +540,18 @@ const BATCH_SIZE = 12;
 const IMAGE_BASE_PATH = '/';
 
 // Helper function to get image URLs with format variants
-
-function getImageUrl(filename) {
-  return `${IMAGE_BASE_PATH}${filename}`;
+function getImageUrl(filename, isThumbnail = false) {
+  const nameWithoutExt = filename.replace(/\.[^.]+$/, '');
+  const size = isThumbnail ? '-thumb' : '-lg';
+  return `${IMAGE_BASE_PATH}${nameWithoutExt}${size}`;
 }
-
 
 const events = [
   {
     id: 'rawfest',
     name: 'RAWfest',
     comingSoon: false,
+    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg']
     photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg',]
   },
   {
@@ -581,7 +582,7 @@ const events = [
     id: 'elemental',
     name: 'Elemental Festival',
     comingSoon: false,
-    photos: ['24-DSC_0332.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0284.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-DSC_5746.jpg','12-DSC_0206.jpg']
+    photos: ['24-DSC_0332.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0284.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-DSC_5741.jpg']
   }
 ];
 
@@ -612,14 +613,14 @@ events.forEach(ev => {
   if(ev.comingSoon) tile.classList.add('coming-soon');
   tile.setAttribute('data-event-id', ev.id);
   tile.setAttribute('aria-label', `View ${ev.name} gallery`);
-  
+
   let tileHTML = `<span>${ev.name}</span>`;
   if(ev.comingSoon) tileHTML += `<div class="coming-soon-badge">Coming Soon</div>`;
-  
+
   tile.innerHTML = tileHTML;
   if(ev.photos.length > 0) {
     const thumbUrl = getImageUrl(ev.photos[0], true);
-    tile.style.backgroundImage = `url('${thumbUrl}.jpg')`;
+    tile.style.backgroundImage = `url('${thumbUrl}.webp'), url('${thumbUrl}.jpg')`;
   }
   tilesWrap.appendChild(tile);
 
@@ -627,16 +628,14 @@ events.forEach(ev => {
   const section = document.createElement('div');
   section.className = 'section';
   section.setAttribute('data-event-id', ev.id);
-  
+
   let sectionHTML = `<div class="section-header"`;
   if(ev.photos.length > 0) {
-   
-const thumbUrl = getImageUrl(ev.photos[0]);
-tile.style.backgroundImage = `url('${thumbUrl}')`;
-
+    const thumbUrl = getImageUrl(ev.photos[0], true);
+    sectionHTML += ` style="background-image:url('${thumbUrl}.webp'), url('${thumbUrl}.jpg')"`;
   }
   sectionHTML += `><h2>${ev.name}</h2></div>`;
-  
+
   if(ev.comingSoon){
     sectionHTML += `
       <div class="coming-soon-notice">
@@ -650,7 +649,7 @@ tile.style.backgroundImage = `url('${thumbUrl}')`;
   } else {
     sectionHTML += `<div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>`;
   }
-  
+
   section.innerHTML = sectionHTML;
   container.appendChild(section);
 
@@ -703,8 +702,16 @@ function loadMore(sectionObj){
     const photo = ev.photos[sectionObj.loaded];
     if(!photo) return;
 
+    // Create picture element for responsive format support (webp + jpg fallback)
+    const picture = document.createElement('picture');
+
+    const source = document.createElement('source');
+    source.type = 'image/webp';
+    source.srcset = `${getImageUrl(photo, true)}.webp`;
+    picture.appendChild(source);
+
     const img = new Image();
-    img.src = getImageUrl(photo);
+    img.src = `${getImageUrl(photo, true)}.jpg`;
     img.alt = `${ev.name} – photo`;
     img.loading = 'lazy';
     img.width = 250;
@@ -718,9 +725,11 @@ function loadMore(sectionObj){
     img.dataset.fullImage = photo;
     sectionObj.imgEls.push(img);
 
+    picture.appendChild(img);
+
     const wrap = document.createElement('div');
     wrap.className = 'thumb';
-    wrap.appendChild(img);
+    wrap.appendChild(picture);
     gallery.appendChild(wrap);
 
     sectionObj.loaded++;
@@ -750,15 +759,15 @@ function openLightbox(sectionId, index){
   document.body.style.overflow = 'hidden';
 }
 
-
 function showLbImage(){
   const fullImageName = lbImages[lbIndex].dataset.fullImage;
+  const lgUrl = getImageUrl(fullImageName, false);
 
-  lbImg.src = getImageUrl(fullImageName);
+  // Use webp with jpg fallback
+  lbImg.src = `${lgUrl}.jpg`;
+  lbImg.srcset = `${lgUrl}.webp 1x, ${lgUrl}.jpg 1x`;
   lbImg.alt = lbImages[lbIndex].alt;
   lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
-}
-
 }
 
 function closeLightbox(){
