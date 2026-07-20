@@ -533,17 +533,15 @@ footer{
   </div>
 </div>
 
+
 <script>
 (function(){
 
 const BATCH_SIZE = 12;
 const IMAGE_BASE_PATH = '/';
 
-// Helper function to get image URLs with format variants
-function getImageUrl(filename, isThumbnail = false) {
-  const nameWithoutExt = filename.replace(/\.[^.]+$/, '');
-  const size = isThumbnail ? '-thumb' : '-lg';
-  return `${IMAGE_BASE_PATH}${nameWithoutExt}${size}`;
+function getImageUrl(filename){
+  return `${IMAGE_BASE_PATH}${filename}`;
 }
 
 const events = [
@@ -551,20 +549,33 @@ const events = [
     id: 'rawfest',
     name: 'RAWfest',
     comingSoon: false,
-    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg']
-    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg',]
+    photos: [
+      'photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg',
+      'photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg',
+      'photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg',
+      'photo39.jpg','photo41.jpg'
+    ]
   },
   {
     id: 'dedbest',
     name: 'Dedbest',
     comingSoon: false,
-    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg']
+    photos: [
+      'photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg',
+      'photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg',
+      'photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg',
+      'photo91.jpg'
+    ]
   },
   {
     id: 'taco',
     name: 'Taco Night',
     comingSoon: false,
-    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg']
+    photos: [
+      'photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg',
+      'photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg',
+      'photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg'
+    ]
   },
   {
     id: 'elsewhere',
@@ -582,7 +593,19 @@ const events = [
     id: 'elemental',
     name: 'Elemental Festival',
     comingSoon: false,
-    photos: ['24-DSC_0332.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0284.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-DSC_5741.jpg']
+    photos: [
+      '24-DSC_0332.jpg',
+      '25-DSC_0338.jpg',
+      '17-DSC_5937.jpg',
+      '18-DSC_0284.jpg',
+      '20-DSC_6042.jpg',
+      '22-DSC_6137.jpg',
+      '7-DSC_0143.jpg',
+      '8-DSC_5705.jpg',
+      '9-DSC_0165.jpg',
+      '10-DSC_5740.jpg',
+      '11-DSC_5741.jpg'
+    ]
   }
 ];
 
@@ -599,7 +622,6 @@ const galleryPrompt = document.getElementById('galleryPrompt');
 
 const sections = {};
 
-// Track all loaded images for lightbox navigation, per active gallery
 let activeSectionId = null;
 let lbImages = [];
 let lbIndex  = 0;
@@ -607,36 +629,44 @@ let lbIndex  = 0;
 /* BUILD TILES + SECTIONS */
 events.forEach(ev => {
 
-  // TILE
   const tile = document.createElement('button');
   tile.className = 'tile';
-  if(ev.comingSoon) tile.classList.add('coming-soon');
+
+  if(ev.comingSoon) {
+    tile.classList.add('coming-soon');
+  }
+
   tile.setAttribute('data-event-id', ev.id);
   tile.setAttribute('aria-label', `View ${ev.name} gallery`);
 
   let tileHTML = `<span>${ev.name}</span>`;
-  if(ev.comingSoon) tileHTML += `<div class="coming-soon-badge">Coming Soon</div>`;
+
+  if(ev.comingSoon){
+    tileHTML += `<div class="coming-soon-badge">Coming Soon</div>`;
+  }
 
   tile.innerHTML = tileHTML;
-  if(ev.photos.length > 0) {
-    const thumbUrl = getImageUrl(ev.photos[0], true);
-    tile.style.backgroundImage = `url('${thumbUrl}.webp'), url('${thumbUrl}.jpg')`;
+
+  if(ev.photos.length > 0){
+    tile.style.backgroundImage = `url('${getImageUrl(ev.photos[0])}')`;
   }
+
   tilesWrap.appendChild(tile);
 
-  // SECTION
   const section = document.createElement('div');
   section.className = 'section';
   section.setAttribute('data-event-id', ev.id);
 
   let sectionHTML = `<div class="section-header"`;
-  if(ev.photos.length > 0) {
-    const thumbUrl = getImageUrl(ev.photos[0], true);
-    sectionHTML += ` style="background-image:url('${thumbUrl}.webp'), url('${thumbUrl}.jpg')"`;
+
+  if(ev.photos.length > 0){
+    sectionHTML += ` style="background-image:url('${getImageUrl(ev.photos[0])}')"`
   }
+
   sectionHTML += `><h2>${ev.name}</h2></div>`;
 
   if(ev.comingSoon){
+
     sectionHTML += `
       <div class="coming-soon-notice">
         <div class="coming-soon-icon">
@@ -646,8 +676,16 @@ events.forEach(ev => {
         <p>Photos from this event will be available shortly. Check back soon!</p>
       </div>
     `;
+
   } else {
-    sectionHTML += `<div class="gallery" role="region" aria-label="${ev.name} photo gallery"></div>`;
+
+    sectionHTML += `
+      <div class="gallery"
+           role="region"
+           aria-label="${ev.name} photo gallery">
+      </div>
+    `;
+
   }
 
   section.innerHTML = sectionHTML;
@@ -662,138 +700,181 @@ events.forEach(ev => {
   };
 
   if(!ev.comingSoon){
+
     tile.addEventListener('click', () => switchGallery(ev.id));
+
     tile.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); switchGallery(ev.id); }
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        switchGallery(ev.id);
+      }
     });
+
   }
+
 });
 
 /* SWITCH GALLERY */
 function switchGallery(id){
+
   Object.values(sections).forEach(s => {
     s.el.classList.remove('active','visible');
     s.tile.classList.remove('active');
   });
 
   const s = sections[id];
+
   activeSectionId = id;
+
   s.el.classList.add('active');
   s.tile.classList.add('active');
+
   galleryPrompt.classList.add('hidden');
 
-  // Trigger transition on next frame
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => s.el.classList.add('visible'));
+    requestAnimationFrame(() => {
+      s.el.classList.add('visible');
+    });
   });
 
-  // Load first batch if not yet loaded and not coming soon
-  if(!s.ev.comingSoon && s.loaded === 0) loadMore(s);
+  if(!s.ev.comingSoon && s.loaded === 0){
+    loadMore(s);
+  }
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
 }
 
 /* LOAD IMAGES */
 function loadMore(sectionObj){
+
   const { ev } = sectionObj;
   const gallery = sectionObj.el.querySelector('.gallery');
 
-  for(let i = 0; i < BATCH_SIZE; i++){
+  for(let i=0;i<BATCH_SIZE;i++){
+
     const photo = ev.photos[sectionObj.loaded];
+
     if(!photo) return;
 
-    // Create picture element for responsive format support (webp + jpg fallback)
-    const picture = document.createElement('picture');
-
-    const source = document.createElement('source');
-    source.type = 'image/webp';
-    source.srcset = `${getImageUrl(photo, true)}.webp`;
-    picture.appendChild(source);
-
     const img = new Image();
-    img.src = `${getImageUrl(photo, true)}.jpg`;
-    img.alt = `${ev.name} – photo`;
+
+    img.src = getImageUrl(photo);
+    img.alt = `${ev.name} – ${photo}`;
     img.loading = 'lazy';
-    img.width = 250;
-    img.height = 250;
-    img.decoding = 'async';
 
     img.onload = () => img.classList.add('loaded');
-    img.onerror = () => { if (wrap) wrap.style.display = 'none'; };
 
     img.dataset.galleryIndex = sectionObj.imgEls.length;
     img.dataset.fullImage = photo;
-    sectionObj.imgEls.push(img);
 
-    picture.appendChild(img);
+    sectionObj.imgEls.push(img);
 
     const wrap = document.createElement('div');
     wrap.className = 'thumb';
-    wrap.appendChild(picture);
+
+    wrap.appendChild(img);
+
     gallery.appendChild(wrap);
 
     sectionObj.loaded++;
   }
 }
 
-/* INFINITE SCROLL via IntersectionObserver */
+/* INFINITE SCROLL */
 const loadObserver = new IntersectionObserver(entries => {
+
   entries.forEach(entry => {
+
     if(!entry.isIntersecting) return;
-    const sectionObj = Object.values(sections).find(s => s.el === entry.target);
-    if(sectionObj && !sectionObj.ev.comingSoon && sectionObj.loaded < sectionObj.ev.photos.length){
+
+    const sectionObj = Object.values(sections)
+      .find(s => s.el === entry.target);
+
+    if(
+      sectionObj &&
+      !sectionObj.ev.comingSoon &&
+      sectionObj.loaded < sectionObj.ev.photos.length
+    ){
       loadMore(sectionObj);
     }
-  });
-}, { threshold: 0.1 });
 
-Object.values(sections).forEach(s => loadObserver.observe(s.el));
+  });
+
+},{ threshold:0.1 });
+
+Object.values(sections)
+  .forEach(s => loadObserver.observe(s.el));
 
 /* LIGHTBOX */
 function openLightbox(sectionId, index){
+
   const s = sections[sectionId];
+
   lbImages = s.imgEls;
   lbIndex = index;
+
   showLbImage();
+
   lb.classList.add('active');
+
   document.body.style.overflow = 'hidden';
 }
 
 function showLbImage(){
-  const fullImageName = lbImages[lbIndex].dataset.fullImage;
-  const lgUrl = getImageUrl(fullImageName, false);
 
-  // Use webp with jpg fallback
-  lbImg.src = `${lgUrl}.jpg`;
-  lbImg.srcset = `${lgUrl}.webp 1x, ${lgUrl}.jpg 1x`;
+  const photo = lbImages[lbIndex].dataset.fullImage;
+
+  lbImg.src = getImageUrl(photo);
   lbImg.alt = lbImages[lbIndex].alt;
-  lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
+
+  lbCounter.textContent =
+    `${lbIndex + 1} / ${lbImages.length}`;
 }
 
 function closeLightbox(){
+
   lb.classList.remove('active');
   document.body.style.overflow = '';
 }
 
 function showNext(){
+
   lbIndex = (lbIndex + 1) % lbImages.length;
-  // load more if near end
+
   const s = sections[activeSectionId];
-  if(lbIndex >= lbImages.length - 3) loadMore(s);
+
+  if(lbIndex >= lbImages.length - 3){
+    loadMore(s);
+  }
+
   showLbImage();
 }
 
 function showPrev(){
-  lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+
+  lbIndex =
+    (lbIndex - 1 + lbImages.length) %
+    lbImages.length;
+
   showLbImage();
 }
 
-// Delegate click on gallery images
 container.addEventListener('click', e => {
+
   const img = e.target.closest('.thumb img');
+
   if(!img) return;
-  const idx = parseInt(img.dataset.galleryIndex, 10);
+
+  const idx = parseInt(
+    img.dataset.galleryIndex,
+    10
+  );
+
   openLightbox(activeSectionId, idx);
+
 });
 
 lbPrev.addEventListener('click', showPrev);
@@ -805,16 +886,14 @@ lb.addEventListener('click', e => {
 });
 
 document.addEventListener('keydown', e => {
-  if(!lb.classList.contains('active')) return;
-  if(e.key === 'Escape')      closeLightbox();
-  if(e.key === 'ArrowRight')  showNext();
-  if(e.key === 'ArrowLeft')   showPrev();
-});
 
-/* No default — user picks a gallery to open */
+  if(!lb.classList.contains('active')) return;
+
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowRight') showNext();
+  if(e.key === 'ArrowLeft') showPrev();
+
+});
 
 })();
 </script>
-
-</body>
-</html>
