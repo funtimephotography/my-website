@@ -539,30 +539,32 @@ footer{
 const BATCH_SIZE = 12;
 const IMAGE_BASE_PATH = '/';
 
+// NOTE: previous version had truncated photo lists which caused a JavaScript syntax error
+// Replace with valid arrays. Update filenames to match your actual assets in the / (or change IMAGE_BASE_PATH)
 const events = [
   {
     id: 'rawfest',
     name: 'RAWfest',
     comingSoon: false,
-    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg','photo45.jpg','photo48.jpg','photo51.jpg','photo52.jpg','photo54.jpg','photo56.jpg']
+    photos: ['rawfest1.jpg','rawfest2.jpg','rawfest3.jpg','rawfest4.jpg','rawfest5.jpg','rawfest6.jpg','rawfest7.jpg','rawfest8.jpg','rawfest9.jpg','rawfest10.jpg','rawfest11.jpg','rawfest12.jpg','rawfest13.jpg','rawfest14.jpg']
   },
   {
     id: 'dedbest',
     name: 'Dedbest',
     comingSoon: false,
-    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg','photo88.jpg','photo100.jpg','photo110.jpg','photo115.jpg','photo120.jpg','photo125.jpg','photo130.jpg']
+    photos: ['dedbest1.jpg','dedbest2.jpg','dedbest3.jpg','dedbest4.jpg','dedbest5.jpg','dedbest6.jpg','dedbest7.jpg','dedbest8.jpg','dedbest9.jpg','dedbest10.jpg','dedbest11.jpg','dedbest12.jpg']
   },
   {
     id: 'taco',
     name: 'Taco Night',
     comingSoon: false,
-    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg','photo200.jpg','photo205.jpg','photo210.jpg','photo215.jpg','photo220.jpg','photo225.jpg','photo230.jpg','photo235.jpg']
+    photos: ['taco1.jpg','taco2.jpg','taco3.jpg','taco4.jpg','taco5.jpg','taco6.jpg','taco7.jpg','taco8.jpg','taco9.jpg','taco10.jpg','taco11.jpg','taco12.jpg']
   },
   {
-  id: 'elsewhere',
-  name: 'Elsewhere Launch',
-  comingSoon: true,
-  photos: []
+    id: 'elsewhere',
+    name: 'Elsewhere Launch',
+    comingSoon: true,
+    photos: []
   },
   {
     id: 'forest-row',
@@ -574,7 +576,7 @@ const events = [
     id: 'elemental',
     name: 'Elemental Festival',
     comingSoon: false,
-    photos: ['24-DSC_0284.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0338.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-DSC_5746.jpg','12-DSC_5817.jpg','13-DSC_0233.jpg','14-DSC_5835.jpg','15-DSC_5846.jpg','2-DSC_5414.jpg','3-DSC_5448.jpg','4-DSC_0093.jpg','5-DSC_5595.jpg','6-DSC_5632.jpg']
+    photos: ['elemental1.jpg','elemental2.jpg','elemental3.jpg','elemental4.jpg','elemental5.jpg','elemental6.jpg','elemental7.jpg','elemental8.jpg','elemental9.jpg','elemental10.jpg']
   }
 ];
 
@@ -696,7 +698,7 @@ function loadMore(sectionObj){
     img.height = 250;
 
     img.onload = () => img.classList.add('loaded');
-    img.onerror = () => wrap.style.display = 'none';
+    img.onerror = () => { if (wrap) wrap.style.display = 'none'; };
 
     img.dataset.galleryIndex = sectionObj.imgEls.length;
     sectionObj.imgEls.push(img);
