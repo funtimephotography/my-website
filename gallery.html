@@ -539,24 +539,31 @@ footer{
 const BATCH_SIZE = 12;
 const IMAGE_BASE_PATH = '/';
 
+// Helper function to get image URLs with format variants
+function getImageUrl(filename, isThumbnail = false) {
+  const nameWithoutExt = filename.replace(/\.[^.]+$/, '');
+  const size = isThumbnail ? '-thumb' : '-lg';
+  return `${IMAGE_BASE_PATH}${nameWithoutExt}${size}`;
+}
+
 const events = [
   {
     id: 'rawfest',
     name: 'RAWfest',
     comingSoon: false,
-    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg','photo45.jpg','photo48.jpg','photo51.jpg','photo52.jpg','photo54.jpg','photo56.jpg']
+    photos: ['photo1.jpg','photo3.jpg','photo4.jpg','photo7.jpg','photo14.jpg','photo15.jpg','photo17.jpg','photo22.jpg','photo26.jpg','photo29.jpg','photo32.jpg','photo36.jpg','photo39.jpg','photo41.jpg']
   },
   {
     id: 'dedbest',
     name: 'Dedbest',
     comingSoon: false,
-    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg','photo88.jpg','photo100.jpg','photo110.jpg','photo115.jpg','photo120.jpg','photo125.jpg','photo130.jpg']
+    photos: ['photo95.jpg','photo97.jpg','photo76.jpg','photo83.jpg','photo79.jpg','photo80.jpg','photo86.jpg','photo85.jpg','photo104.jpg','photo113.jpg','photo106.jpg','photo123.jpg','photo91.jpg']
   },
   {
     id: 'taco',
     name: 'Taco Night',
     comingSoon: false,
-    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg','photo200.jpg','photo205.jpg','photo210.jpg','photo215.jpg','photo220.jpg','photo225.jpg','photo230.jpg','photo235.jpg']
+    photos: ['photo135.jpg','photo136.jpg','photo139.jpg','photo144.jpg','photo156.jpg','photo155.jpg','photo179.jpg','photo191.jpg','photo192.jpg','photo193.jpg','photo198.jpg','photo196.jpg']
   },
   {
     id: 'elsewhere',
@@ -574,7 +581,7 @@ const events = [
     id: 'elemental',
     name: 'Elemental Festival',
     comingSoon: false,
-    photos: ['24-DSC_0332.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0284.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-DSC_5746.jpg','12-DSC_5817.jpg','13-DSC_0233.jpg','14-DSC_5835.jpg','15-DSC_5846.jpg','2-DSC_5414.jpg','3-DSC_5448.jpg','4-DSC_0093.jpg','5-DSC_5595.jpg','6-DSC_5632.jpg']
+    photos: ['24-DSC_0332.jpg','25-DSC_0338.jpg','17-DSC_5937.jpg','18-DSC_0284.jpg','20-DSC_6042.jpg','22-DSC_6137.jpg','7-DSC_0143.jpg','8-DSC_5705.jpg','9-DSC_0165.jpg','10-DSC_5740.jpg','11-DSC_5741.jpg']
   }
 ];
 
@@ -610,7 +617,10 @@ events.forEach(ev => {
   if(ev.comingSoon) tileHTML += `<div class="coming-soon-badge">Coming Soon</div>`;
   
   tile.innerHTML = tileHTML;
-  if(ev.photos.length > 0) tile.style.backgroundImage = `url('${IMAGE_BASE_PATH}${ev.photos[0]}')`;
+  if(ev.photos.length > 0) {
+    const thumbUrl = getImageUrl(ev.photos[0], true);
+    tile.style.backgroundImage = `url('${thumbUrl}.webp'), url('${thumbUrl}.jpg')`;
+  }
   tilesWrap.appendChild(tile);
 
   // SECTION
@@ -619,7 +629,10 @@ events.forEach(ev => {
   section.setAttribute('data-event-id', ev.id);
   
   let sectionHTML = `<div class="section-header"`;
-  if(ev.photos.length > 0) sectionHTML += ` style="background-image:url('${IMAGE_BASE_PATH}${ev.photos[0]}')"`;
+  if(ev.photos.length > 0) {
+    const thumbUrl = getImageUrl(ev.photos[0], true);
+    sectionHTML += ` style="background-image:url('${thumbUrl}.webp'), url('${thumbUrl}.jpg')"`;
+  }
   sectionHTML += `><h2>${ev.name}</h2></div>`;
   
   if(ev.comingSoon){
@@ -688,22 +701,34 @@ function loadMore(sectionObj){
     const photo = ev.photos[sectionObj.loaded];
     if(!photo) return;
 
+    // Create picture element for responsive format support (webp + jpg fallback)
+    const picture = document.createElement('picture');
+    
+    const source = document.createElement('source');
+    source.type = 'image/webp';
+    source.srcset = `${getImageUrl(photo, true)}.webp`;
+    picture.appendChild(source);
+    
     const img = new Image();
-    img.src = `${IMAGE_BASE_PATH}${photo}`;
-    img.alt = `${ev.name} – ${photo}`;
+    img.src = `${getImageUrl(photo, true)}.jpg`;
+    img.alt = `${ev.name} – photo`;
     img.loading = 'lazy';
     img.width = 250;
     img.height = 250;
+    img.decoding = 'async';
 
     img.onload = () => img.classList.add('loaded');
     img.onerror = () => { if (wrap) wrap.style.display = 'none'; };
 
     img.dataset.galleryIndex = sectionObj.imgEls.length;
+    img.dataset.fullImage = photo;
     sectionObj.imgEls.push(img);
+
+    picture.appendChild(img);
 
     const wrap = document.createElement('div');
     wrap.className = 'thumb';
-    wrap.appendChild(img);
+    wrap.appendChild(picture);
     gallery.appendChild(wrap);
 
     sectionObj.loaded++;
@@ -734,7 +759,12 @@ function openLightbox(sectionId, index){
 }
 
 function showLbImage(){
-  lbImg.src = lbImages[lbIndex].src;
+  const fullImageName = lbImages[lbIndex].dataset.fullImage;
+  const lgUrl = getImageUrl(fullImageName, false);
+  
+  // Use webp with jpg fallback
+  lbImg.src = `${lgUrl}.jpg`;
+  lbImg.srcset = `${lgUrl}.webp 1x, ${lgUrl}.jpg 1x`;
   lbImg.alt = lbImages[lbIndex].alt;
   lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
 }
