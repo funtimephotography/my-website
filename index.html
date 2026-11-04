@@ -200,23 +200,6 @@ body::after{
   margin:0 40px;
 }
 
-/* FLOATING CTA */
-.floating-cta{
-  position:fixed;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:500;
-  opacity:0;
-  transition:opacity 0.3s ease;
-  pointer-events:none;
-}
-
-.floating-cta.visible{
-  opacity:1;
-  pointer-events:auto;
-}
-
 .cta{
   padding:14px 28px;
   background:linear-gradient(135deg,var(--accent),#006c80);
@@ -339,20 +322,6 @@ body::after{
   grid-auto-flow:dense;
 }
 
-.featured-album-links{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px 24px;
-  margin-top:16px;
-}
-
-.featured-album-links a{
-  color:var(--accent);
-  padding:8px 4px;
-  text-underline-offset:3px;
-}
-
 .grid img{
   width:100%;
   aspect-ratio:1/1;
@@ -472,7 +441,7 @@ body::after{
   .topbar img{width:50px;height:50px;}
   .topbar a{margin-left:0;}
   .hero{min-height:400px;}
-  .floating-cta{bottom:20px;}
+
   .grid{grid-template-columns:repeat(2,1fr);}
 
   .sell{
@@ -673,9 +642,6 @@ footer a:hover i{
   <div class="strip-item"><img src="photo144.jpg" alt="" loading="lazy"></div>
 </div>
 
-<div class="floating-cta" id="floatingCta">
-  <a class="cta" href="booking.html">Work With Me</a>
-</div>
 
 <section class="about">
   <div class="about-bg-text"></div>
@@ -714,10 +680,6 @@ A selection of live music, festival and event photography showcasing crowd energ
     <img alt="Elsewhere Launch DJ working the decks under orange and teal lights">
     <img alt="Elsewhere Launch crowd with hands raised beneath the venue sign">
   </div>
-  <div class="featured-album-links">
-    <a href="gallery.html#shocktoberfest">View Shocktoberfest album</a>
-    <a href="gallery.html#elsewhere">View Elsewhere Launch album</a>
-  </div>
 </section>
 
   
@@ -731,7 +693,7 @@ A selection of live music, festival and event photography showcasing crowd energ
 <div style="text-align:center; margin-top:40px;">
   <h3>Recent Events Covered</h3>
   <p>
-    Elemental Festival • Rawfest • DedBest • Taco Night • Elsewhere Launch
+    Shocktoberfest • We Are Scientists • Elsewhere Launch • Elemental Festival
   </p>
 </div>
 
@@ -855,20 +817,6 @@ const lbCounter = document.getElementById("lb-counter");
 const lbPrev = document.getElementById("lb-prev");
 const lbNext = document.getElementById("lb-next");
 const lbClose = document.querySelector(".lightbox-close");
-const floatingCta = document.getElementById("floatingCta");
-const hero = document.querySelector(".hero");
-
-function updateFloatingCtaVisibility(){
-  const heroBottom = hero.getBoundingClientRect().bottom;
-  if(heroBottom < 0){
-    floatingCta.classList.add("visible");
-  } else {
-    floatingCta.classList.remove("visible");
-  }
-}
-
-window.addEventListener("scroll", updateFloatingCtaVisibility);
-
 imgs.forEach((img,i)=>{
   const src = images[i % images.length];
   img.src = src;
