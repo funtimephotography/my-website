@@ -286,6 +286,21 @@ body{
   scale:1.04;
 }
 
+.thumb:has(img.loaded)::after,
+.lightbox-photo:has(img.loaded)::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.24;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20460%20170%22%3E%3Ctext%20x%3D%22230%22%20y%3D%2285%22%20dominant-baseline%3D%22central%22%20text-anchor%3D%22middle%22%20transform%3D%22rotate(-17%20230%2085)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-weight%3D%22bold%22%20font-size%3D%2231%22%20fill%3D%22white%22%20stroke%3D%22black%22%20stroke-width%3D%221%22%20paint-order%3D%22stroke%22%3EFUNTIME%20PHOTOGRAPHY%3C%2Ftext%3E%3C%2Fsvg%3E") center / 92% 92% no-repeat;
+}
+
+.lightbox-photo{
+  position:relative;
+  max-width:90%;
+}
+
 /* LIGHTBOX */
 .lightbox{
   position:fixed;
@@ -304,7 +319,8 @@ body{
 }
 
 .lightbox img{
-  max-width:90%;
+  display:block;
+  max-width:100%;
   max-height:75vh;
   border-radius:8px;
   object-fit:contain;
@@ -525,7 +541,9 @@ footer{
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
   <button class="lightbox-close" id="lb-close" aria-label="Close lightbox">&times;</button>
-  <img id="lb-img" alt="Full size event photo">
+  <div class="lightbox-photo">
+    <img id="lb-img" alt="Full size event photo">
+  </div>
   <div class="lightbox-controls">
     <button class="lightbox-btn" id="lb-prev" aria-label="Previous image">← Prev</button>
     <span id="lb-counter"></span>
@@ -932,7 +950,12 @@ function showLbImage(){
 
   const photo = lbImages[lbIndex].dataset.fullImage;
 
-  lbImg.src = getImageUrl(photo);
+  const src = getImageUrl(photo);
+  if (lbImg.getAttribute('src') !== src) {
+    lbImg.classList.remove('loaded');
+    lbImg.src = src;
+  }
+  if (lbImg.complete && lbImg.naturalWidth) lbImg.classList.add('loaded');
   lbImg.alt = lbImages[lbIndex].alt;
 
   lbCounter.textContent =
@@ -982,6 +1005,7 @@ container.addEventListener('click', e => {
 
 });
 
+lbImg.addEventListener('load', () => lbImg.classList.add('loaded'));
 lbPrev.addEventListener('click', showPrev);
 lbNext.addEventListener('click', showNext);
 lbClose.addEventListener('click', closeLightbox);
