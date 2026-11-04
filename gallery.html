@@ -286,19 +286,37 @@ body{
   scale:1.04;
 }
 
-.thumb:has(img.loaded)::after,
-.lightbox-photo:has(img.loaded)::after{
-  content:"";
+.thumb{
+  container-type:inline-size;
+}
+
+.thumb::after,
+.lightbox-photo::after{
+  content:"FUNTIME PHOTOGRAPHY";
   position:absolute;
-  inset:0;
+  z-index:1;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(-17deg);
+  color:rgba(255,255,255,.46);
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
+  font-size:7cqw;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap;
   pointer-events:none;
-  opacity:.24;
-  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20460%20170%22%3E%3Ctext%20x%3D%22230%22%20y%3D%2285%22%20dominant-baseline%3D%22central%22%20text-anchor%3D%22middle%22%20transform%3D%22rotate(-17%20230%2085)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-weight%3D%22bold%22%20font-size%3D%2231%22%20fill%3D%22white%22%20stroke%3D%22black%22%20stroke-width%3D%221%22%20paint-order%3D%22stroke%22%3EFUNTIME%20PHOTOGRAPHY%3C%2Ftext%3E%3C%2Fsvg%3E") center / 92% 92% no-repeat;
+}
+
+.lightbox-photo::after{
+  font-size:clamp(12px,3vw,40px);
 }
 
 .lightbox-photo{
   position:relative;
+  width:max-content;
   max-width:90%;
+  overflow:hidden;
+  border-radius:8px;
 }
 
 /* LIGHTBOX */
@@ -950,12 +968,7 @@ function showLbImage(){
 
   const photo = lbImages[lbIndex].dataset.fullImage;
 
-  const src = getImageUrl(photo);
-  if (lbImg.getAttribute('src') !== src) {
-    lbImg.classList.remove('loaded');
-    lbImg.src = src;
-  }
-  if (lbImg.complete && lbImg.naturalWidth) lbImg.classList.add('loaded');
+  lbImg.src = getImageUrl(photo);
   lbImg.alt = lbImages[lbIndex].alt;
 
   lbCounter.textContent =
@@ -1005,7 +1018,6 @@ container.addEventListener('click', e => {
 
 });
 
-lbImg.addEventListener('load', () => lbImg.classList.add('loaded'));
 lbPrev.addEventListener('click', showPrev);
 lbNext.addEventListener('click', showNext);
 lbClose.addEventListener('click', closeLightbox);
