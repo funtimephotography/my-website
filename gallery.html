@@ -540,6 +540,13 @@ footer{
 const BATCH_SIZE = 12;
 const IMAGE_BASE_PATH = '/';
 
+function getPreviewUrl(event, filename){
+  if(event.id === 'we-are-scientists'){
+    return getImageUrl('thumbnails/we-are-scientists/' + filename);
+  }
+  return getImageUrl(filename);
+}
+
 function getImageUrl(filename){
   return `${IMAGE_BASE_PATH}${filename}`;
 }
@@ -734,7 +741,7 @@ events.forEach(ev => {
   tile.innerHTML = tileHTML;
 
   if(ev.photos.length > 0){
-    tile.style.backgroundImage = `url('${getImageUrl(ev.photos[0])}')`;
+    tile.style.backgroundImage = `url('${getPreviewUrl(ev, ev.photos[0])}')`;
   }
 
   tilesWrap.appendChild(tile);
@@ -746,7 +753,7 @@ events.forEach(ev => {
   let sectionHTML = `<div class="section-header"`;
 
   if(ev.photos.length > 0){
-    sectionHTML += ` style="background-image:url('${getImageUrl(ev.photos[0])}')"`
+    sectionHTML += ` style="background-image:url('${getPreviewUrl(ev, ev.photos[0])}')"`
   }
 
   sectionHTML += `><h2>${ev.name}</h2></div>`;
@@ -801,7 +808,7 @@ events.forEach(ev => {
 });
 
 /* SWITCH GALLERY */
-function switchGallery(id){
+function switchGallery(id, scrollTarget){
 
   Object.values(sections).forEach(s => {
     s.el.classList.remove('active','visible');
@@ -827,11 +834,21 @@ function switchGallery(id){
     loadMore(s);
   }
 
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
+  if(scrollTarget){
+    scrollTarget.scrollIntoView({block:'start'});
+  } else {
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
 }
+
+function openLinkedAlbum(){
+  const id = window.location.hash.slice(1);
+  if(Object.hasOwn(sections, id) && !sections[id].ev.comingSoon){
+    switchGallery(id, sections[id].el);
+  }
+}
+
+window.addEventListener('hashchange', openLinkedAlbum);
 
 /* LOAD IMAGES */
 function loadMore(sectionObj){
@@ -847,7 +864,7 @@ function loadMore(sectionObj){
 
     const img = new Image();
 
-    img.src = getImageUrl(photo);
+    img.src = getPreviewUrl(ev, photo);
     img.alt = `${ev.name} – ${photo}`;
     img.loading = 'lazy';
 
@@ -893,6 +910,8 @@ const loadObserver = new IntersectionObserver(entries => {
 
 Object.values(sections)
   .forEach(s => loadObserver.observe(s.el));
+
+openLinkedAlbum();
 
 /* LIGHTBOX */
 function openLightbox(sectionId, index){

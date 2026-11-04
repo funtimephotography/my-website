@@ -363,7 +363,7 @@ footer{
           <input type="text" id="name" name="name" placeholder="Jane Smith" required>
         </div>
         <div class="field">
-          <label for="phone">Phone Number</label>
+          <label for="phone">Phone Number (optional)</label>
           <input type="tel" id="phone" name="phone" placeholder="07700 900000">
         </div>
       </div>
@@ -375,8 +375,8 @@ footer{
 
       <div class="field-row">
         <div class="field">
-          <label for="event_date">Event Date</label>
-          <input type="date" id="event_date" name="event_date" required>
+          <label for="event_date">Event Date (optional)</label>
+          <input type="date" id="event_date" name="event_date">
         </div>
         <div class="field">
           <label for="event_type">Type of Event</label>
@@ -394,8 +394,8 @@ footer{
       </div>
 
       <div class="field">
-        <label for="venue">Venue / Location</label>
-        <input type="text" id="venue" name="venue" placeholder="e.g. Patterns, Brighton">
+        <label for="venue">Venue / Location (optional)</label>
+        <input type="text" id="venue" name="venue" placeholder="e.g. Patterns, Brighton or to be confirmed">
       </div>
 
       <div class="field">
@@ -449,10 +449,9 @@ form.addEventListener('submit', async function(e){
   // Basic validation
   const name  = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
-  const date  = document.getElementById('event_date').value;
   const type  = document.getElementById('event_type').value;
 
-  if(!name || !email || !date || !type){
+  if(!name || !email || !type){
     errorMsg.textContent = 'Please fill in all required fields.';
     errorMsg.style.display = 'block';
     return;

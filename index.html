@@ -339,6 +339,20 @@ body::after{
   grid-auto-flow:dense;
 }
 
+.featured-album-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px 24px;
+  margin-top:16px;
+}
+
+.featured-album-links a{
+  color:var(--accent);
+  padding:8px 4px;
+  text-underline-offset:3px;
+}
+
 .grid img{
   width:100%;
   aspect-ratio:1/1;
@@ -699,6 +713,10 @@ A selection of live music, festival and event photography showcasing crowd energ
     <img alt="Shocktoberfest stage performers surrounded by sparks">
     <img alt="Elsewhere Launch DJ working the decks under orange and teal lights">
     <img alt="Elsewhere Launch crowd with hands raised beneath the venue sign">
+  </div>
+  <div class="featured-album-links">
+    <a href="gallery.html#shocktoberfest">View Shocktoberfest album</a>
+    <a href="gallery.html#elsewhere">View Elsewhere Launch album</a>
   </div>
 </section>
 
