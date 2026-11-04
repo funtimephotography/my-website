@@ -153,19 +153,9 @@ body::after{
   text-decoration:none;
 }
 
-.hero-subtitle{
-  margin:0 auto 24px;
-  color:#fff;
-  font-size:clamp(1rem,2.4vw,1.35rem);
-  text-shadow:0 2px 12px #000;
-}
-
-.featured-gallery + .featured-gallery{
-  margin-top:48px;
-}
-
-.featured-gallery .cta{
-  margin-top:18px;
+.hero-actions .hero-booking{
+  color:#150e20;
+  background:#fff;
 }
 
 .hero-actions a:hover,
@@ -626,17 +616,17 @@ footer a:hover i{
   <img src="logo.png" alt="Funtime Photography Logo">
   <nav>
     <a href="gallery.html">Portfolio</a>
-    <a href="#live-music">Live Music &amp; Festivals</a>
-    <a href="#events">Events</a>
+    <a href="booking.html">Book</a>
+    <a href="#contact">Contact</a>
   </nav>
 </header>
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-inner">
-    <h1 id="hero-title">Every Night Has a Story</h1>
-    <p class="hero-subtitle">Live music, festival and event photography in Sussex and the South East</p>
+    <h1 id="hero-title">Live Music &amp; Event Photography in Sussex</h1>
     <div class="hero-actions">
       <a href="gallery.html">View Portfolio</a>
+      <a class="hero-booking" href="booking.html">Check Availability</a>
     </div>
   </div>
 </section>
@@ -671,29 +661,56 @@ My focus is capturing real moments, crowd energy and the atmosphere that makes p
 
 <div class="divider"></div>
 
-<section class="section featured-gallery" id="live-music" aria-labelledby="live-music-title">
-  <div class="section-label">Live Music &amp; Festivals</div>
-  <h2 class="section-title" id="live-music-title">We Are Scientists</h2>
-  <p class="work-copy">Live gig coverage from the stage to the crowd, with close-ups of the band and wide shots of the audience.</p>
+<section class="section">
+
+<div class="section-label">Featured Portfolio</div>
+<h2 class="section-title">Live Music & Festival Photography</h2>
+
+<p class="work-copy">
+A selection of live music, festival and event photography showcasing crowd energy, artist performances and atmosphere.
+</p>
+
   <div class="grid">
-    <img src="thumbnails/we-are-scientists/2-DSC_6607.jpg" data-full="2-DSC_6607.jpg" alt="We Are Scientists bassist singing under white stage beams" loading="lazy">
-    <img src="thumbnails/we-are-scientists/7-DSC_6819.jpg" data-full="7-DSC_6819.jpg" alt="We Are Scientists guitarist under amber stage lights" loading="lazy">
-    <img src="thumbnails/we-are-scientists/8-DSC_6842.jpg" data-full="8-DSC_6842.jpg" alt="Crowd with hands raised against white stage lights" loading="lazy">
+    <!-- Featured photos follow the order in the image list below. -->
+    <img alt="Event photography">
+    <img alt="Event photography">
+    <img data-preview="thumbnails/we-are-scientists/2-DSC_6607.jpg" alt="We Are Scientists bassist singing under white stage beams">
+    <img alt="Event photography">
+    <img alt="Event photography">
+    <img alt="Event photography">
+    <img data-preview="thumbnails/we-are-scientists/7-DSC_6819.jpg" alt="We Are Scientists guitarist under amber stage lights">
+    <img alt="Event photography">
+    <img alt="Event photography">
+    <img alt="Event photography">
+    <img data-preview="thumbnails/we-are-scientists/8-DSC_6842.jpg" alt="We Are Scientists crowd with hands raised against white lights">
+    <img alt="Event photography">
+    <img alt="Event photography">
+    <img alt="Event photography">
+    <img data-preview="thumbnails/we-are-scientists/14-DSC_7060.jpg" alt="Black-and-white We Are Scientists performance under spotlights">
+    <img alt="Event photography">
+    <img alt="Shocktoberfest performer in an orange jumpsuit with arms outstretched">
+    <img alt="Shocktoberfest stage performers surrounded by sparks">
+    <img alt="Elsewhere Launch DJ working the decks under orange and teal lights">
+    <img alt="Elsewhere Launch crowd with hands raised beneath the venue sign">
   </div>
-  <a class="cta" href="gallery.html#we-are-scientists">View We Are Scientists gallery</a>
 </section>
 
-<section class="section featured-gallery" id="events" aria-labelledby="events-title">
-  <div class="section-label">Events</div>
-  <h2 class="section-title" id="events-title">Elsewhere Launch</h2>
-  <p class="work-copy">Launch-night photography for Elsewhere’s promotions, capturing the DJ, the crowd and the feel of the venue.</p>
-  <div class="grid">
-    <img src="10-DSC_0227-high-quality.jpg" data-full="10-DSC_0227-high-quality.jpg" alt="Elsewhere Launch DJ working the decks under orange and teal lights" loading="lazy">
-    <img src="12-DSC_0279-high-quality.jpg" data-full="12-DSC_0279-high-quality.jpg" alt="Elsewhere Launch crowd with hands raised beneath the venue sign" loading="lazy">
-  </div>
-  <a class="cta" href="gallery.html#elsewhere">View Elsewhere Launch gallery</a>
-</section>
+  
+<div style="text-align:center;margin-top:30px;">
+  <a class="cta" href="gallery.html">
+    View Full Portfolio
+  </a>
+</div>
 
+
+<div style="text-align:center; margin-top:40px;">
+  <h3>Recent Events Covered</h3>
+  <p>
+    Shocktoberfest • We Are Scientists • Elsewhere Launch • Elemental Festival
+  </p>
+</div>
+
+  
 <div class="divider"></div>
 
 
@@ -713,6 +730,12 @@ My focus is capturing real moments, crowd energy and the atmosphere that makes p
     that make people wish they'd been there.
   </p>
 
+  <div class="grid">
+    <img alt="Photography">
+    <img alt="Photography">
+    <img alt="Photography">
+    <img alt="Photography">
+  </div>
 </section>
 
   
@@ -776,9 +799,35 @@ My focus is capturing real moments, crowd energy and the atmosphere that makes p
 <script>
 (function(){
 
+const images = [
+  "photo229.jpg",
+  "4-DSC_0520.jpg",
+  "2-DSC_6607.jpg",
+  "photo193.jpg",
+  "DSC_5003.jpg",
+  "DSC_4117.jpg",
+  "7-DSC_6819.jpg",
+  "20-DSC_6042.jpg",
+  "photo123.jpg",
+  "2-DSC_5817.jpg",
+  "8-DSC_6842.jpg",
+  "DSC_0690.jpg",
+  "1-DSC_5632.jpg",
+  "photo41.jpg",
+  "14-DSC_7060.jpg",
+  "photo43.jpg",
+  "5-DSC_9880-denoised-social.jpg",
+  "11-DSC_0038-denoised-social.jpg",
+  "10-DSC_0227-high-quality.jpg",
+  "12-DSC_0279-high-quality.jpg",
+  "DSC_0140.jpg",
+  "DSC_0076.jpg",
+  "18-DSC_0284.jpg",
+  "7-DSC_0143.jpg"
+];
+
 let currentImageIndex = 0;
-const imgs = document.querySelectorAll(".featured-gallery .grid img");
-const images = Array.from(imgs, img => img.dataset.full);
+const imgs = document.querySelectorAll(".grid img");
 const lb = document.getElementById("lightbox");
 const lbImg = document.getElementById("lb-img");
 const lbCounter = document.getElementById("lb-counter");
@@ -786,10 +835,12 @@ const lbPrev = document.getElementById("lb-prev");
 const lbNext = document.getElementById("lb-next");
 const lbClose = document.querySelector(".lightbox-close");
 imgs.forEach((img,i)=>{
-  if (img.complete && img.naturalWidth) img.classList.add("loaded");
-  img.addEventListener("load", () => img.classList.add("loaded"));
+  const src = images[i % images.length];
+  img.src = img.dataset.preview || src;
+  img.loading = "lazy";
+  img.onload = ()=> img.classList.add("loaded");
   img.onclick = ()=>{
-    currentImageIndex = i;
+    currentImageIndex = i % images.length;
     openLightbox();
   };
 });
