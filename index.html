@@ -112,50 +112,57 @@ body::after{
 
 /* HERO */
 .hero{
-  height:50vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  min-height:clamp(400px,65vh,700px);
+  display:grid;
+  place-items:center;
+  padding:64px 20px;
   text-align:center;
-  position:relative;
-  overflow:hidden;
-  background:#000;
+  background:
+    linear-gradient(180deg,rgba(8,5,16,.24),rgba(8,5,16,.74)),
+    #160e23 url("16-DSC_0517-high-quality.jpg") center 45%/cover no-repeat;
 }
-
-.hero:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url("ftp-hero.jpg") center/cover no-repeat;
-  z-index:1;
-  animation:kenburns 20s ease-in-out infinite alternate;
-  transform-origin:center;
-}
-
-@keyframes kenburns {
-  from { transform: scale(0.5); }
-  to { transform: scale(0.9); }
-}
-
 
 .hero-inner{
-  position:relative;
-  z-index:2;
+  max-width:850px;
+}
+
+.hero h1{
+  margin:0 auto 24px;
+  color:#fff;
+  font-family:"Bebas Neue",sans-serif;
+  font-size:clamp(2.8rem,7vw,6.25rem);
+  line-height:1;
+  text-wrap:balance;
+  text-shadow:0 2px 20px rgba(0,0,0,.7);
+}
+
+.hero-actions{
   display:flex;
-  flex-direction:column;
-  align-items:center;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
 }
 
-.hero-logo{
-  width:clamp(120px,18vw,250px);
-  height:auto;
-  margin-bottom:20px;
-  animation:fadeInDown 0.8s ease-out;
-  display:none;
+.hero-actions a{
+  border:2px solid #fff;
+  border-radius:6px;
+  padding:12px 20px;
+  color:#fff;
+  background:rgba(14,9,23,.8);
+  font-weight:800;
+  text-decoration:none;
 }
 
-.hero-content{
-  display:none;
+.hero-actions .hero-booking{
+  color:#150e20;
+  background:#fff;
+}
+
+.hero-actions a:hover,
+.hero-actions a:focus-visible{
+  color:#150e20;
+  background:var(--accent);
+  border-color:var(--accent);
 }
 
 /* PHOTO STRIP */
@@ -450,7 +457,7 @@ body::after{
   .topbar{padding:12px 20px;}
   .topbar img{width:50px;height:50px;}
   .topbar a{margin-left:0;}
-  .hero{height:40vh;}
+  .hero{min-height:400px;}
   .floating-cta{bottom:20px;}
   .grid{grid-template-columns:repeat(2,1fr);}
 
@@ -631,10 +638,14 @@ footer a:hover i{
   </nav>
 </header>
 
-<section class="hero">
-  
-
-
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-inner">
+    <h1 id="hero-title">Live Music &amp; Event Photography in Sussex</h1>
+    <div class="hero-actions">
+      <a href="gallery.html">View Portfolio</a>
+      <a class="hero-booking" href="booking.html">Check Availability</a>
+    </div>
+  </div>
 </section>
 
 <div class="photo-strip">
