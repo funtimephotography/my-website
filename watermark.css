@@ -18,13 +18,14 @@
   content: "";
   position: absolute;
   z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  right: 8%;
+  bottom: 8%;
+  transform: rotate(-14deg);
   width: 26%;
   max-width: 150px;
   aspect-ratio: 1;
   background: url("/ftp_circular.png") center / contain no-repeat;
-  opacity: .36;
+  filter: grayscale(1);
+  opacity: .23;
   pointer-events: none;
 }
