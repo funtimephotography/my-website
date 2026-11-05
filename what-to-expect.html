@@ -47,19 +47,20 @@ footer{text-align:center;padding:24px 16px;background:#120c1d}
 }
 </style>
 <link rel="stylesheet" href="/navigation.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<header class="topbar">
-  <a href="index.html"><img src="logo.png" width="58" height="58" alt="Funtime Photography home"></a>
+<header class="topbar site-header">
+  <a class="site-logo" href="/index.html"><img src="/logo.png" alt="Funtime Photography home"></a>
   <nav aria-label="Main navigation">
-    <a href="index.html">Home</a>
-    <a href="gallery.html">Portfolio</a>
-    <a href="booking.html">Book</a>
-    <a href="what-to-expect.html" aria-current="page">What to Expect</a>
+    <a href="/index.html">Home</a>
+    <a href="/gallery.html">Portfolio</a>
+    <a href="/booking.html">Book</a>
+    <a href="/what-to-expect.html" aria-current="page">What to Expect</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
-<main>
+<main class="expect-content">
   <section class="hero" aria-labelledby="page-title">
     <img src="12-DSC_0279-high-quality.jpg" alt="Crowd with hands raised under the glowing Elsewhere sign" fetchpriority="high">
     <div class="intro">
@@ -107,8 +108,13 @@ footer{text-align:center;padding:24px 16px;background:#120c1d}
     <a class="button primary" href="booking.html">Check Availability</a>
   </section>
 </main>
-<footer id="contact">
-  <a href="mailto:events@funtimephotography.co.uk">Email Funtime Photography</a>
+<footer class="site-footer" id="contact" aria-label="Contact Funtime Photography">
+  <div class="contact-icons">
+    <a href="mailto:events@funtimephotography.co.uk" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
+    <a href="tel:+447834350911" aria-label="Phone" title="Phone"><i class="fa-solid fa-phone" aria-hidden="true"></i></a>
+    <a href="https://wa.me/447834350911" aria-label="WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+    <a href="https://www.instagram.com/funtimephotography.co.uk/" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+  </div>
   <p>© 2026 Funtime Photography</p>
 </footer>
 </body>
