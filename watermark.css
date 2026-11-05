@@ -1,0 +1,30 @@
+.lightbox-photo {
+  position: relative;
+  width: max-content;
+  max-width: 90%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.lightbox-photo > img {
+  display: block;
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+.thumb::after,
+.lightbox-photo::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26%;
+  max-width: 150px;
+  aspect-ratio: 1;
+  background: url("/ftp_circular.png") center / contain no-repeat;
+  opacity: .36;
+  pointer-events: none;
+}

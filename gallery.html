@@ -286,39 +286,6 @@ body{
   scale:1.04;
 }
 
-.thumb{
-  container-type:inline-size;
-}
-
-.thumb::after,
-.lightbox-photo::after{
-  content:"FUNTIME PHOTOGRAPHY";
-  position:absolute;
-  z-index:1;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) rotate(-17deg);
-  color:rgba(255,255,255,.46);
-  text-shadow:0 1px 3px rgba(0,0,0,.6);
-  font-size:7cqw;
-  font-weight:800;
-  line-height:1;
-  white-space:nowrap;
-  pointer-events:none;
-}
-
-.lightbox-photo::after{
-  font-size:clamp(12px,3vw,40px);
-}
-
-.lightbox-photo{
-  position:relative;
-  width:max-content;
-  max-width:90%;
-  overflow:hidden;
-  border-radius:8px;
-}
-
 /* LIGHTBOX */
 .lightbox{
   position:fixed;
@@ -512,6 +479,7 @@ footer{
 }
 </style>
 <link rel="stylesheet" href="/navigation.css">
+<link rel="stylesheet" href="/watermark.css">
 </head>
 
 <body>
