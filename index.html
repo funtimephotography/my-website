@@ -252,34 +252,6 @@ body::before{
   }
 }
 
-/* PHOTO STRIP */
-.photo-strip{
-  display:flex;
-  height:70px;
-  overflow:hidden;
-  position:relative;
-  z-index:1;
-}
-
-.strip-item{
-  flex:1;
-  background:#1a1a2e;
-  border-right:1px solid rgba(0,0,0,0.4);
-  position:relative;
-  overflow:hidden;
-}
-
-.strip-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0.5;
-  transition:opacity 0.3s;
-}
-
-.strip-item:nth-child(odd){background:#110d1e;}
-.strip-item:nth-child(3n){background:#0d1a1f;}
-
 /* SECTION DIVIDER */
 .divider{
   width:min(1052px,calc(100% - 48px));
@@ -381,49 +353,106 @@ body::before{
 }
 
   
-.live-music-photo{
+/* LIVE MUSIC FEATURE */
+.live-music-feature{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.22fr);
+  grid-template-areas:"artist intro" "artist detail";
+  gap:22px clamp(24px,5vw,64px);
+  max-width:960px;
+}
+
+.live-music-artist,
+.live-music-detail{
   position:relative;
-  aspect-ratio:2.25;
   overflow:hidden;
 }
 
-.live-music-photo img{
+.live-music-artist{
+  grid-area:artist;
+  align-self:center;
+  aspect-ratio:4 / 5;
+}
+
+.live-music-feature-intro{
+  grid-area:intro;
+  align-self:end;
+}
+
+.live-music-feature-intro .section-label,
+.live-music-feature-intro .section-title,
+.live-music-feature-intro .work-copy{
+  text-align:left;
+}
+
+.live-music-feature-intro .section-title{
+  margin-bottom:10px;
+  font-size:clamp(2rem,4vw,3.1rem);
+  line-height:1;
+}
+
+.live-music-feature-intro .work-copy{
+  margin:0;
+}
+
+.live-music-detail{
+  grid-area:detail;
+  align-self:start;
+  width:100%;
+  max-width:420px;
+  aspect-ratio:3 / 2;
+}
+
+.live-music-feature img{
   display:block;
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-@media(max-width:640px){
-  .live-music-photo{aspect-ratio:16 / 10;}
-}
-
-/* GRID */
+/* FEATURED PORTFOLIO */
 .grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,minmax(0,1fr));
   gap:10px;
-  grid-auto-flow:dense;
 }
 
 .grid img{
+  display:block;
   width:100%;
-  aspect-ratio:1/1;
+  aspect-ratio:1;
   object-fit:cover;
-  border-radius:12px;
+  border-radius:6px;
   cursor:pointer;
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity .4s, transform .4s;
 }
 
-.grid img.loaded{
-  opacity:1;
-  transform:translateY(0);
+.grid .featured-lead{
+  grid-column:span 2;
+  grid-row:span 2;
+  min-height:0;
+  height:100%;
+  aspect-ratio:auto;
 }
 
-.grid img:hover{
-  transform:scale(1.02);
+@media(max-width:740px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+
+  .grid .featured-lead{
+    grid-column:1 / -1;
+    grid-row:auto;
+    height:auto;
+    aspect-ratio:1;
+  }
+}
+
+@media(max-width:640px){
+  .live-music-feature{
+    grid-template-columns:minmax(0,1fr) minmax(0,1.22fr);
+    grid-template-areas:"intro intro" "artist detail";
+    gap:16px 12px;
+  }
+
+  .live-music-detail{align-self:center;}
 }
 
 /* SELL SECTION */
@@ -513,8 +542,6 @@ body::before{
   .topbar a{margin-left:0;}
   .hero{min-height:400px;}
 
-  .grid{grid-template-columns:repeat(2,1fr);}
-
   .sell{
     grid-template-columns:1fr;
     gap:30px;
@@ -534,7 +561,6 @@ body::before{
     gap:16px;
   }
 
-  .photo-strip{height:50px;}
   .divider{width:calc(100% - 32px);}
 }
 
@@ -697,18 +723,6 @@ footer a:hover i{
   </div>
 </section>
 
-<div class="photo-strip">
-  <div class="strip-item"><img src="photo229.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo155.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo95.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo43.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo193.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo80.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo17.jpg" alt="" loading="lazy"></div>
-  <div class="strip-item"><img src="photo144.jpg" alt="" loading="lazy"></div>
-</div>
-
-
 <section class="about">
 
 <p><strong>Hi, I'm Frank, the photographer behind Funtime Photography.</strong></p>
@@ -736,27 +750,13 @@ A selection of live music, festival and event photography showcasing crowd energ
 </p>
 
   <div class="grid">
-    <!-- Featured photos follow the order in the image list below. -->
-    <img alt="Event photography">
-    <img alt="Event photography">
-    <img data-preview="thumbnails/we-are-scientists/2-DSC_6607.jpg" alt="We Are Scientists bassist singing under white stage beams">
-    <img alt="Event photography">
-    <img alt="Event photography">
-    <img alt="Event photography">
-    <img data-preview="thumbnails/we-are-scientists/7-DSC_6819.jpg" alt="We Are Scientists guitarist under amber stage lights">
-    <img alt="Event photography">
-    <img alt="Event photography">
-    <img alt="Event photography">
-    <img data-preview="thumbnails/we-are-scientists/8-DSC_6842.jpg" alt="We Are Scientists crowd with hands raised against white lights">
-    <img alt="Event photography">
-    <img alt="Event photography">
-    <img alt="Event photography">
-    <img data-preview="thumbnails/we-are-scientists/14-DSC_7060.jpg" alt="Black-and-white We Are Scientists performance under spotlights">
-    <img alt="Event photography">
-    <img alt="Shocktoberfest performer in an orange jumpsuit with arms outstretched">
-    <img alt="Shocktoberfest stage performers surrounded by sparks">
-    <img alt="Elsewhere Launch DJ working the decks under orange and teal lights">
-    <img alt="Elsewhere Launch crowd with hands raised beneath the venue sign">
+    <img class="featured-lead" src="featured-elsewhere-performer.jpg" data-full="18-DSC_0690-high-quality.jpg" width="1000" height="1000" alt="Performer singing into a microphone at Elsewhere Launch" loading="lazy" decoding="async">
+    <img src="thumbnails/we-are-scientists/17-DSC_7171.jpg" data-full="17-DSC_7171.jpg" width="640" height="453" alt="We Are Scientists onstage in blue and red light" loading="lazy" decoding="async">
+    <img src="featured-shocktoberfest-sparks.jpg" data-full="11-DSC_0038-denoised-social.jpg" width="480" height="480" alt="Shocktoberfest performers surrounded by golden sparks" loading="lazy" decoding="async">
+    <img src="featured-rawfest-guests.jpg" data-full="photo17.jpg" width="480" height="480" alt="Two RAWfest guests dancing outdoors" loading="lazy" decoding="async">
+    <img src="featured-elsewhere-dancefloor.jpg" data-full="11-DSC_0233-high-quality.jpg" width="480" height="480" alt="Dancers with hands raised at Elsewhere Launch" loading="lazy" decoding="async">
+    <img src="thumbnails/we-are-scientists/10-DSC_6892.jpg" data-full="10-DSC_6892.jpg" width="640" height="427" alt="Fans watching We Are Scientists from the front barrier" loading="lazy" decoding="async">
+    <img src="featured-rawfest-dancefloor.jpg" data-full="photo29.jpg" width="480" height="480" alt="RAWfest guests dancing under pink lights inside a marquee" loading="lazy" decoding="async">
   </div>
   <div class="portfolio-action">
     <a class="cta" href="gallery.html">View Full Portfolio</a>
@@ -809,12 +809,17 @@ A selection of live music, festival and event photography showcasing crowd energ
 
 <div class="divider"></div>
 
-<section class="section" aria-labelledby="live-music-title">
-  <div class="section-label">Who I Work With</div>
-  <h2 class="section-title" id="live-music-title">Built Around Live Music</h2>
-  <p class="work-copy">Photography for festivals, artists, venues and club nights, from the stage to the crowd.</p>
-  <div class="live-music-photo thumb">
-    <img src="live-music-crowd.jpg" width="1600" height="860" alt="Hands raised in a crowd at Elsewhere Launch under beams of light" loading="lazy" decoding="async">
+<section class="section live-music-feature" aria-labelledby="live-music-title">
+  <div class="live-music-feature-intro">
+    <div class="section-label">Who I Work With</div>
+    <h2 class="section-title" id="live-music-title">Built Around Live Music</h2>
+    <p class="work-copy">Photography for festivals, artists, venues and club nights, from the stage to the crowd.</p>
+  </div>
+  <div class="live-music-artist thumb">
+    <img src="thumbnails/we-are-scientists/6-DSC_6806.jpg" width="482" height="640" alt="We Are Scientists guitarist framed by orange stage lights" loading="lazy" decoding="async">
+  </div>
+  <div class="live-music-detail thumb">
+    <img src="live-music-dj-detail.jpg" width="840" height="560" alt="A RAWfest DJ adjusting the mixer under blue light" loading="lazy" decoding="async">
   </div>
 </section>
 
@@ -874,54 +879,25 @@ A selection of live music, festival and event photography showcasing crowd energ
 <script>
 (function(){
 
-const images = [
-  "photo229.jpg",
-  "4-DSC_0520.jpg",
-  "2-DSC_6607.jpg",
-  "photo193.jpg",
-  "DSC_5003.jpg",
-  "DSC_4117.jpg",
-  "7-DSC_6819.jpg",
-  "20-DSC_6042.jpg",
-  "photo123.jpg",
-  "2-DSC_5817.jpg",
-  "8-DSC_6842.jpg",
-  "DSC_0690.jpg",
-  "1-DSC_5632.jpg",
-  "photo41.jpg",
-  "14-DSC_7060.jpg",
-  "photo43.jpg",
-  "5-DSC_9880-denoised-social.jpg",
-  "11-DSC_0038-denoised-social.jpg",
-  "10-DSC_0227-high-quality.jpg",
-  "12-DSC_0279-high-quality.jpg",
-  "DSC_0140.jpg",
-  "DSC_0076.jpg",
-  "18-DSC_0284.jpg",
-  "7-DSC_0143.jpg"
-];
-
 let currentImageIndex = 0;
-const imgs = document.querySelectorAll(".grid img");
+const images = document.querySelectorAll(".grid img");
 const lb = document.getElementById("lightbox");
 const lbImg = document.getElementById("lb-img");
 const lbCounter = document.getElementById("lb-counter");
 const lbPrev = document.getElementById("lb-prev");
 const lbNext = document.getElementById("lb-next");
 const lbClose = document.querySelector(".lightbox-close");
-imgs.forEach((img,i)=>{
-  const src = images[i % images.length];
-  img.src = img.dataset.preview || src;
-  img.loading = "lazy";
-  img.onload = ()=> img.classList.add("loaded");
+images.forEach((img,index)=>{
   img.onclick = ()=>{
-    currentImageIndex = i % images.length;
+    currentImageIndex = index;
     openLightbox();
   };
 });
 
 function openLightbox(){
-  lbImg.src = images[currentImageIndex];
+  const image = images[currentImageIndex];
+  lbImg.src = image.dataset.full;
+  lbImg.alt = image.alt;
   lbCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
   lb.classList.add("active");
   document.body.style.overflow = "hidden";
