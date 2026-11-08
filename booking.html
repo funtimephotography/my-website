@@ -98,6 +98,30 @@ body{
   padding:40px;
 }
 
+.quote-details{
+  margin-bottom:28px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--border);
+}
+
+.quote-details h2{
+  margin-bottom:8px;
+  font-family:"Bebas Neue",sans-serif;
+  font-size:1.75rem;
+  font-weight:400;
+  letter-spacing:.03em;
+}
+
+.quote-details p{
+  color:var(--text);
+  font-size:.875rem;
+  line-height:1.65;
+}
+
+.quote-details p + p{
+  margin-top:8px;
+}
+
 .field{
   margin-bottom:24px;
 }
@@ -360,6 +384,12 @@ footer{
 
     <!-- FORM -->
     <form id="bookingForm" action="https://formspree.io/f/xkoabzgd" method="POST" novalidate>
+
+      <section class="quote-details" aria-labelledby="quote-details-title">
+        <h2 id="quote-details-title">What we’ll agree before your event</h2>
+        <p>We’ll agree the hours and moments you want covered, when you’ll receive the edited photos, and how you can use them for press, social media or promotion.</p>
+        <p>If you have a press or social deadline, mention it below and ask about getting a few edited photos early.</p>
+      </section>
 
       <div class="field-row">
         <div class="field">

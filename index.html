@@ -7,6 +7,14 @@
 <meta property="og:title" content="Funtime Photography | Live Music, Festival &amp; Event Photography"/>
 <meta property="og:description" content="Live music, festival, artist and event photography. Based in the South East of England and available across the UK."/>
 <meta property="og:type" content="business.business"/>
+<meta property="og:url" content="https://www.funtimephotography.co.uk/"/>
+<meta property="og:site_name" content="Funtime Photography"/>
+<meta property="og:image" content="https://www.funtimephotography.co.uk/funtime-share.jpg"/>
+<meta property="og:image:type" content="image/jpeg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="The crowd at Elsewhere Launch with the Funtime Photography stamp in the lower corner."/>
+<meta name="twitter:card" content="summary_large_image"/>
 
 <title>Funtime Photography | Live Music, Festival &amp; Event Photography</title>
 
@@ -177,6 +185,107 @@ body::after{
   color:#150e20;
   background:var(--accent);
   border-color:var(--accent);
+}
+
+/* RECENT EVENTS */
+.recent-events{
+  margin-top:40px;
+}
+
+.event-cards{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+  list-style:none;
+}
+
+.event-card{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  background:#171023;
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;
+  text-decoration:none;
+}
+
+.event-card:hover{
+  border-color:var(--accent);
+}
+
+.event-card:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+.event-card-cover{
+  position:relative;
+  border-radius:11px 11px 0 0;
+  overflow:hidden;
+}
+
+.event-card-cover img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:5 / 3;
+  object-fit:cover;
+}
+
+.event-card-body{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  gap:8px;
+  padding:16px;
+}
+
+.event-card-body h3{
+  font-family:"Bebas Neue",sans-serif;
+  font-size:clamp(1.5rem,3.2vw,2rem);
+  line-height:1.1;
+}
+
+.event-card-body p,
+.event-card-body blockquote{
+  color:var(--muted);
+  font-size:.875rem;
+  line-height:1.5;
+}
+
+.event-card-body cite{
+  font-style:normal;
+  color:var(--text);
+}
+
+.event-card-link{
+  margin-top:auto;
+  padding-top:4px;
+  color:var(--accent);
+  font-size:.85rem;
+  font-weight:600;
+}
+
+.recent-events-more{
+  margin-top:18px;
+  text-align:center;
+}
+
+.recent-events-more a{
+  color:var(--accent);
+  text-underline-offset:.2em;
+}
+
+@media(max-width:640px){
+  .event-cards{grid-template-columns:1fr;}
+}
+
+@media(max-width:560px){
+  .hero{
+    background-image:linear-gradient(180deg,rgba(8,5,16,.28),rgba(8,5,16,.76)),url("hero-mobile.jpg");
+    background-position:center,center 25%;
+  }
 }
 
 /* PHOTO STRIP */
@@ -724,12 +833,49 @@ A selection of live music, festival and event photography showcasing crowd energ
 </div>
 
 
-<div style="text-align:center; margin-top:40px;">
-  <h3>Recent Events Covered</h3>
-  <p>
-    Shocktoberfest • We Are Scientists • Elsewhere Launch • Elemental Festival
-  </p>
-</div>
+<section class="section recent-events" aria-labelledby="recent-events-title">
+  <h2 class="section-title" id="recent-events-title">Recent Events Covered</h2>
+  <ul class="event-cards">
+    <li>
+      <a class="event-card" href="gallery.html#we-are-scientists" aria-labelledby="recent-we-are-scientists">
+        <div class="event-card-cover thumb">
+          <img src="thumbnails/we-are-scientists/8-DSC_6842.jpg" width="640" height="375" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="event-card-body">
+          <p>Live music</p>
+          <h3 id="recent-we-are-scientists">We Are Scientists</h3>
+          <span class="event-card-link" aria-hidden="true">View album →</span>
+        </div>
+      </a>
+    </li>
+    <li>
+      <a class="event-card" href="gallery.html#shocktoberfest" aria-labelledby="recent-shocktoberfest">
+        <div class="event-card-cover thumb">
+          <img src="recent-shocktoberfest.jpg" width="720" height="432" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="event-card-body">
+          <p>Live entertainment</p>
+          <h3 id="recent-shocktoberfest">Shocktoberfest</h3>
+          <span class="event-card-link" aria-hidden="true">View album →</span>
+        </div>
+      </a>
+    </li>
+    <li>
+      <a class="event-card" href="gallery.html#elsewhere" aria-labelledby="recent-elsewhere">
+        <div class="event-card-cover thumb">
+          <img src="recent-elsewhere.jpg" width="720" height="432" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="event-card-body">
+          <p>Club night</p>
+          <h3 id="recent-elsewhere">Elsewhere Launch</h3>
+          <blockquote>“The photos we received from Frank were brilliant and exactly what we were after for our promotions.” <cite>— Henry R, Elsewhere</cite></blockquote>
+          <span class="event-card-link" aria-hidden="true">View album →</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <p class="recent-events-more"><a href="gallery.html#elemental">Also see Elemental Festival</a></p>
+</section>
 
   
 <div class="divider"></div>
