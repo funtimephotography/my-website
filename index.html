@@ -620,6 +620,42 @@ footer a:hover i{
 
 .lightbox-close:hover{background:rgba(255,0,0,0.3);}
 
+/* DESIGN RESOURCES */
+.design-resources{
+  width:min(100%, 40rem);
+  font-size:.85rem;
+}
+
+.design-resources summary{
+  width:fit-content;
+  margin-inline:auto;
+  padding:8px 4px;
+  color:var(--accent);
+  cursor:pointer;
+}
+
+.design-resources p{
+  padding-block:4px 12px;
+}
+
+.design-resources ul{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap:10px 24px;
+  padding:0 0 8px 1.25rem;
+  text-align:left;
+}
+
+.design-resources a{
+  text-decoration:underline;
+  text-underline-offset:.2em;
+}
+
+.design-resources a:hover,
+.design-resources a:focus-visible{
+  color:var(--accent);
+}
+
 </style>
 <link rel="stylesheet" href="/navigation.css">
 <link rel="stylesheet" href="/watermark.css">
@@ -800,6 +836,22 @@ A selection of live music, festival and event photography showcasing crowd energ
     <a href="https://wa.me/447834350911" aria-label="WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
     <a href="https://www.instagram.com/funtimephotography.co.uk/" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
   </div>
+  <details class="design-resources" id="design-resources">
+    <summary>Design resources</summary>
+    <p>Ten reference sites for web design, social media and marketing.</p>
+    <ul>
+      <li><a href="https://land-book.com/">Landbook</a> · Website layouts</li>
+      <li><a href="https://supahero.io/">Supahero</a> · Homepage opening sections</li>
+      <li><a href="https://pricingpages.design/">Pricing Pages</a> · Pricing and quote layouts</li>
+      <li><a href="https://socialproofexamples.com/">Social Proof Examples</a> · Testimonials and client credits</li>
+      <li><a href="https://reallygoodemails.com/">Really Good Emails</a> · Email design</li>
+      <li><a href="https://www.deck.gallery/">Deck Gallery</a> · Pitch decks and presentations</li>
+      <li><a href="https://posts.design/">Posts.design</a> · Social media design</li>
+      <li><a href="https://www.adfolio.design/">Adfolio</a> · Advertising examples</li>
+      <li><a href="https://www.navbar.gallery/">Navbar Gallery</a> · Site navigation</li>
+      <li><a href="https://www.ogimage.gallery/">OGimage Gallery</a> · Images for link previews</li>
+    </ul>
+  </details>
   <p>© 2026 Funtime Photography</p>
 </footer>
 
